@@ -1,0 +1,45 @@
+{
+	"bs-dependencies": [
+		"@rescript/react",
+		"@chakra-ui/react",
+		"@emotion/react",
+		"@emotion/styled",
+		"@rescript/react",
+		"framer-motion",
+		"react",
+		"react-dom",
+		"react-icons",
+		"react-scripts",
+		"rescript",
+		"web-vitals",
+		"rescript-chakra"
+	],
+	"bs-dev-dependencies": [
+		"@testing-library/jest-dom",
+		"@testing-library/react",
+		"@testing-library/user-event"
+	],
+	"jsx": {
+		"mode": "classic",
+		"version": 4
+	},
+	"name": "bell-schedule",
+	"namespace": true,
+	"package-specs": [
+		{
+			"in-source": true,
+			"module": "es6"
+		}
+	],
+	"sources": [
+		{
+			"dir": "src",
+			"subdirs": true
+		},
+		{
+			"dir": "node_modules",
+			"subdirs": true
+		}
+	],
+	"suffix": ".bs.js"
+}

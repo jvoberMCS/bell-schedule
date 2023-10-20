@@ -1,0 +1,36 @@
+rescript = 1
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@rescript\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@chakra-ui\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@chakra-ui\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@emotion\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@emotion\styled\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@rescript\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\framer-motion\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\react-dom\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\react-icons\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\react-scripts\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\rescript\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\web-vitals\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@testing-library\jest-dom\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@testing-library\react\lib\ocaml\install.stamp
+g_finger := c:\Users\jvober\coding\bell-schedule\node_modules\@testing-library\user-event\lib\ocaml\install.stamp
+rule astj
+  command = "c:\Users\jvober\coding\bell-schedule\node_modules\rescript\win32\bsc.exe"  -bs-v 10.1.4 -bs-jsx 4 -bs-jsx-mode classic  -absname -bs-ast -o $out $i
+o src\App.ast : astj ..\..\src\App.res
+rule deps
+  command = "c:\Users\jvober\coding\bell-schedule\node_modules\rescript\win32\bsb_helper.exe" -hash 273957522f88ea1fd35aa902b4a1676e -bs-ns BellSchedule $in
+  restat = 1
+o src\App.d : deps src\App.ast
+rule mij
+  command = "c:\Users\jvober\coding\bell-schedule\node_modules\rescript\win32\bsc.exe" -bs-ns BellSchedule -I . -I "src\components" -I src -I "c:\Users\jvober\coding\bell-schedule\node_modules\@rescript\react\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\@chakra-ui\react\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\@chakra-ui\react\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\@emotion\react\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\@emotion\styled\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\@rescript\react\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\framer-motion\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\react\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\react-dom\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\react-icons\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\react-scripts\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\rescript\lib\ocaml" -I "c:\Users\jvober\coding\bell-schedule\node_modules\web-vitals\lib\ocaml"   -bs-package-name bell-schedule -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src\App-BellSchedule.cmj src\App-BellSchedule.cmi ..\..\src\App.bs.js : mij src\App.ast
+o src\components\CruelWorld.ast : astj ..\..\src\components\CruelWorld.res
+o src\components\CruelWorld.d : deps src\components\CruelWorld.ast
+o src\components\CruelWorld-BellSchedule.cmj src\components\CruelWorld-BellSchedule.cmi ..\..\src\components\CruelWorld.bs.js : mij src\components\CruelWorld.ast
+rule build_package
+  command = "c:\Users\jvober\coding\bell-schedule\node_modules\rescript\win32\bsc.exe" -w -49 -color always -no-alias-deps  $i
+  restat = 1
+o BellSchedule.cmi : build_package BellSchedule.mlmap

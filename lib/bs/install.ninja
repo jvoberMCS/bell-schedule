@@ -1,0 +1,17 @@
+rescript = 1
+rule cp
+  command = cmd.exe /C copy /Y $i $out >NUL
+rule touch
+ command = cmd.exe /C type nul >>$out & copy $out+,, >NUL
+o App-BellSchedule.cmi : cp ..\bs\src\App-BellSchedule.cmi
+o App-BellSchedule.cmj : cp ..\bs\src\App-BellSchedule.cmj
+o App-BellSchedule.cmt : cp ..\bs\src\App-BellSchedule.cmt
+o App.res : cp ..\..\src\App.res
+o CruelWorld-BellSchedule.cmi : cp ..\bs\src\components\CruelWorld-BellSchedule.cmi
+o CruelWorld-BellSchedule.cmj : cp ..\bs\src\components\CruelWorld-BellSchedule.cmj
+o CruelWorld-BellSchedule.cmt : cp ..\bs\src\components\CruelWorld-BellSchedule.cmt
+o CruelWorld.res : cp ..\..\src\components\CruelWorld.res
+o BellSchedule.cmi : cp ..\bs\BellSchedule.cmi
+o BellSchedule.cmj : cp ..\bs\BellSchedule.cmj
+o BellSchedule.cmt : cp ..\bs\BellSchedule.cmt
+build install.stamp : touch App-BellSchedule.cmi App-BellSchedule.cmj CruelWorld-BellSchedule.cmi CruelWorld-BellSchedule.cmj BellSchedule.cmi BellSchedule.cmj
