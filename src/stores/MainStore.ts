@@ -1,38 +1,153 @@
-import { create } from "zustand"
-import { createJSONStorage, persist } from "zustand/middleware"
-import { immer } from "zustand/middleware/immer"
+import { create } from 'zustand'
+import { immer } from 'zustand/middleware/immer'
 
 type State = {
 	/* Values go here.*/
-	scheduleSelection: number
+	scheduleSelection: ScheduleSelection
+	schedules: Schedule[]
 }
 
 type Action = {
 	/* Ways to alter the state go here.*/
+	setScheduleSelection: (newScheduleSelection: ScheduleSelection) => void
+}
+
+//Converts a time from the current day into the number of ms since the epoch
+export const GetMsFromScheduleTime = (hour: Hour, minute: Minute) => {
+	let startTime = new Date(Date.now())
+	startTime.setHours(hour)
+	startTime.setMinutes(minute)
+	return startTime.getTime()
 }
 
 export const useMainStore = create<State & Action>()(
-	persist(
-		immer( ( set ) => ( {
-			///////////
-			// State //
-			///////////
-			scheduleSelection: 0,
-			schedule: []
+	//persist(
+	//@ts-ignore
+	immer((set) => ({
+		///////////
+		// State //
+		///////////
+		scheduleSelection: 'NORMAL',
+		schedules: [
+			{
+				name: 'Normal Schedule',
+				selectionID: 'NORMAL',
+				periods: [
+					{
+						name: 'One',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Two',
+						start: GetMsFromScheduleTime(8, 2),
+						end: GetMsFromScheduleTime(8, 46),
+					},
+					{
+						name: 'Three',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Four',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Five',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Six',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Seven',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Eight',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Nine',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+				],
+			},
+			{
+				name: 'Rally Schedule',
+				selectionID: 'RALLY',
+				periods: [
+					{
+						name: 'One',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Two',
+						start: GetMsFromScheduleTime(8, 2),
+						end: GetMsFromScheduleTime(8, 46),
+					},
+					{
+						name: 'Three',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Four',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Five',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Six',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Seven',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Eight',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+					{
+						name: 'Nine',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 59),
+					},
+				],
+			},
+		],
 
-			/////////////
-			// Actions //
-			/////////////
-		}
-		) ),
-		{
-			// Use Local Storage
-			name: "main-storage",
-			storage: createJSONStorage( () => localStorage ), // (optional) by default, 'localStorage' is used
-		}
-
-	) )
-
+		/////////////
+		// Actions //
+		/////////////
+		setScheduleSelection: (newScheduleSelection) =>
+			set((state) => {
+				state.scheduleSelection = newScheduleSelection
+			}),
+	}))
+	// {
+	// 	// Use Local Storage
+	// 	name: 'main-storage',
+	// 	storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
+	// }
+)
+//)
 
 // Zustand Documentation
 /*

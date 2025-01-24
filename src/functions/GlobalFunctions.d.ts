@@ -9,6 +9,3 @@ type Compound = {
 }
 
 */
-const calculateCountList = () => {
-	return 1
-}
