@@ -1,24 +1,29 @@
-import ErrorPage from "@/routes/ErrorPage"
-import { createBrowserRouter } from "react-router-dom"
+import ErrorPage from '@/routes/ErrorPage'
+import { createBrowserRouter } from 'react-router-dom'
 
-import { Timer } from "@/components/Timer/Timer"
-import { App } from "../App"
+import { Timer } from '@/components/Timer/Timer'
+import { ColorViewerDev } from '@/theme/colors/ColorViewerDev'
+import { App } from '../App'
 
 export const Router = createBrowserRouter([
 	{
-		path: "/",
+		path: '/',
 		element: <App />,
 		errorElement: <ErrorPage />,
 	},
 	{
-		path: "/timer",
+		path: '/error',
+		element: <ErrorPage />,
+		errorElement: <ErrorPage />,
+	},
+	{
+		path: '/timer',
 		element: <Timer />,
 		errorElement: <ErrorPage />,
 	},
 	{
-		path: "/error",
-		element: <ErrorPage />,
+		path: '/ColorViewer',
+		element: <ColorViewerDev />,
 		errorElement: <ErrorPage />,
 	},
-
 ])

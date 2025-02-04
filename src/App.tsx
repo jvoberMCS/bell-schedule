@@ -1,14 +1,14 @@
-import "./App.css"
+import { Timer } from '@/components/Timer/Timer'
+import './App.css'
 
-import { Center } from "@chakra-ui/react"
+import { Center } from '@chakra-ui/react'
 import {
 	DndContext,
 	MouseSensor,
 	rectIntersection,
 	useSensor,
 	useSensors,
-} from "@dnd-kit/core"
-
+} from '@dnd-kit/core'
 
 export const App = () => {
 	const sensors = useSensors(
@@ -19,12 +19,9 @@ export const App = () => {
 		})
 	)
 	return (
-		<Center fontSize="5xl" bg="dracula.dracBG">
-			<DndContext
-				sensors={sensors}
-				collisionDetection={rectIntersection}
-			>
-			Test
+		<Center fontSize='5xl' bg='dracula.dracBG'>
+			<DndContext sensors={sensors} collisionDetection={rectIntersection}>
+				<Timer />
 			</DndContext>
 		</Center>
 	)
