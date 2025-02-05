@@ -1,4 +1,4 @@
-//import { useMainStore } from '@/stores/MainStore'
+import { useMainStore } from '@/stores/MainStore'
 import { massillonOrange } from '@/theme/colors/colors'
 import React, { useEffect, useRef } from 'react'
 
@@ -14,7 +14,8 @@ const getCurrentTime = () => {
 }
 
 export const CountdownTimer: CountdownTimerProps = () => {
-	//const scheduleSelection = useMainStore((state) => state.scheduleSelection)
+	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
+	const schedules = useMainStore((state) => state.schedules)
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
 	const width = window.innerWidth
@@ -35,6 +36,25 @@ export const CountdownTimer: CountdownTimerProps = () => {
 			seconds: seconds,
 			negative: diffInMilliseconds < 0 ? true : false,
 		}
+	}
+
+	const getNextBell = (schedule: Schedule) => {
+		const currentTime = getCurrentTime()
+		let nextBell = getTimeDifference(currentTime, currentTime)
+		let found = 0
+		// Find the period with first non-negative time difference, since this will be the next period
+		schedule.periods.forEach((period) => {
+			if (
+				getTimeDifference(currentTime, new Date(period.end))
+					.negative === false &&
+				found === 0
+			) {
+				nextBell = getTimeDifference(currentTime, new Date(period.end))
+				found = 1
+			}
+		})
+
+		return nextBell
 	}
 
 	useEffect(() => {
@@ -64,11 +84,24 @@ export const CountdownTimer: CountdownTimerProps = () => {
 				endOfDay.setHours(14)
 				endOfDay.setMinutes(20)
 				endOfDay.setSeconds(0)
-				const hms = getTimeDifference(currentTime, endOfDay)
+				const timeUntilEndOfDay = getTimeDifference(
+					currentTime,
+					endOfDay
+				)
 				ctx.fillText(
-					`${hms.negative === true ? '-' : ''}${hms.hours < 10 ? '0' : ''}${hms.hours}:${hms.minutes < 10 ? '0' : ''}${hms.minutes}:${hms.seconds < 10 ? '0' : ''}${hms.seconds}`,
+					`${timeUntilEndOfDay.negative === true ? '-' : ''}${timeUntilEndOfDay.hours < 10 ? '0' : ''}${timeUntilEndOfDay.hours}:${timeUntilEndOfDay.minutes < 10 ? '0' : ''}${timeUntilEndOfDay.minutes}:${timeUntilEndOfDay.seconds < 10 ? '0' : ''}${timeUntilEndOfDay.seconds} until the end of the day`,
 					width * 0.5,
 					height * 0.6
+				)
+				const nextBell = getNextBell(
+					schedules.filter(
+						(schedule) => schedule.selectionID === scheduleSelection
+					)[0]
+				)
+				ctx.fillText(
+					`Next Bell: ${nextBell.hours} hours : ${nextBell.minutes} minutes : ${nextBell.seconds} seconds`,
+					width * 0.5,
+					height * 0.7
 				)
 
 				animationFrameId = requestAnimationFrame(animate)

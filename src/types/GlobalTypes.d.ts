@@ -309,8 +309,8 @@ type UTCFields = {
 }
 type Period = {
 	name: string
-	start: number
-	end: number
+	start: number // ms since epoch
+	end: number // ms since epoch
 }
 
 type Schedule = {
