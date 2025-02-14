@@ -318,4 +318,10 @@ type Schedule = {
 	selectionID: ScheduleSelection
 	periods: Period[]
 }
-type ScheduleSelection = 'NORMAL' | 'RALLY'
+type ScheduleSelection =
+	| 'NORMAL'
+	| 'RALLY'
+	| 'ASSEMBLY'
+	| 'AIR'
+	| 'MMOSB'
+	| 'TESTING'

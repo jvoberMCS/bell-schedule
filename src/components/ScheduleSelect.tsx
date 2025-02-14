@@ -1,6 +1,7 @@
 import { useMainStore } from '@/stores/MainStore'
 import { Box, NativeSelectField, NativeSelectRoot } from '@chakra-ui/react'
 import React from 'react'
+import { v4 as uuid } from 'uuid'
 
 type Props = {}
 type ScheduleSelectProps =
@@ -35,7 +36,7 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 				>
 					{schedules.map((schedule) => {
 						return (
-							<option value={schedule.name}>
+							<option value={schedule.name} key={uuid()}>
 								{schedule.name}
 							</option>
 						)

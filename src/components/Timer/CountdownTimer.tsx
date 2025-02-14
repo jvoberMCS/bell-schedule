@@ -1,8 +1,8 @@
 import { useMainStore } from '@/stores/MainStore'
-import { massillonOrange } from '@/theme/colors/colors'
+import { dracRed, massillonOrange } from '@/vars/GlobalVars'
 import React, { useEffect, useRef } from 'react'
 
-type Props = {}
+type Props = { width: number; height: number }
 type CountdownTimerProps =
 	Props extends Record<string, never>
 		? React.FC<Record<string, never>>
@@ -13,13 +13,10 @@ const getCurrentTime = () => {
 	return now
 }
 
-export const CountdownTimer: CountdownTimerProps = () => {
+export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
 	const schedules = useMainStore((state) => state.schedules)
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
-
-	const width = window.innerWidth
-	const height = window.innerHeight / 2
 
 	const getTimeDifference = (t1: Date, t2: Date) => {
 		// Get the difference in milliseconds
@@ -38,71 +35,123 @@ export const CountdownTimer: CountdownTimerProps = () => {
 		}
 	}
 
-	const getNextBell = (schedule: Schedule) => {
-		const currentTime = getCurrentTime()
-		let nextBell = getTimeDifference(currentTime, currentTime)
-		let found = 0
-		// Find the period with first non-negative time difference, since this will be the next period
-		schedule.periods.forEach((period) => {
-			if (
-				getTimeDifference(currentTime, new Date(period.end))
-					.negative === false &&
-				found === 0
-			) {
-				nextBell = getTimeDifference(currentTime, new Date(period.end))
-				found = 1
-			}
-		})
-
-		return nextBell
+	const setFutureDate = (today: Date, numDaysInFuture: number) => {
+		if (numDaysInFuture <= 0)
+			throw new Error(
+				'Number of day in the future must be greater than 0'
+			)
+		return new Date(today.setDate(today.getDate() + numDaysInFuture))
 	}
 
 	useEffect(() => {
 		const canvas = canvasRef.current
 		if (canvas) {
+			const w = canvas.width
+			const h = canvas.height
 			const ctx = canvas.getContext('2d')
 
 			if (!ctx) return // Check to make sure context isnt null
 
 			let animationFrameId: number
 
-			const animate = () => {
-				ctx.clearRect(0, 0, width, height) // Clear the canvas
+			const getCenteredXPos = (text: string) => {
+				return w * 0.5 - ctx.measureText(text).width / 2
+			}
 
-				// Get the current time
-				const currentTime = getCurrentTime()
-				ctx.font = '20px Fira Code'
-				ctx.fillStyle = massillonOrange
-				ctx.fillText(
-					currentTime.toLocaleTimeString(),
-					width * 0.5,
-					height * 0.5
-				)
+			const schedule = schedules.filter(
+				(schedule) => schedule.selectionID === scheduleSelection
+			)[0]
 
+			const realTimeSchedule = (bells: number[][]) => {
+				bells.forEach((bell) => {
+					ctx.fillStyle = bell[0] > bell[1] ? massillonOrange : 'gray'
+					ctx.fillText(
+						`Mod ${bell[2] + 1}: ${new Date(bell[0]).getHours()}:${new Date(bell[0]).getMinutes()}:${new Date(bell[0]).getSeconds()}`,
+						getCenteredXPos(
+							`Mod ${bell[2] + 1}: ${new Date(bell[0]).getHours()}:${new Date(bell[0]).getMinutes()}:${new Date(bell[0]).getSeconds()}`
+						),
+						(h * parseFloat(`0.${bell[2] + 1}`)) / 2
+					)
+				})
+				ctx.fillStyle = dracRed
+			}
+
+			const getTimeUntilEndOfDay = (currentTime: Date) => {
 				// Get the difference in time
 				const endOfDay = new Date()
 				endOfDay.setHours(14)
 				endOfDay.setMinutes(20)
 				endOfDay.setSeconds(0)
-				const timeUntilEndOfDay = getTimeDifference(
-					currentTime,
-					endOfDay
-				)
+				return getTimeDifference(currentTime, endOfDay)
+			}
+
+			const timeLeftInDay = (currentTime: Date) => {
 				ctx.fillText(
-					`${timeUntilEndOfDay.negative === true ? '-' : ''}${timeUntilEndOfDay.hours < 10 ? '0' : ''}${timeUntilEndOfDay.hours}:${timeUntilEndOfDay.minutes < 10 ? '0' : ''}${timeUntilEndOfDay.minutes}:${timeUntilEndOfDay.seconds < 10 ? '0' : ''}${timeUntilEndOfDay.seconds} until the end of the day`,
-					width * 0.5,
-					height * 0.6
+					`${
+						getTimeUntilEndOfDay(currentTime).negative === true
+							? '-'
+							: ''
+					}${getTimeUntilEndOfDay(currentTime).hours < 10 ? '0' : ''}${getTimeUntilEndOfDay(currentTime).hours}:${getTimeUntilEndOfDay(currentTime).minutes < 10 ? '0' : ''}${getTimeUntilEndOfDay(currentTime).minutes}:${getTimeUntilEndOfDay(currentTime).seconds < 10 ? '0' : ''}${getTimeUntilEndOfDay(currentTime).seconds} until the end of the day`,
+					getCenteredXPos(
+						`${getTimeUntilEndOfDay(currentTime).negative === true ? '-' : ''}${getTimeUntilEndOfDay(currentTime).hours < 10 ? '0' : ''}${getTimeUntilEndOfDay(currentTime).hours}:${getTimeUntilEndOfDay(currentTime).minutes < 10 ? '0' : ''}${getTimeUntilEndOfDay(currentTime).minutes}:${getTimeUntilEndOfDay(currentTime).seconds < 10 ? '0' : ''}${getTimeUntilEndOfDay(currentTime).seconds} until the end of the day`
+					),
+					h * 0.8
 				)
-				const nextBell = getNextBell(
-					schedules.filter(
-						(schedule) => schedule.selectionID === scheduleSelection
-					)[0]
-				)
+			}
+
+			const getEndOfNextPeriod = () => {
+				const pastAndPresentMods = schedule.periods.filter((period) => {
+					return period.end < getCurrentTime().getTime()
+				})
+				console.log(schedule.periods[pastAndPresentMods.length])
+				if (schedule.periods[pastAndPresentMods.length] !== undefined) {
+					return schedule.periods[pastAndPresentMods.length].end
+				} else {
+					const tomorrow = new Date(
+						new Date().setDate(new Date().getDate() + 1)
+					)
+
+					return schedule.periods[0].end
+				}
+			}
+
+			const currentTimeClock = (currentTime: Date) => {
 				ctx.fillText(
-					`Next Bell: ${nextBell.hours} hours : ${nextBell.minutes} minutes : ${nextBell.seconds} seconds`,
-					width * 0.5,
-					height * 0.7
+					currentTime.toLocaleTimeString(),
+					w * 0.5 -
+						ctx.measureText(currentTime.toLocaleTimeString())
+							.width /
+							2,
+					h * 0.6
 				)
+			}
+
+			const nextEndOfMod = () => {
+				ctx.fillText(
+					`Next end of mod: ${new Date(getEndOfNextPeriod()).toLocaleString()}`,
+					getCenteredXPos(
+						`Next end of mod: ${new Date(getEndOfNextPeriod()).toLocaleString()}`
+					),
+					h * 0.5
+				)
+			}
+
+			const animate = () => {
+				ctx.clearRect(0, 0, width, height) // Clear the canvas
+				ctx.font = '20px Fira Code'
+				ctx.fillStyle = massillonOrange
+
+				// Get the current time
+				const currentTime = getCurrentTime()
+
+				const bells = schedule.periods.map((period, mod) => {
+					return [period.end, getCurrentTime().getTime(), mod]
+				})
+
+				realTimeSchedule(bells)
+				timeLeftInDay(currentTime)
+				currentTimeClock(currentTime)
+				nextEndOfMod()
 
 				animationFrameId = requestAnimationFrame(animate)
 			}

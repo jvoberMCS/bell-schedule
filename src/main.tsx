@@ -1,5 +1,5 @@
 import { Router } from '@/routes/Router.tsx'
-import { system } from '@/theme/theme'
+import system from '@/theme/theme'
 import { ChakraProvider } from '@chakra-ui/react'
 import { DndContext } from '@dnd-kit/core'
 import { GoogleOAuthProvider } from '@react-oauth/google'

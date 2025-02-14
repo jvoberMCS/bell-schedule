@@ -26,4 +26,9 @@ export const Router = createBrowserRouter([
 		element: <ColorViewerDev />,
 		errorElement: <ErrorPage />,
 	},
+	{
+		path: '/swatches',
+		element: <ColorViewerDev />,
+		errorElement: <ErrorPage />,
+	},
 ])

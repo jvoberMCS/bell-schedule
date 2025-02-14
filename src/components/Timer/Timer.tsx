@@ -1,8 +1,7 @@
+import { AnalogClock } from '@/components/AnalogClock/AnalogClock'
 import { ScheduleSelect } from '@/components/ScheduleSelect'
 import { CountdownTimer } from '@/components/Timer/CountdownTimer'
-import { Schedule } from '@/components/Timer/Schedule'
-import { Box } from '@chakra-ui/react'
-import React from 'react'
+import { Box, HStack } from '@chakra-ui/react'
 
 type Props = {}
 type TimerProps =
@@ -14,10 +13,16 @@ export const Timer: TimerProps = () => {
 	return (
 		<Box className='Timer' color='dracFg'>
 			<ScheduleSelect />
-			<Schedule />
-			<Box width='window.innerWidth' border='1px solid orange'>
-				<CountdownTimer />
-			</Box>
+			<HStack>
+				{/*				<Schedule /> */}
+				<Box width={window.innerWidth}>
+					<CountdownTimer
+						width={window.innerWidth}
+						height={window.innerHeight}
+					/>
+				</Box>
+			</HStack>
+			<AnalogClock />
 		</Box>
 	)
 }

@@ -1,6 +1,7 @@
 import { useMainStore } from '@/stores/MainStore'
 import { Box } from '@chakra-ui/react'
 import React from 'react'
+import { v4 as uuid } from 'uuid'
 
 type Props = {}
 type ScheduleProps =
@@ -19,10 +20,10 @@ export const Schedule: ScheduleProps = () => {
 		<Box className='Schedule'>
 			{schedules.map((schedule) => {
 				return schedule.selectionID === scheduleSelection ? (
-					<Box>
+					<Box key={uuid()}>
 						{schedule.periods.map((period) => {
 							return (
-								<Box>
+								<Box key={uuid()}>
 									{'Mod '} {period.name} {' ==> '}{' '}
 									{msToTime(period.start).toLocaleTimeString(
 										[],

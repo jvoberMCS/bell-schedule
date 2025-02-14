@@ -1,20 +1,20 @@
-import { createSystem, defaultConfig, mergeConfigs } from '@chakra-ui/react'
+import { C } from '@/theme/colors/colors'
+import { createSystem } from '@chakra-ui/react'
 
-import { Colors } from './colors/colors'
+import { defineConfig } from '@chakra-ui/react'
 
-const config = mergeConfigs(defaultConfig, {
-	strictTokens: true,
+const config = defineConfig({
 	cssVarsRoot: ':where(:root, :host)',
 	globalCss: {
 		'html, body': {
-			background: Colors.bg.DEFAULT.value,
+			background: C.background.DEFAULT.value,
 		},
 	},
 	theme: {
 		tokens: {
-			colors: Colors,
+			colors: C,
 		},
 	},
 })
 
-export const system = createSystem(config)
+export default createSystem(config)

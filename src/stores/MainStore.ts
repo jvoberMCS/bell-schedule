@@ -71,12 +71,12 @@ export const useMainStore = create<State & Action>()(
 					{
 						name: 'Eight',
 						start: GetMsFromScheduleTime(12, 30),
-						end: GetMsFromScheduleTime(1, 14),
+						end: GetMsFromScheduleTime(13, 14),
 					},
 					{
 						name: 'Nine',
-						start: GetMsFromScheduleTime(1, 17),
-						end: GetMsFromScheduleTime(2, 5),
+						start: GetMsFromScheduleTime(13, 17),
+						end: GetMsFromScheduleTime(14, 5),
 					},
 				],
 			},
@@ -122,12 +122,63 @@ export const useMainStore = create<State & Action>()(
 					{
 						name: 'Nine',
 						start: GetMsFromScheduleTime(12, 56),
-						end: GetMsFromScheduleTime(1, 41),
+						end: GetMsFromScheduleTime(13, 41),
 					},
 					{
 						name: 'Rally',
-						start: GetMsFromScheduleTime(1, 50),
-						end: GetMsFromScheduleTime(2, 5),
+						start: GetMsFromScheduleTime(13, 50),
+						end: GetMsFromScheduleTime(14, 5),
+					},
+				],
+			},
+			{
+				name: 'Assembly Schedule',
+				selectionID: 'ASSEMBLY',
+				periods: [
+					{
+						name: 'One',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(7, 55),
+					},
+					{
+						name: 'Two',
+						start: GetMsFromScheduleTime(7, 58),
+						end: GetMsFromScheduleTime(8, 38),
+					},
+					{
+						name: 'Three',
+						start: GetMsFromScheduleTime(8, 41),
+						end: GetMsFromScheduleTime(9, 23),
+					},
+					{
+						name: 'Assembly',
+						start: GetMsFromScheduleTime(9, 26),
+						end: GetMsFromScheduleTime(10, 26),
+					},
+					{
+						name: 'Five',
+						start: GetMsFromScheduleTime(10, 29),
+						end: GetMsFromScheduleTime(11, 9),
+					},
+					{
+						name: 'Six',
+						start: GetMsFromScheduleTime(11, 12),
+						end: GetMsFromScheduleTime(11, 52),
+					},
+					{
+						name: 'Seven',
+						start: GetMsFromScheduleTime(11, 55),
+						end: GetMsFromScheduleTime(12, 35),
+					},
+					{
+						name: 'Eight',
+						start: GetMsFromScheduleTime(12, 38),
+						end: GetMsFromScheduleTime(13, 18),
+					},
+					{
+						name: 'Nine',
+						start: GetMsFromScheduleTime(13, 21),
+						end: GetMsFromScheduleTime(14, 5),
 					},
 				],
 			},

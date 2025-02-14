@@ -1,4 +1,4 @@
-import { Swatches } from '@/theme/colors/colors.ts'
+import { Swatches } from '@/theme/colors/swatches.ts'
 import {
 	Box,
 	Center,
@@ -10,6 +10,7 @@ import {
 	VStack,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { v4 as uuid } from 'uuid'
 
 type Props = {}
 type ColorViewerDevProps =
@@ -36,118 +37,97 @@ export const ColorViewerDev: ColorViewerDevProps = () => {
 					flexGrow={1}
 					border='1px solid green'
 					alignItems='flex-start'
+					height='20vh'
 				>
 					<VStack>
 						<HStack>
 							<Box border='1px solid orange'>
-								{Swatches.map(
-									(swatch: {
-										name: string
-										colors: {
-											name: string
-											value: string
-										}[]
-									}) => {
-										return (
-											<Group
-												attached
-												width='20vw'
-												maxW='20vw'
-												grow
-												m='2vh'
-											>
-												{swatch.colors
-													.filter((color) => {
-														return !color.name.includes(
-															'Dracula'
-														)
-													})
-													.map((color) => {
-														return (
-															<ColorSwatch
-																value={
-																	color.value
-																}
-																onMouseOver={() => {
-																	setColorInfo(
-																		[
-																			color.name,
-																			swatch.name,
-																			color.value,
-																		]
-																	)
-																}}
-																onMouseLeave={() => {
-																	setColorInfo(
-																		[
-																			'',
-																			'',
-																			'',
-																		]
-																	)
-																}}
-																onClick={() => {
-																	window.navigator.clipboard.writeText(
-																		color.value
-																	)
-																}}
-															/>
-														)
-													})}
-											</Group>
-										)
-									}
-								)}
-							</Box>
-
-							<Box border='1px solid blue'>
 								{Swatches.map((swatch) => {
 									return (
 										<Group
+											key={uuid()}
 											attached
 											width='20vw'
 											maxW='20vw'
 											grow
 											m='2vh'
 										>
-											{swatch.colors
-												.filter((color) => {
-													return color.name.includes(
-														'Dracula'
-													)
-												})
-												.map((color) => {
-													return (
-														<ColorSwatch
-															value={color.value}
-															onMouseOver={() => {
-																setColorInfo([
-																	color.name,
-																	swatch.name.startsWith(
-																		'Dracula'
-																	)
-																		? swatch.name.slice(
-																				8
-																			)
-																		: swatch.name,
-																	color.value,
-																])
-															}}
-															onMouseLeave={() => {
-																setColorInfo([
-																	'',
-																	'',
-																	'',
-																])
-															}}
-															onClick={() => {
-																window.navigator.clipboard.writeText(
-																	color.value
+											{swatch.colors.map((color) => {
+												return (
+													<ColorSwatch
+														key={uuid()}
+														value={color.value}
+														onMouseOver={() => {
+															setColorInfo([
+																color.name,
+																swatch.name,
+																color.value,
+															])
+														}}
+														onMouseLeave={() => {
+															setColorInfo([
+																'',
+																'',
+																'',
+															])
+														}}
+														onClick={() => {
+															window.navigator.clipboard.writeText(
+																color.value
+															)
+														}}
+													/>
+												)
+											})}
+										</Group>
+									)
+								})}
+							</Box>
+
+							<Box border='1px solid blue'>
+								{Swatches.map((swatch) => {
+									return (
+										<Group
+											key={uuid()}
+											attached
+											width='20vw'
+											maxW='20vw'
+											grow
+											m='2vh'
+										>
+											{swatch.colors.map((color) => {
+												return (
+													<ColorSwatch
+														key={uuid()}
+														value={color.value}
+														onMouseOver={() => {
+															setColorInfo([
+																color.name,
+																swatch.name.startsWith(
+																	'Dracula'
 																)
-															}}
-														/>
-													)
-												})}
+																	? swatch.name.slice(
+																			8
+																		)
+																	: swatch.name,
+																color.value,
+															])
+														}}
+														onMouseLeave={() => {
+															setColorInfo([
+																'',
+																'',
+																'',
+															])
+														}}
+														onClick={() => {
+															window.navigator.clipboard.writeText(
+																color.value
+															)
+														}}
+													/>
+												)
+											})}
 										</Group>
 									)
 								})}
