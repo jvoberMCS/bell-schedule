@@ -1,4 +1,4 @@
-import { dracGray } from './../theme/colors/colors'
+import { dracFg, dracGray, dracGreen, dracYellow } from '@/theme/colors/colors'
 /*
 
 Put Global Functions you want to be available everywhere in this file. Make sure to export them.
@@ -45,17 +45,23 @@ export const getTimeDifference = (t1: Date, t2: Date) => {
 export const getRealTimeSchedule = (
 	ctx: CanvasRenderingContext2D | null,
 	bells: number[][],
-	w: number,
-	h: number
+	x: number,
+	y: number
 ) => {
 	if (ctx !== null) {
 		bells.forEach((bell) => {
-			const str = `Mod ${bell[2] + 1}: ${new Date(bell[0]).getHours() < 10 ? '0' : ''}${new Date(bell[0]).getHours()}:${new Date(bell[0]).getMinutes() < 10 ? '0' : ''}${new Date(bell[0]).getMinutes()}:${new Date(bell[0]).getSeconds() < 10 ? '0' : ''}${new Date(bell[0]).getSeconds()}`
+			const d = new Date(bell[0])
+			d.setSeconds(0)
+			const str = `Mod ${bell[2] + 1}: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
 			ctx.fillStyle = bell[0] > bell[1] ? massillonOrange : dracGray
 			ctx.fillText(
 				str,
-				getCenteredXPos(ctx, w, str),
-				(h * parseFloat(`0.${bell[2] + 1}`)) / 2
+				getCenteredXPos(ctx, x, str),
+				//(y * parseFloat(`0.${bell[2] + 1}`)) / 2
+				y +
+					parseFloat(`${bell[2] + 1}`) *
+						(ctx.measureText(str).fontBoundingBoxAscent +
+							ctx.measureText(str).fontBoundingBoxDescent)
 			)
 		})
 		ctx.fillStyle = dracRed
@@ -75,6 +81,22 @@ export const getEndOfNextPeriod = (schedule: Schedule) => {
 	}
 }
 
+export const nextEndOfMod = (
+	ctx: CanvasRenderingContext2D | null,
+	schedule: Schedule,
+	x: number,
+	y: number
+) => {
+	if (ctx !== null) {
+		const endOfNextPeriod = getEndOfNextPeriod(schedule)
+		const d = new Date(endOfNextPeriod)
+		d.setSeconds(0)
+		const str = `Next end of mod: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
+		ctx.fillStyle = dracFg
+		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
+	}
+}
+
 export const getTimeLeftInDay = (schedule: Schedule) => {
 	const endOfDay = new Date(schedule.periods[schedule.periods.length - 1].end)
 	return getTimeDifference(getCurrentTime(), endOfDay)
@@ -82,15 +104,16 @@ export const getTimeLeftInDay = (schedule: Schedule) => {
 export const currentTimeClock = (
 	ctx: CanvasRenderingContext2D | null,
 	currentTime: Date,
-	w: number,
-	h: number
+	x: number,
+	y: number
 ) => {
 	if (ctx !== null) {
+		ctx.fillStyle = dracYellow
 		ctx.fillText(
 			currentTime.toLocaleTimeString(),
-			w * 0.5 -
+			x * 0.5 -
 				ctx.measureText(currentTime.toLocaleTimeString()).width / 2,
-			h * 0.6
+			y
 		)
 	}
 }
@@ -99,4 +122,20 @@ export const setFutureDate = (today: Date, numDaysInFuture: number) => {
 	if (numDaysInFuture <= 0)
 		throw new Error('Number of day in the future must be greater than 0')
 	return new Date(today.setDate(today.getDate() + numDaysInFuture))
+}
+
+export const timeLeftInDay = (
+	ctx: CanvasRenderingContext2D | null,
+	schedule: Schedule,
+	x: number,
+	y: number
+) => {
+	if (ctx !== null) {
+		ctx.fillStyle = dracGreen
+		const tl = getTimeLeftInDay(schedule)
+		const str = `${
+			tl.negative === true ? '-' : ''
+		}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} until the end of the day`
+		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
+	}
 }

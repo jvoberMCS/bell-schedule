@@ -1,13 +1,12 @@
 import {
 	currentTimeClock,
-	getCenteredXPos,
 	getCurrentTime,
-	getEndOfNextPeriod,
 	getRealTimeSchedule,
-	getTimeLeftInDay,
+	nextEndOfMod,
+	timeLeftInDay,
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
-import { massillonOrange } from '@/vars/GlobalVars'
+import { dracFg } from '@/theme/colors/colors'
 import React, { useEffect, useRef } from 'react'
 
 type Props = { width: number; height: number }
@@ -36,22 +35,11 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				(schedule) => schedule.selectionID === scheduleSelection
 			)[0]
 
-			const nextEndOfMod = () => {
-				const str = `Next end of mod: ${new Date(getEndOfNextPeriod(schedule)).toLocaleString()}`
-				ctx.fillText(str, getCenteredXPos(ctx, w, str), h * 0.5)
-			}
-
-			const timeLeftInDay = () => {
-				const tl = getTimeLeftInDay(schedule)
-				const str = `${
-					tl.negative === true ? '-' : ''
-				}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} until the end of the day`
-				ctx.fillText(str, getCenteredXPos(ctx, w, str), h * 0.8)
-			}
 			const animate = () => {
 				ctx.clearRect(0, 0, width, height) // Clear the canvas
 				ctx.font = '20px Fira Code'
-				ctx.fillStyle = massillonOrange
+				// Set starting text color
+				ctx.fillStyle = dracFg
 
 				// Get the current time
 				const currentTime = getCurrentTime()
@@ -60,10 +48,10 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 					return [period.end, getCurrentTime().getTime(), mod]
 				})
 
-				getRealTimeSchedule(ctx, bells, w, h)
-				timeLeftInDay()
+				getRealTimeSchedule(ctx, bells, w, h * 0.1)
+				timeLeftInDay(ctx, schedule, w, h)
 				currentTimeClock(ctx, currentTime, w, h)
-				nextEndOfMod()
+				nextEndOfMod(ctx, schedule, w, h)
 
 				animationFrameId = requestAnimationFrame(animate)
 			}
@@ -74,6 +62,6 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			console.error('Canvas is null')
 			return
 		}
-	}, [])
+	}, [scheduleSelection])
 	return <canvas ref={canvasRef} width={width} height={height} />
 }
