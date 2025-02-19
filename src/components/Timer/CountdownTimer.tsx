@@ -7,6 +7,7 @@ import {
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import { dracFg } from '@/theme/colors/colors'
+import { Box } from '@chakra-ui/react/box'
 import React, { useEffect, useRef } from 'react'
 
 type Props = { width: number; height: number }
@@ -37,7 +38,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 			const animate = () => {
 				ctx.clearRect(0, 0, width, height) // Clear the canvas
-				ctx.font = '20px Fira Code'
+				ctx.font = '20pt Fira Code'
 				// Set starting text color
 				ctx.fillStyle = dracFg
 
@@ -48,10 +49,10 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 					return [period.end, getCurrentTime().getTime(), mod]
 				})
 
-				getRealTimeSchedule(ctx, bells, w, h * 0.1)
-				timeLeftInDay(ctx, schedule, w, h)
-				currentTimeClock(ctx, currentTime, w, h)
-				nextEndOfMod(ctx, schedule, w, h)
+				getRealTimeSchedule(ctx, bells, w / 4, h * 0.1)
+				currentTimeClock(ctx, currentTime, w * (2 / 3), h * (1 / 5))
+				nextEndOfMod(ctx, schedule, w * (2 / 3), h * (2 / 5))
+				timeLeftInDay(ctx, schedule, w * (2 / 3), h * (3 / 5))
 
 				animationFrameId = requestAnimationFrame(animate)
 			}
@@ -63,5 +64,9 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			return
 		}
 	}, [scheduleSelection])
-	return <canvas ref={canvasRef} width={width} height={height} />
+	return (
+		<Box border='1px solid orange'>
+			<canvas ref={canvasRef} width={width} height={height} />
+		</Box>
+	)
 }

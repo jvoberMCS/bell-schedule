@@ -14,11 +14,11 @@ export const getCurrentTime = () => {
 
 export const getCenteredXPos = (
 	ctx: CanvasRenderingContext2D | null,
-	w: number,
+	x: number,
 	text: string
 ) => {
 	if (ctx !== null) {
-		return w * 0.5 - ctx.measureText(text).width / 2
+		return x - ctx.measureText(text).width / 2
 	} else {
 		return 0
 	}
@@ -49,22 +49,32 @@ export const getRealTimeSchedule = (
 	y: number
 ) => {
 	if (ctx !== null) {
-		bells.forEach((bell) => {
+		ctx.font = '32pt Fira Code'
+		bells.forEach((bell, i) => {
 			const d = new Date(bell[0])
 			d.setSeconds(0)
-			const str = `Mod ${bell[2] + 1}: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
+			const modNumber = i + 1
+			const str = `Mod ${modNumber}: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
 			ctx.fillStyle = bell[0] > bell[1] ? massillonOrange : dracGray
+
+			const fontHeight =
+				ctx.measureText(str).fontBoundingBoxAscent +
+				ctx.measureText(str).fontBoundingBoxDescent
+			const lineSpacing = fontHeight * 0.1
+			const lineHeight = fontHeight + lineSpacing
+
 			ctx.fillText(
 				str,
 				getCenteredXPos(ctx, x, str),
-				//(y * parseFloat(`0.${bell[2] + 1}`)) / 2
-				y +
-					parseFloat(`${bell[2] + 1}`) *
-						(ctx.measureText(str).fontBoundingBoxAscent +
-							ctx.measureText(str).fontBoundingBoxDescent)
+				// y +
+				// 	parseFloat(`${bell[2] + 1}`) *
+				// 		(ctx.measureText(str).fontBoundingBoxAscent +
+				// 			ctx.measureText(str).fontBoundingBoxDescent)
+				y + fontHeight + i * lineHeight
 			)
 		})
 		ctx.fillStyle = dracRed
+		ctx.font = '20px Fira Code'
 	}
 }
 
@@ -109,12 +119,8 @@ export const currentTimeClock = (
 ) => {
 	if (ctx !== null) {
 		ctx.fillStyle = dracYellow
-		ctx.fillText(
-			currentTime.toLocaleTimeString(),
-			x * 0.5 -
-				ctx.measureText(currentTime.toLocaleTimeString()).width / 2,
-			y
-		)
+		const str = currentTime.toLocaleTimeString()
+		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
 	}
 }
 
@@ -133,9 +139,7 @@ export const timeLeftInDay = (
 	if (ctx !== null) {
 		ctx.fillStyle = dracGreen
 		const tl = getTimeLeftInDay(schedule)
-		const str = `${
-			tl.negative === true ? '-' : ''
-		}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} until the end of the day`
+		const str = `${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} ${tl.negative === true ? 'since the end of the day' : 'until the end of the day'}`
 		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
 	}
 }
