@@ -319,6 +319,7 @@ type Schedule = {
 	periods: Period[]
 }
 type ScheduleSelection =
+	| 'REGULAR'
 	| 'NORMAL'
 	| 'RALLY'
 	| 'ASSEMBLY'

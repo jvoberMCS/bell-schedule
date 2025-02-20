@@ -27,11 +27,11 @@ export const useMainStore = create<State & Action>()(
 		///////////
 		// State //
 		///////////
-		scheduleSelection: 'NORMAL',
+		scheduleSelection: 'REGULAR',
 		schedules: [
 			{
-				name: 'Normal Schedule',
-				selectionID: 'NORMAL',
+				name: 'Regular Schedule',
+				selectionID: 'REGULAR',
 				periods: [
 					{
 						name: 'Mod One',
@@ -178,6 +178,57 @@ export const useMainStore = create<State & Action>()(
 					{
 						name: 'Mod Nine',
 						start: GetMsFromScheduleTime(13, 21),
+						end: GetMsFromScheduleTime(14, 5),
+					},
+				],
+			},
+			{
+				name: 'Air Schedule',
+				selectionID: 'AIR',
+				periods: [
+					{
+						name: 'Air Test',
+						start: GetMsFromScheduleTime(7, 15),
+						end: GetMsFromScheduleTime(9, 15),
+					},
+					{
+						name: 'Mod One',
+						start: GetMsFromScheduleTime(9, 20),
+						end: GetMsFromScheduleTime(9, 48),
+					},
+					{
+						name: 'Mod Two',
+						start: GetMsFromScheduleTime(9, 51),
+						end: GetMsFromScheduleTime(10, 19),
+					},
+					{
+						name: 'Mod Three',
+						start: GetMsFromScheduleTime(10, 22),
+						end: GetMsFromScheduleTime(10, 50),
+					},
+					{
+						name: 'Mod Five',
+						start: GetMsFromScheduleTime(10, 53),
+						end: GetMsFromScheduleTime(11, 33),
+					},
+					{
+						name: 'Mod Six',
+						start: GetMsFromScheduleTime(11, 36),
+						end: GetMsFromScheduleTime(12, 16),
+					},
+					{
+						name: 'Mod Seven',
+						start: GetMsFromScheduleTime(12, 19),
+						end: GetMsFromScheduleTime(12, 59),
+					},
+					{
+						name: 'Mod Eight',
+						start: GetMsFromScheduleTime(13, 2),
+						end: GetMsFromScheduleTime(13, 30),
+					},
+					{
+						name: 'Mod Nine',
+						start: GetMsFromScheduleTime(13, 33),
 						end: GetMsFromScheduleTime(14, 5),
 					},
 				],

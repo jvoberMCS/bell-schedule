@@ -5,7 +5,7 @@ import {
 	timeLeftInDay,
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
-import { dracFg } from '@/theme/colors/colors'
+import { dracComment, dracFg } from '@/theme/colors/colors'
 import { Box } from '@chakra-ui/react/box'
 import React, { useEffect, useRef } from 'react'
 
@@ -37,22 +37,32 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 			const animate = () => {
 				ctx.clearRect(0, 0, width, height) // Clear the canvas
-				ctx.font = '20pt Fira Code'
 				// Set starting text color
 				ctx.fillStyle = dracFg
 
 				// Get the current time
 				const now = new Date()
 
-				const bells = schedule.periods.map((period, mod) => {
-					return [period.end, now.getTime(), mod]
+				const bells = schedule.periods.map((period) => {
+					return [period.start, now.getTime(), period.end]
 				})
 
-				getRealTimeSchedule(ctx, bells, schedule, w / 4, h * 0.1)
+				getRealTimeSchedule(ctx, bells, schedule, w * 0.05, h * 0.1)
 
-				currentTimeClock(ctx, now, w * (2 / 3), h * 0.15)
-				nextEndOfMod(ctx, now, schedule, w * (2 / 3), h * 0.35)
-				timeLeftInDay(ctx, now, schedule, w * (2 / 3), h * 0.55)
+				ctx.font = '30pt Fira Code'
+				ctx.textAlign = 'center'
+				currentTimeClock(ctx, now, w * 0.75, h * 0.15)
+				nextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.35)
+				timeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.55)
+
+				// Start a new Path
+				ctx.strokeStyle = dracComment
+				ctx.beginPath()
+				ctx.moveTo(w * 0.5, 0)
+				ctx.lineTo(w * 0.5, h)
+
+				// Draw the Path
+				ctx.stroke()
 
 				animationFrameId = requestAnimationFrame(animate)
 			}

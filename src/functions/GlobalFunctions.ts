@@ -7,18 +7,6 @@ Put Global Functions you want to be available everywhere in this file. Make sure
 
 import { dracRed, massillonOrange } from '@/theme/colors/colors'
 
-export const getCenteredXPos = (
-	ctx: CanvasRenderingContext2D | null,
-	x: number,
-	text: string
-) => {
-	if (ctx !== null) {
-		return x - ctx.measureText(text).width / 2
-	} else {
-		return 0
-	}
-}
-
 export const getTimeDifference = (t1: Date, t2: Date) => {
 	// Get the difference in milliseconds
 	const diffInMilliseconds = t2.getTime() - t1.getTime()
@@ -45,27 +33,37 @@ export const getRealTimeSchedule = (
 	y: number
 ) => {
 	if (ctx !== null) {
+		// Set text settings
 		ctx.font = '32pt Fira Code'
+
 		bells.forEach((bell, i) => {
-			const d = new Date(bell[0])
-			d.setSeconds(0)
-			const str = `${schedule.periods[i].name}: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
-			ctx.fillStyle = bell[0] > bell[1] ? massillonOrange : dracGray
+			const startTime = new Date(bell[0])
+			const endTime = new Date(bell[2])
+			endTime.setSeconds(0)
+			const str1 = `${schedule.periods[i].name}:`
+			const str2 = `${startTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
+			ctx.fillStyle = bell[2] > bell[1] ? massillonOrange : dracGray
 
 			const fontHeight =
-				ctx.measureText(str).fontBoundingBoxAscent +
-				ctx.measureText(str).fontBoundingBoxDescent
+				ctx.measureText(str1).fontBoundingBoxAscent +
+				ctx.measureText(str1).fontBoundingBoxDescent
 			const lineSpacing = fontHeight * 0.1
 			const lineHeight = fontHeight + lineSpacing
 
+			ctx.textAlign = 'left'
+			ctx.fillText(str1, x, y + fontHeight + i * lineHeight)
+			ctx.textAlign = 'right'
 			ctx.fillText(
-				str,
-				getCenteredXPos(ctx, x, str),
+				str2,
+				// use "Mod fifteen" because it will be longer than any of the mod names
+				x + ctx.measureText('Mod fifteen:').width * 2.5,
 				y + fontHeight + i * lineHeight
 			)
 		})
 		ctx.fillStyle = dracRed
+		// Reset Text Settings
 		ctx.font = '20pt Fira Code'
+		ctx.textAlign = 'center'
 	}
 }
 
@@ -82,6 +80,15 @@ export const getEndOfNextPeriod = (now: Date, schedule: Schedule) => {
 	}
 }
 
+export const getLongestModMs = (schedule: Schedule) => {
+	let longestModMs = 0
+	schedule.periods.forEach((period) => {
+		const diff = period.end - period.start
+		diff > longestModMs ? (longestModMs = diff) : null
+	})
+	return longestModMs
+}
+
 export const nextEndOfMod = (
 	ctx: CanvasRenderingContext2D | null,
 	now: Date,
@@ -96,8 +103,7 @@ export const nextEndOfMod = (
 		}
 		const diff = getTimeDifference(now, endOfNextPeriod)
 		let str = ''
-		if (diff.diffInMs > 3780000) {
-			// 63 minutes of ms (the longest "mod" in any of the schedules)
+		if (diff.diffInMs > getLongestModMs(schedule)) {
 			// A long time until next mod (probably the end of the day or weekend etc.)
 			str = `Next end of mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
 		} else {
@@ -105,7 +111,7 @@ export const nextEndOfMod = (
 			str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
 		}
 		ctx.fillStyle = dracFg
-		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
+		ctx.fillText(str, x, y)
 	}
 }
 
@@ -125,7 +131,7 @@ export const currentTimeClock = (
 			hour: '2-digit',
 			minute: '2-digit',
 		})
-		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
+		ctx.fillText(str, x, y)
 	}
 }
 
@@ -145,7 +151,7 @@ export const timeLeftInDay = (
 	if (ctx !== null) {
 		ctx.fillStyle = dracGreen
 		const tl = getTimeLeftInDay(now, schedule)
-		const str = `${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} ${tl.negative === true ? 'since the end of the day' : 'until the end of the day'}`
-		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
+		const str = `${tl.negative === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
+		ctx.fillText(str, x, y)
 	}
 }
