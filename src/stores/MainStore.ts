@@ -12,12 +12,11 @@ type Action = {
 	setScheduleSelection: (newScheduleSelection: ScheduleSelection) => void
 }
 
-//Converts a time from the current day into the number of ms since the epoch
-export const GetMsFromScheduleTime = (hour: Hour, minute: Minute) => {
-	let startTime = new Date(Date.now())
-	startTime.setHours(hour)
-	startTime.setMinutes(minute)
-	return startTime.getTime()
+export const getScheduleTime = (hours: number, minutes: number) => {
+	const time = new Date()
+	time.setHours(hours)
+	time.setMinutes(minutes)
+	return time
 }
 
 export const useMainStore = create<State & Action>()(
@@ -35,48 +34,48 @@ export const useMainStore = create<State & Action>()(
 				periods: [
 					{
 						name: 'Mod One',
-						start: GetMsFromScheduleTime(7, 15),
-						end: GetMsFromScheduleTime(7, 59),
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(7, 59),
 					},
 					{
 						name: 'Mod Two',
-						start: GetMsFromScheduleTime(8, 2),
-						end: GetMsFromScheduleTime(8, 46),
+						start: getScheduleTime(8, 2),
+						end: getScheduleTime(8, 46),
 					},
 					{
 						name: 'Mod Three',
-						start: GetMsFromScheduleTime(8, 49),
-						end: GetMsFromScheduleTime(9, 33),
+						start: getScheduleTime(8, 49),
+						end: getScheduleTime(9, 33),
 					},
 					{
 						name: 'Mod Four',
-						start: GetMsFromScheduleTime(9, 36),
-						end: GetMsFromScheduleTime(10, 6),
+						start: getScheduleTime(9, 36),
+						end: getScheduleTime(10, 6),
 					},
 					{
 						name: 'Mod Five',
-						start: GetMsFromScheduleTime(10, 9),
-						end: GetMsFromScheduleTime(10, 53),
+						start: getScheduleTime(10, 9),
+						end: getScheduleTime(10, 53),
 					},
 					{
 						name: 'Mod Six',
-						start: GetMsFromScheduleTime(10, 56),
-						end: GetMsFromScheduleTime(11, 40),
+						start: getScheduleTime(10, 56),
+						end: getScheduleTime(11, 40),
 					},
 					{
 						name: 'Mod Seven',
-						start: GetMsFromScheduleTime(11, 43),
-						end: GetMsFromScheduleTime(12, 27),
+						start: getScheduleTime(11, 43),
+						end: getScheduleTime(12, 27),
 					},
 					{
 						name: 'Mod Eight',
-						start: GetMsFromScheduleTime(12, 30),
-						end: GetMsFromScheduleTime(13, 14),
+						start: getScheduleTime(12, 30),
+						end: getScheduleTime(13, 14),
 					},
 					{
 						name: 'Mod Nine',
-						start: GetMsFromScheduleTime(13, 17),
-						end: GetMsFromScheduleTime(14, 5),
+						start: getScheduleTime(13, 17),
+						end: getScheduleTime(14, 5),
 					},
 				],
 			},
@@ -86,48 +85,48 @@ export const useMainStore = create<State & Action>()(
 				periods: [
 					{
 						name: 'Mod One',
-						start: GetMsFromScheduleTime(7, 15),
-						end: GetMsFromScheduleTime(8, 0),
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(8, 0),
 					},
 					{
 						name: 'Mod Two',
-						start: GetMsFromScheduleTime(8, 3),
-						end: GetMsFromScheduleTime(8, 48),
+						start: getScheduleTime(8, 3),
+						end: getScheduleTime(8, 48),
 					},
 					{
 						name: 'Mod Three',
-						start: GetMsFromScheduleTime(8, 51),
-						end: GetMsFromScheduleTime(9, 41),
+						start: getScheduleTime(8, 51),
+						end: getScheduleTime(9, 41),
 					},
 					{
 						name: 'Mod Five',
-						start: GetMsFromScheduleTime(9, 44),
-						end: GetMsFromScheduleTime(10, 29),
+						start: getScheduleTime(9, 44),
+						end: getScheduleTime(10, 29),
 					},
 					{
 						name: 'Mod Six',
-						start: GetMsFromScheduleTime(10, 32),
-						end: GetMsFromScheduleTime(11, 17),
+						start: getScheduleTime(10, 32),
+						end: getScheduleTime(11, 17),
 					},
 					{
 						name: 'Mod Seven',
-						start: GetMsFromScheduleTime(11, 20),
-						end: GetMsFromScheduleTime(12, 5),
+						start: getScheduleTime(11, 20),
+						end: getScheduleTime(12, 5),
 					},
 					{
 						name: 'Mod Eight',
-						start: GetMsFromScheduleTime(12, 8),
-						end: GetMsFromScheduleTime(12, 53),
+						start: getScheduleTime(12, 8),
+						end: getScheduleTime(12, 53),
 					},
 					{
 						name: 'Mod Nine',
-						start: GetMsFromScheduleTime(12, 56),
-						end: GetMsFromScheduleTime(13, 41),
+						start: getScheduleTime(12, 56),
+						end: getScheduleTime(13, 41),
 					},
 					{
 						name: 'Rally',
-						start: GetMsFromScheduleTime(13, 50),
-						end: GetMsFromScheduleTime(14, 5),
+						start: getScheduleTime(13, 50),
+						end: getScheduleTime(14, 5),
 					},
 				],
 			},
@@ -135,50 +134,55 @@ export const useMainStore = create<State & Action>()(
 				name: 'Assembly Schedule',
 				selectionID: 'ASSEMBLY',
 				periods: [
+					// {
+					// 	name: 'Mod One',
+					// 	start: getScheduleTime(7, 15),
+					// 	end: getScheduleTime(7, 55),
+					// },
 					{
 						name: 'Mod One',
-						start: GetMsFromScheduleTime(7, 15),
-						end: GetMsFromScheduleTime(7, 55),
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(7, 55),
 					},
 					{
 						name: 'Mod Two',
-						start: GetMsFromScheduleTime(7, 58),
-						end: GetMsFromScheduleTime(8, 38),
+						start: getScheduleTime(7, 58),
+						end: getScheduleTime(8, 38),
 					},
 					{
 						name: 'Mod Three',
-						start: GetMsFromScheduleTime(8, 41),
-						end: GetMsFromScheduleTime(9, 23),
+						start: getScheduleTime(8, 41),
+						end: getScheduleTime(9, 23),
 					},
 					{
 						name: 'Assembly',
-						start: GetMsFromScheduleTime(9, 26),
-						end: GetMsFromScheduleTime(10, 26),
+						start: getScheduleTime(9, 26),
+						end: getScheduleTime(10, 26),
 					},
 					{
 						name: 'Mod Five',
-						start: GetMsFromScheduleTime(10, 29),
-						end: GetMsFromScheduleTime(11, 9),
+						start: getScheduleTime(10, 29),
+						end: getScheduleTime(11, 9),
 					},
 					{
 						name: 'Mod Six',
-						start: GetMsFromScheduleTime(11, 12),
-						end: GetMsFromScheduleTime(11, 52),
+						start: getScheduleTime(11, 12),
+						end: getScheduleTime(11, 52),
 					},
 					{
 						name: 'Mod Seven',
-						start: GetMsFromScheduleTime(11, 55),
-						end: GetMsFromScheduleTime(12, 35),
+						start: getScheduleTime(11, 55),
+						end: getScheduleTime(12, 35),
 					},
 					{
 						name: 'Mod Eight',
-						start: GetMsFromScheduleTime(12, 38),
-						end: GetMsFromScheduleTime(13, 18),
+						start: getScheduleTime(12, 38),
+						end: getScheduleTime(13, 18),
 					},
 					{
 						name: 'Mod Nine',
-						start: GetMsFromScheduleTime(13, 21),
-						end: GetMsFromScheduleTime(14, 5),
+						start: getScheduleTime(13, 21),
+						end: getScheduleTime(14, 5),
 					},
 				],
 			},
@@ -188,48 +192,48 @@ export const useMainStore = create<State & Action>()(
 				periods: [
 					{
 						name: 'Air Test',
-						start: GetMsFromScheduleTime(7, 15),
-						end: GetMsFromScheduleTime(9, 15),
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(9, 15),
 					},
 					{
 						name: 'Mod One',
-						start: GetMsFromScheduleTime(9, 20),
-						end: GetMsFromScheduleTime(9, 48),
+						start: getScheduleTime(9, 20),
+						end: getScheduleTime(9, 48),
 					},
 					{
 						name: 'Mod Two',
-						start: GetMsFromScheduleTime(9, 51),
-						end: GetMsFromScheduleTime(10, 19),
+						start: getScheduleTime(9, 51),
+						end: getScheduleTime(10, 19),
 					},
 					{
 						name: 'Mod Three',
-						start: GetMsFromScheduleTime(10, 22),
-						end: GetMsFromScheduleTime(10, 50),
+						start: getScheduleTime(10, 22),
+						end: getScheduleTime(10, 50),
 					},
 					{
 						name: 'Mod Five',
-						start: GetMsFromScheduleTime(10, 53),
-						end: GetMsFromScheduleTime(11, 33),
+						start: getScheduleTime(10, 53),
+						end: getScheduleTime(11, 33),
 					},
 					{
 						name: 'Mod Six',
-						start: GetMsFromScheduleTime(11, 36),
-						end: GetMsFromScheduleTime(12, 16),
+						start: getScheduleTime(11, 36),
+						end: getScheduleTime(12, 16),
 					},
 					{
 						name: 'Mod Seven',
-						start: GetMsFromScheduleTime(12, 19),
-						end: GetMsFromScheduleTime(12, 59),
+						start: getScheduleTime(12, 19),
+						end: getScheduleTime(12, 59),
 					},
 					{
 						name: 'Mod Eight',
-						start: GetMsFromScheduleTime(13, 2),
-						end: GetMsFromScheduleTime(13, 30),
+						start: getScheduleTime(13, 2),
+						end: getScheduleTime(13, 30),
 					},
 					{
 						name: 'Mod Nine',
-						start: GetMsFromScheduleTime(13, 33),
-						end: GetMsFromScheduleTime(14, 5),
+						start: getScheduleTime(13, 33),
+						end: getScheduleTime(14, 5),
 					},
 				],
 			},

@@ -27,7 +27,7 @@ export const getTimeDifference = (t1: Date, t2: Date) => {
 
 export const getRealTimeSchedule = (
 	ctx: CanvasRenderingContext2D | null,
-	bells: number[][],
+	bells: Date[][],
 	schedule: Schedule,
 	x: number,
 	y: number
@@ -69,7 +69,7 @@ export const getRealTimeSchedule = (
 
 export const getEndOfNextPeriod = (now: Date, schedule: Schedule) => {
 	const pastAndPresentMods = schedule.periods.filter((period) => {
-		return period.end < now.getTime()
+		return period.end < now
 	})
 	if (schedule.periods[pastAndPresentMods.length] !== undefined) {
 		return schedule.periods[pastAndPresentMods.length].end
@@ -83,7 +83,7 @@ export const getEndOfNextPeriod = (now: Date, schedule: Schedule) => {
 export const getLongestModMs = (schedule: Schedule) => {
 	let longestModMs = 0
 	schedule.periods.forEach((period) => {
-		const diff = period.end - period.start
+		const diff = period.end.getTime() - period.start.getTime()
 		diff > longestModMs ? (longestModMs = diff) : null
 	})
 	return longestModMs

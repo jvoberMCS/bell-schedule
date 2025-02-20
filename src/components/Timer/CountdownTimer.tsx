@@ -2,7 +2,6 @@ import {
 	currentTimeClock,
 	getRealTimeSchedule,
 	nextEndOfMod,
-	timeLeftInDay,
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import { dracComment, dracFg } from '@/theme/colors/colors'
@@ -44,16 +43,16 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				const now = new Date()
 
 				const bells = schedule.periods.map((period) => {
-					return [period.start, now.getTime(), period.end]
+					return [period.start, now, period.end]
 				})
 
 				getRealTimeSchedule(ctx, bells, schedule, w * 0.05, h * 0.1)
 
 				ctx.font = '30pt Fira Code'
 				ctx.textAlign = 'center'
-				currentTimeClock(ctx, now, w * 0.75, h * 0.15)
-				nextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.35)
-				timeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.55)
+				currentTimeClock(ctx, now, w * 0.75, h * 0.25)
+				nextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.5)
+				//timeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
 
 				// Start a new Path
 				ctx.strokeStyle = dracComment
