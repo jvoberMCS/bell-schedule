@@ -66,10 +66,6 @@ export const getRealTimeSchedule = (
 			ctx.fillText(
 				str,
 				getCenteredXPos(ctx, x, str),
-				// y +
-				// 	parseFloat(`${bell[2] + 1}`) *
-				// 		(ctx.measureText(str).fontBoundingBoxAscent +
-				// 			ctx.measureText(str).fontBoundingBoxDescent)
 				y + fontHeight + i * lineHeight
 			)
 		})
@@ -98,10 +94,13 @@ export const nextEndOfMod = (
 	y: number
 ) => {
 	if (ctx !== null) {
-		const endOfNextPeriod = getEndOfNextPeriod(schedule)
-		const d = new Date(endOfNextPeriod)
-		d.setSeconds(0)
-		const str = `Next end of mod: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
+		const endOfNextPeriod = new Date(getEndOfNextPeriod(schedule))
+		const currentTime = new Date()
+		if (currentTime.getHours() > 14 && currentTime.getMinutes() > 5) {
+			endOfNextPeriod.setDate(currentTime.getDate() + 1)
+		}
+		const d = getTimeDifference(currentTime, endOfNextPeriod)
+		const str = `Next end of mod: ${d.hours < 10 ? '0' : ''}${d.hours}:${d.minutes < 10 ? '0' : ''}${d.minutes}:${d.seconds < 10 ? '0' : ''}${d.seconds}`
 		ctx.fillStyle = dracFg
 		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
 	}
