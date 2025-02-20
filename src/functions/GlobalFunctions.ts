@@ -7,11 +7,6 @@ Put Global Functions you want to be available everywhere in this file. Make sure
 
 import { dracRed, massillonOrange } from '@/theme/colors/colors'
 
-export const getCurrentTime = () => {
-	const now = new Date()
-	return now
-}
-
 export const getCenteredXPos = (
 	ctx: CanvasRenderingContext2D | null,
 	x: number,
@@ -45,6 +40,7 @@ export const getTimeDifference = (t1: Date, t2: Date) => {
 export const getRealTimeSchedule = (
 	ctx: CanvasRenderingContext2D | null,
 	bells: number[][],
+	schedule: Schedule,
 	x: number,
 	y: number
 ) => {
@@ -53,8 +49,7 @@ export const getRealTimeSchedule = (
 		bells.forEach((bell, i) => {
 			const d = new Date(bell[0])
 			d.setSeconds(0)
-			const modNumber = i + 1
-			const str = `Mod ${modNumber}: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
+			const str = `${schedule.periods[i].name}: ${d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
 			ctx.fillStyle = bell[0] > bell[1] ? massillonOrange : dracGray
 
 			const fontHeight =
@@ -70,13 +65,13 @@ export const getRealTimeSchedule = (
 			)
 		})
 		ctx.fillStyle = dracRed
-		ctx.font = '20px Fira Code'
+		ctx.font = '20pt Fira Code'
 	}
 }
 
-export const getEndOfNextPeriod = (schedule: Schedule) => {
+export const getEndOfNextPeriod = (now: Date, schedule: Schedule) => {
 	const pastAndPresentMods = schedule.periods.filter((period) => {
-		return period.end < getCurrentTime().getTime()
+		return period.end < now.getTime()
 	})
 	if (schedule.periods[pastAndPresentMods.length] !== undefined) {
 		return schedule.periods[pastAndPresentMods.length].end
@@ -89,36 +84,47 @@ export const getEndOfNextPeriod = (schedule: Schedule) => {
 
 export const nextEndOfMod = (
 	ctx: CanvasRenderingContext2D | null,
+	now: Date,
 	schedule: Schedule,
 	x: number,
 	y: number
 ) => {
 	if (ctx !== null) {
-		const endOfNextPeriod = new Date(getEndOfNextPeriod(schedule))
-		const currentTime = new Date()
-		if (currentTime.getHours() > 14 && currentTime.getMinutes() > 5) {
-			endOfNextPeriod.setDate(currentTime.getDate() + 1)
+		const endOfNextPeriod = new Date(getEndOfNextPeriod(now, schedule))
+		if (now.getHours() > 14 && now.getMinutes() > 5) {
+			endOfNextPeriod.setDate(now.getDate() + 1)
 		}
-		const d = getTimeDifference(currentTime, endOfNextPeriod)
-		const str = `Next end of mod: ${d.hours < 10 ? '0' : ''}${d.hours}:${d.minutes < 10 ? '0' : ''}${d.minutes}:${d.seconds < 10 ? '0' : ''}${d.seconds}`
+		const diff = getTimeDifference(now, endOfNextPeriod)
+		let str = ''
+		if (diff.diffInMs > 3780000) {
+			// 63 minutes of ms (the longest "mod" in any of the schedules)
+			// A long time until next mod (probably the end of the day or weekend etc.)
+			str = `Next end of mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
+		} else {
+			// Normal mod time
+			str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
+		}
 		ctx.fillStyle = dracFg
 		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
 	}
 }
 
-export const getTimeLeftInDay = (schedule: Schedule) => {
+export const getTimeLeftInDay = (now: Date, schedule: Schedule) => {
 	const endOfDay = new Date(schedule.periods[schedule.periods.length - 1].end)
-	return getTimeDifference(getCurrentTime(), endOfDay)
+	return getTimeDifference(now, endOfDay)
 }
 export const currentTimeClock = (
 	ctx: CanvasRenderingContext2D | null,
-	currentTime: Date,
+	now: Date,
 	x: number,
 	y: number
 ) => {
 	if (ctx !== null) {
 		ctx.fillStyle = dracYellow
-		const str = currentTime.toLocaleTimeString()
+		const str = now.toLocaleString([], {
+			hour: '2-digit',
+			minute: '2-digit',
+		})
 		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
 	}
 }
@@ -131,13 +137,14 @@ export const setFutureDate = (today: Date, numDaysInFuture: number) => {
 
 export const timeLeftInDay = (
 	ctx: CanvasRenderingContext2D | null,
+	now: Date,
 	schedule: Schedule,
 	x: number,
 	y: number
 ) => {
 	if (ctx !== null) {
 		ctx.fillStyle = dracGreen
-		const tl = getTimeLeftInDay(schedule)
+		const tl = getTimeLeftInDay(now, schedule)
 		const str = `${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} ${tl.negative === true ? 'since the end of the day' : 'until the end of the day'}`
 		ctx.fillText(str, getCenteredXPos(ctx, x, str), y)
 	}

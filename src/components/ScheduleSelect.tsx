@@ -15,28 +15,19 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 		(state) => state.setScheduleSelection
 	)
 
-	const getScheduleSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		switch (e.currentTarget.value) {
-			case 'Normal Schedule':
-				return 'NORMAL'
-			case 'Rally Schedule':
-				return 'RALLY'
-			default:
-				return 'NORMAL'
-		}
-	}
-
 	return (
 		<Box className='ScheduleSelect' color='dracFg'>
 			<NativeSelectRoot>
 				<NativeSelectField
 					onChange={(e) =>
-						setScheduleSelection(getScheduleSelection(e))
+						setScheduleSelection(
+							e.currentTarget.value as ScheduleSelection
+						)
 					}
 				>
 					{schedules.map((schedule) => {
 						return (
-							<option value={schedule.name} key={uuid()}>
+							<option value={schedule.selectionID} key={uuid()}>
 								{schedule.name}
 							</option>
 						)

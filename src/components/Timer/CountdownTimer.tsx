@@ -1,6 +1,5 @@
 import {
 	currentTimeClock,
-	getCurrentTime,
 	getRealTimeSchedule,
 	nextEndOfMod,
 	timeLeftInDay,
@@ -43,16 +42,17 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				ctx.fillStyle = dracFg
 
 				// Get the current time
-				const currentTime = getCurrentTime()
+				const now = new Date()
 
 				const bells = schedule.periods.map((period, mod) => {
-					return [period.end, getCurrentTime().getTime(), mod]
+					return [period.end, now.getTime(), mod]
 				})
 
-				getRealTimeSchedule(ctx, bells, w / 4, h * 0.1)
-				currentTimeClock(ctx, currentTime, w * (2 / 3), h * (1 / 5))
-				nextEndOfMod(ctx, schedule, w * (2 / 3), h * (2 / 5))
-				timeLeftInDay(ctx, schedule, w * (2 / 3), h * (3 / 5))
+				getRealTimeSchedule(ctx, bells, schedule, w / 4, h * 0.1)
+
+				currentTimeClock(ctx, now, w * (2 / 3), h * 0.15)
+				nextEndOfMod(ctx, now, schedule, w * (2 / 3), h * 0.35)
+				timeLeftInDay(ctx, now, schedule, w * (2 / 3), h * 0.55)
 
 				animationFrameId = requestAnimationFrame(animate)
 			}
@@ -65,7 +65,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		}
 	}, [scheduleSelection])
 	return (
-		<Box border='1px solid orange'>
+		<Box>
 			<canvas ref={canvasRef} width={width} height={height} />
 		</Box>
 	)

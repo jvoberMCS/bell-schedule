@@ -34,47 +34,47 @@ export const useMainStore = create<State & Action>()(
 				selectionID: 'NORMAL',
 				periods: [
 					{
-						name: 'One',
+						name: 'Mod One',
 						start: GetMsFromScheduleTime(7, 15),
 						end: GetMsFromScheduleTime(7, 59),
 					},
 					{
-						name: 'Two',
+						name: 'Mod Two',
 						start: GetMsFromScheduleTime(8, 2),
 						end: GetMsFromScheduleTime(8, 46),
 					},
 					{
-						name: 'Three',
+						name: 'Mod Three',
 						start: GetMsFromScheduleTime(8, 49),
 						end: GetMsFromScheduleTime(9, 33),
 					},
 					{
-						name: 'Four',
+						name: 'Mod Four',
 						start: GetMsFromScheduleTime(9, 36),
 						end: GetMsFromScheduleTime(10, 6),
 					},
 					{
-						name: 'Five',
+						name: 'Mod Five',
 						start: GetMsFromScheduleTime(10, 9),
 						end: GetMsFromScheduleTime(10, 53),
 					},
 					{
-						name: 'Six',
+						name: 'Mod Six',
 						start: GetMsFromScheduleTime(10, 56),
 						end: GetMsFromScheduleTime(11, 40),
 					},
 					{
-						name: 'Seven',
+						name: 'Mod Seven',
 						start: GetMsFromScheduleTime(11, 43),
 						end: GetMsFromScheduleTime(12, 27),
 					},
 					{
-						name: 'Eight',
+						name: 'Mod Eight',
 						start: GetMsFromScheduleTime(12, 30),
 						end: GetMsFromScheduleTime(13, 14),
 					},
 					{
-						name: 'Nine',
+						name: 'Mod Nine',
 						start: GetMsFromScheduleTime(13, 17),
 						end: GetMsFromScheduleTime(14, 5),
 					},
@@ -85,42 +85,42 @@ export const useMainStore = create<State & Action>()(
 				selectionID: 'RALLY',
 				periods: [
 					{
-						name: 'One',
+						name: 'Mod One',
 						start: GetMsFromScheduleTime(7, 15),
 						end: GetMsFromScheduleTime(8, 0),
 					},
 					{
-						name: 'Two',
+						name: 'Mod Two',
 						start: GetMsFromScheduleTime(8, 3),
 						end: GetMsFromScheduleTime(8, 48),
 					},
 					{
-						name: 'Three',
+						name: 'Mod Three',
 						start: GetMsFromScheduleTime(8, 51),
 						end: GetMsFromScheduleTime(9, 41),
 					},
 					{
-						name: 'Five',
+						name: 'Mod Five',
 						start: GetMsFromScheduleTime(9, 44),
 						end: GetMsFromScheduleTime(10, 29),
 					},
 					{
-						name: 'Six',
+						name: 'Mod Six',
 						start: GetMsFromScheduleTime(10, 32),
 						end: GetMsFromScheduleTime(11, 17),
 					},
 					{
-						name: 'Seven',
+						name: 'Mod Seven',
 						start: GetMsFromScheduleTime(11, 20),
 						end: GetMsFromScheduleTime(12, 5),
 					},
 					{
-						name: 'Eight',
+						name: 'Mod Eight',
 						start: GetMsFromScheduleTime(12, 8),
 						end: GetMsFromScheduleTime(12, 53),
 					},
 					{
-						name: 'Nine',
+						name: 'Mod Nine',
 						start: GetMsFromScheduleTime(12, 56),
 						end: GetMsFromScheduleTime(13, 41),
 					},
@@ -136,17 +136,17 @@ export const useMainStore = create<State & Action>()(
 				selectionID: 'ASSEMBLY',
 				periods: [
 					{
-						name: 'One',
+						name: 'Mod One',
 						start: GetMsFromScheduleTime(7, 15),
 						end: GetMsFromScheduleTime(7, 55),
 					},
 					{
-						name: 'Two',
+						name: 'Mod Two',
 						start: GetMsFromScheduleTime(7, 58),
 						end: GetMsFromScheduleTime(8, 38),
 					},
 					{
-						name: 'Three',
+						name: 'Mod Three',
 						start: GetMsFromScheduleTime(8, 41),
 						end: GetMsFromScheduleTime(9, 23),
 					},
@@ -156,27 +156,27 @@ export const useMainStore = create<State & Action>()(
 						end: GetMsFromScheduleTime(10, 26),
 					},
 					{
-						name: 'Five',
+						name: 'Mod Five',
 						start: GetMsFromScheduleTime(10, 29),
 						end: GetMsFromScheduleTime(11, 9),
 					},
 					{
-						name: 'Six',
+						name: 'Mod Six',
 						start: GetMsFromScheduleTime(11, 12),
 						end: GetMsFromScheduleTime(11, 52),
 					},
 					{
-						name: 'Seven',
+						name: 'Mod Seven',
 						start: GetMsFromScheduleTime(11, 55),
 						end: GetMsFromScheduleTime(12, 35),
 					},
 					{
-						name: 'Eight',
+						name: 'Mod Eight',
 						start: GetMsFromScheduleTime(12, 38),
 						end: GetMsFromScheduleTime(13, 18),
 					},
 					{
-						name: 'Nine',
+						name: 'Mod Nine',
 						start: GetMsFromScheduleTime(13, 21),
 						end: GetMsFromScheduleTime(14, 5),
 					},
