@@ -20,6 +20,10 @@ export const dracCl = '#44475A'
 export const dracFg = '#F8F8F2'
 export const dracForeground = '#F8F8F2'
 export const dracComment = '#6272A4'
+export const dracBg2 = '#0C0020'
+export const dracBackground2 = '#0C0020'
+export const dracCl2 = '#392B55'
+export const dracCurrentLine2 = '#392B55'
 
 const red = {
 	DEFAULT: { value: '#FF5555' },
@@ -273,7 +277,7 @@ const comment = {
 	200: { value: '#445076' },
 	100: { value: '#445076' },
 }
-const MassillonOrange = {
+const massOrange = {
 	DEFAULT: { value: '#fe6a00' },
 	900: { value: '#fe6a00' },
 	800: { value: '#fe6a00' },
@@ -308,5 +312,5 @@ export const C = {
 	fg,
 	foreground,
 	comment,
-	MassillonOrange,
+	massOrange,
 }

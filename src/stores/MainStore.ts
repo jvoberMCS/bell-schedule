@@ -5,11 +5,31 @@ type State = {
 	/* Values go here.*/
 	scheduleSelection: ScheduleSelection
 	schedules: Schedule[]
+	timeUntilNextMod: {
+		hours: number
+		minutes: number
+		seconds: number
+	}
+	timeUntilEndOfDay: {
+		hours: number
+		minutes: number
+		seconds: number
+	}
 }
 
 type Action = {
 	/* Ways to alter the state go here.*/
 	setScheduleSelection: (newScheduleSelection: ScheduleSelection) => void
+	setTimeUntilNextMod: (timeUntilNextMod: {
+		hours: number
+		minutes: number
+		seconds: number
+	}) => void
+	setTimeUntilEndOfDay: (timeUntilEndOfDay: {
+		hours: number
+		minutes: number
+		seconds: number
+	}) => void
 }
 
 export const getScheduleTime = (hours: number, minutes: number) => {
@@ -245,6 +265,14 @@ export const useMainStore = create<State & Action>()(
 		setScheduleSelection: (newScheduleSelection) =>
 			set((state) => {
 				state.scheduleSelection = newScheduleSelection
+			}),
+		setTimeUntilNextMod: (timeUntilNextMod) =>
+			set((state) => {
+				state.timeUntilNextMod = timeUntilNextMod
+			}),
+		setTimeUntilEndOfDay: (timeUntilEndOfDay) =>
+			set((state) => {
+				state.timeUntilEndOfDay = timeUntilEndOfDay
 			}),
 	}))
 	// {

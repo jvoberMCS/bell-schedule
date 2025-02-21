@@ -1,11 +1,22 @@
-import { dracFg, dracGray, dracGreen, dracYellow } from '@/theme/colors/colors'
+import {
+	dracFg,
+	dracGray,
+	dracGreen,
+	dracYellow,
+	massillonOrange,
+} from '@/theme/colors/colors'
 /*
 
 Put Global Functions you want to be available everywhere in this file. Make sure to export them.
 
 */
 
-import { dracRed, massillonOrange } from '@/theme/colors/colors'
+import { dracRed } from '@/theme/colors/colors'
+
+export const playBell = (pathToMp3: string) => {
+	const sound = new Audio(pathToMp3)
+	sound.play()
+}
 
 export const getTimeDifference = (t1: Date, t2: Date) => {
 	// Get the difference in milliseconds
@@ -102,11 +113,22 @@ export const nextEndOfMod = (
 			endOfNextPeriod.setDate(now.getDate() + 1)
 		}
 		const diff = getTimeDifference(now, endOfNextPeriod)
+		diff.seconds = 59 - now.getSeconds()
+
+		const hours = diff.hours
+		const minutes = diff.minutes
+		const seconds = diff.seconds
+
 		let str = ''
 		if (diff.diffInMs > getLongestModMs(schedule)) {
 			// A long time until next mod (probably the end of the day or weekend etc.)
 			str = `Next end of mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
 		} else {
+			// Play a bell sound if the time left is zero
+			if (hours === 0 && minutes === 0 && seconds === 0) {
+				playBell('@/assets/germanSchoolBell.mp3')
+			}
+
 			// Normal mod time
 			str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
 		}
@@ -114,10 +136,30 @@ export const nextEndOfMod = (
 		ctx.fillText(str, x, y)
 	}
 }
-
-export const getTimeLeftInDay = (now: Date, schedule: Schedule) => {
+export const getTimeLeftInDay = (
+	now: Date,
+	schedule: Schedule
+): {
+	hours: number
+	minutes: number
+	seconds: number
+	negative: boolean
+	diffInMs: number
+} => {
 	const endOfDay = new Date(schedule.periods[schedule.periods.length - 1].end)
-	return getTimeDifference(now, endOfDay)
+
+	// Just kinda works? Not sure why to be honest.
+	const hours = endOfDay.getHours() - now.getHours() - 1
+	const minutes = 59 + endOfDay.getMinutes() - now.getMinutes()
+	const seconds = 59 - now.getSeconds()
+
+	return {
+		hours: hours,
+		minutes: minutes,
+		seconds: seconds,
+		negative: false,
+		diffInMs: 1,
+	}
 }
 export const currentTimeClock = (
 	ctx: CanvasRenderingContext2D | null,

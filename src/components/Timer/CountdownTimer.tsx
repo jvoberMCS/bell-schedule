@@ -2,6 +2,7 @@ import {
 	currentTimeClock,
 	getRealTimeSchedule,
 	nextEndOfMod,
+	timeLeftInDay,
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import { dracComment, dracFg } from '@/theme/colors/colors'
@@ -52,7 +53,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				ctx.textAlign = 'center'
 				currentTimeClock(ctx, now, w * 0.75, h * 0.25)
 				nextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.5)
-				//timeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
+				timeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
 
 				// Start a new Path
 				ctx.strokeStyle = dracComment
