@@ -51,7 +51,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 				ctx.font = '30pt Fira Code'
 				ctx.textAlign = 'center'
-				currentTimeClock(ctx, now, w * 0.75, h * 0.25)
+				currentTimeClock(ctx, now, schedule, w * 0.75, h * 0.25)
 				nextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.5)
 				timeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
 

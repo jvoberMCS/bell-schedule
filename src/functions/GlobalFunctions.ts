@@ -124,11 +124,6 @@ export const nextEndOfMod = (
 			// A long time until next mod (probably the end of the day or weekend etc.)
 			str = `Next end of mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
 		} else {
-			// Play a bell sound if the time left is zero
-			if (hours === 0 && minutes === 0 && seconds === 0) {
-				playBell('@/assets/germanSchoolBell.mp3')
-			}
-
 			// Normal mod time
 			str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
 		}
@@ -164,6 +159,7 @@ export const getTimeLeftInDay = (
 export const currentTimeClock = (
 	ctx: CanvasRenderingContext2D | null,
 	now: Date,
+	schedule: Schedule,
 	x: number,
 	y: number
 ) => {
@@ -174,6 +170,31 @@ export const currentTimeClock = (
 			minute: '2-digit',
 		})
 		ctx.fillText(str, x, y)
+
+		// Check if we should play a bell
+		schedule.periods.forEach((period) => {
+			const ahora = {
+				hours: now.getHours(),
+				minutes: now.getMinutes(),
+				seconds: now.getSeconds(),
+			}
+			const startTime = {
+				hours: period.start.getHours(),
+				minutes: period.start.getMinutes(),
+				seconds: period.start.getSeconds(),
+			}
+
+			const endTime = {
+				hours: period.end.getHours(),
+				minutes: period.end.getMinutes(),
+				seconds: period.end.getSeconds(),
+			}
+
+			// Play a bell sound if it's either the start or end of a mod
+			if (ahora === startTime || ahora === endTime) {
+				playBell('@/assets/germanSchoolBell.mp3')
+			}
+		})
 	}
 }
 

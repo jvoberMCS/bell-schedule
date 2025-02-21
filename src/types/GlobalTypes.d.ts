@@ -320,9 +320,11 @@ type Schedule = {
 }
 type ScheduleSelection =
 	| 'REGULAR'
-	| 'NORMAL'
 	| 'RALLY'
 	| 'ASSEMBLY'
 	| 'AIR'
 	| 'MMOSB'
-	| 'TESTING'
+	| 'EXAM1'
+	| 'EXAM2'
+	| 'EXAM3'
+	| 'MCKRALLY'

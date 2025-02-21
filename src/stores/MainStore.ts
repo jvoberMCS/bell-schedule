@@ -257,6 +257,216 @@ export const useMainStore = create<State & Action>()(
 					},
 				],
 			},
+			{
+				name: 'Exam Schedule - Day 1',
+				selectionID: 'EXAM1',
+				periods: [
+					{
+						name: 'Mod One',
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(8, 15),
+					},
+					{
+						name: 'Mod Two',
+						start: getScheduleTime(8, 20),
+						end: getScheduleTime(9, 20),
+					},
+					{
+						name: 'Mod Five',
+						start: getScheduleTime(9, 25),
+						end: getScheduleTime(10, 25),
+					},
+					{
+						name: 'Student Lunch',
+						start: getScheduleTime(10, 30),
+						end: getScheduleTime(11, 0),
+					},
+					{
+						name: 'Staff Lunch',
+						start: getScheduleTime(10, 30),
+						end: getScheduleTime(11, 15),
+					},
+					{
+						name: 'Make-Ups',
+						start: getScheduleTime(11, 15),
+						end: getScheduleTime(14, 5),
+					},
+				],
+			},
+			{
+				name: 'Exam Schedule - Day 2',
+				selectionID: 'EXAM2',
+				periods: [
+					{
+						name: 'Mod Three',
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(8, 15),
+					},
+					{
+						name: 'Mod Eight',
+						start: getScheduleTime(8, 20),
+						end: getScheduleTime(9, 20),
+					},
+					{
+						name: 'Mod Six',
+						start: getScheduleTime(9, 25),
+						end: getScheduleTime(10, 25),
+					},
+					{
+						name: 'Student Lunch',
+						start: getScheduleTime(10, 30),
+						end: getScheduleTime(11, 0),
+					},
+					{
+						name: 'Staff Lunch',
+						start: getScheduleTime(10, 30),
+						end: getScheduleTime(11, 15),
+					},
+					{
+						name: 'Make-Ups',
+						start: getScheduleTime(11, 15),
+						end: getScheduleTime(14, 5),
+					},
+				],
+			},
+			{
+				name: 'Exam Schedule - Day 3',
+				selectionID: 'EXAM3',
+				periods: [
+					{
+						name: 'Mod Nine',
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(8, 15),
+					},
+					{
+						name: 'Mod Seven',
+						start: getScheduleTime(8, 20),
+						end: getScheduleTime(9, 20),
+					},
+					{
+						name: 'Make-Ups',
+						start: getScheduleTime(9, 25),
+						end: getScheduleTime(10, 25),
+					},
+					{
+						name: 'Student Lunch',
+						start: getScheduleTime(10, 30),
+						end: getScheduleTime(11, 0),
+					},
+					{
+						name: 'Staff Lunch',
+						start: getScheduleTime(10, 30),
+						end: getScheduleTime(11, 15),
+					},
+					{
+						name: 'Make-Ups',
+						start: getScheduleTime(11, 15),
+						end: getScheduleTime(14, 5),
+					},
+				],
+			},
+			{
+				name: 'Beat McKinley Rally Schdeule',
+				selectionID: 'MCKRALLY',
+				periods: [
+					{
+						name: 'Mod One',
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(8, 5),
+					},
+					{
+						name: 'Mod Two',
+						start: getScheduleTime(8, 8),
+						end: getScheduleTime(8, 44),
+					},
+					{
+						name: 'Mod Three',
+						start: getScheduleTime(8, 47),
+						end: getScheduleTime(9, 23),
+					},
+					{
+						name: 'Mod Five',
+						start: getScheduleTime(9, 26),
+						end: getScheduleTime(10, 6),
+					},
+					{
+						name: 'Mod Six',
+						start: getScheduleTime(10, 9),
+						end: getScheduleTime(10, 49),
+					},
+					{
+						name: 'Mod Seven',
+						start: getScheduleTime(10, 52),
+						end: getScheduleTime(11, 32),
+					},
+					{
+						name: 'Mod Eight',
+						start: getScheduleTime(11, 35),
+						end: getScheduleTime(12, 11),
+					},
+					{
+						name: 'Mod Nine',
+						start: getScheduleTime(12, 14),
+						end: getScheduleTime(12, 55),
+					},
+					{
+						name: 'Rally',
+						start: getScheduleTime(13, 15),
+						end: getScheduleTime(12, 0),
+					},
+				],
+			},
+			{
+				name: 'Miss Mass / OSB Schedule',
+				selectionID: 'MMOSB',
+				periods: [
+					{
+						name: 'Mod One',
+						start: getScheduleTime(7, 15),
+						end: getScheduleTime(7, 51),
+					},
+					{
+						name: 'Mod Two',
+						start: getScheduleTime(7, 54),
+						end: getScheduleTime(8, 30),
+					},
+					{
+						name: 'Mod Three',
+						start: getScheduleTime(8, 33),
+						end: getScheduleTime(9, 13),
+					},
+					{
+						name: 'Assembly',
+						start: getScheduleTime(9, 16),
+						end: getScheduleTime(10, 26),
+					},
+					{
+						name: 'Mod Five',
+						start: getScheduleTime(10, 29),
+						end: getScheduleTime(11, 9),
+					},
+					{
+						name: 'Mod Six',
+						start: getScheduleTime(11, 12),
+						end: getScheduleTime(11, 52),
+					},
+					{
+						name: 'Mod Seven',
+						start: getScheduleTime(11, 55),
+						end: getScheduleTime(12, 35),
+					},
+					{
+						name: 'Mod Eight',
+						start: getScheduleTime(12, 38),
+						end: getScheduleTime(13, 18),
+					},
+					{
+						name: 'Mod Nine',
+						start: getScheduleTime(13, 21),
+						end: getScheduleTime(14, 5),
+					},
+				],
+			},
 		],
 
 		/////////////
