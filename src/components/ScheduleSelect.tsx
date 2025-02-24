@@ -14,6 +14,7 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 	const setScheduleSelection = useMainStore(
 		(state) => state.setScheduleSelection
 	)
+	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
 
 	return (
 		<Box className='ScheduleSelect' color='dracFg'>
@@ -23,6 +24,11 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 						setScheduleSelection(
 							e.currentTarget.value as ScheduleSelection
 						)
+					}
+					value={
+						schedules.filter((schedule) => {
+							return schedule.selectionID === scheduleSelection
+						})[0].name
 					}
 				>
 					{schedules.map((schedule) => {

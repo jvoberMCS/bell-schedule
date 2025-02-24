@@ -307,10 +307,11 @@ type UTCFields = {
 	seconds: Second
 	milliseconds: Millisecond
 }
+
 type Period = {
-	name: string
-	start: Date
-	end: Date
+	name: ModName
+	start: { time: Date; bellPlayed: boolean }
+	end: { time: Date; bellPlayed: boolean }
 }
 
 type Schedule = {
@@ -318,6 +319,7 @@ type Schedule = {
 	selectionID: ScheduleSelection
 	periods: Period[]
 }
+
 type ScheduleSelection =
 	| 'REGULAR'
 	| 'RALLY'
@@ -328,3 +330,24 @@ type ScheduleSelection =
 	| 'EXAM2'
 	| 'EXAM3'
 	| 'MCKRALLY'
+	| 'TEST'
+
+type ModName =
+	| 'Mod One'
+	| 'Mod Two'
+	| 'Mod Three'
+	| 'Mod Four'
+	| 'Mod Five'
+	| 'Mod Six'
+	| 'Mod Seven'
+	| 'Mod Eight'
+	| 'Mod Nine'
+	| 'Mod X'
+	| 'Rally'
+	| 'Assembly'
+	| 'Air Test'
+	| 'Student Lunch'
+	| 'Staff Lunch'
+	| 'Make-Ups'
+	| 'Test Mod'
+	| 'Misc'

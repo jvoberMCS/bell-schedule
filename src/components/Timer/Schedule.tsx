@@ -25,15 +25,19 @@ export const Schedule: ScheduleProps = () => {
 							return (
 								<Box key={uuid()}>
 									{'Mod '} {period.name} {' ==> '}{' '}
-									{msToTime(period.start).toLocaleTimeString(
-										[],
-										{ hour: '2-digit', minute: '2-digit' }
-									)}{' '}
+									{msToTime(
+										period.start.time.getTime()
+									).toLocaleTimeString([], {
+										hour: '2-digit',
+										minute: '2-digit',
+									})}{' '}
 									-{' '}
-									{msToTime(period.end).toLocaleTimeString(
-										[],
-										{ hour: '2-digit', minute: '2-digit' }
-									)}
+									{msToTime(
+										period.end.time.getTime()
+									).toLocaleTimeString([], {
+										hour: '2-digit',
+										minute: '2-digit',
+									})}
 								</Box>
 							)
 						})}
