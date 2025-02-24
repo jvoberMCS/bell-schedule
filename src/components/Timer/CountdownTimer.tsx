@@ -1,13 +1,14 @@
 import {
-	currentTimeClock,
 	getRealTimeSchedule,
 	nextEndOfMod,
 	timeLeftInDay,
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
-import { dracComment, dracFg } from '@/theme/colors/colors'
+import { dracComment, dracFg, dracYellow } from '@/theme/colors/colors'
 import { Box } from '@chakra-ui/react/box'
 import React, { useEffect, useRef } from 'react'
+import useSound from 'use-sound'
+import germanSchoolBellSound from '../../assets/germanSchoolBell.mp3'
 
 type Props = { width: number; height: number }
 type CountdownTimerProps =
@@ -19,6 +20,49 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
 	const schedules = useMainStore((state) => state.schedules)
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
+	const [play] = useSound(germanSchoolBellSound)
+
+	const currentTimeClock = (
+		ctx: CanvasRenderingContext2D | null,
+		now: Date,
+		schedule: Schedule,
+		x: number,
+		y: number
+	) => {
+		if (ctx !== null) {
+			ctx.fillStyle = dracYellow
+			const str = now.toLocaleString([], {
+				hour: '2-digit',
+				minute: '2-digit',
+			})
+			ctx.fillText(str, x, y)
+
+			// Check if we should play a bell
+			schedule.periods.forEach((period) => {
+				const ahora = {
+					hours: now.getHours(),
+					minutes: now.getMinutes(),
+					seconds: now.getSeconds(),
+				}
+				const startTime = {
+					hours: period.start.getHours(),
+					minutes: period.start.getMinutes(),
+					seconds: period.start.getSeconds(),
+				}
+
+				const endTime = {
+					hours: period.end.getHours(),
+					minutes: period.end.getMinutes(),
+					seconds: period.end.getSeconds(),
+				}
+
+				// Play a bell sound if it's either the start or end of a mod
+				if (ahora === startTime || ahora === endTime) {
+					play()
+				}
+			})
+		}
+	}
 
 	useEffect(() => {
 		const canvas = canvasRef.current
@@ -58,8 +102,8 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				// Start a new Path
 				ctx.strokeStyle = dracComment
 				ctx.beginPath()
-				ctx.moveTo(w * 0.5, 0)
-				ctx.lineTo(w * 0.5, h)
+				ctx.moveTo(w * 0.55, 0)
+				ctx.lineTo(w * 0.55, h)
 
 				// Draw the Path
 				ctx.stroke()

@@ -2,9 +2,9 @@ import {
 	dracFg,
 	dracGray,
 	dracGreen,
-	dracYellow,
 	massillonOrange,
 } from '@/theme/colors/colors'
+
 /*
 
 Put Global Functions you want to be available everywhere in this file. Make sure to export them.
@@ -12,11 +12,6 @@ Put Global Functions you want to be available everywhere in this file. Make sure
 */
 
 import { dracRed } from '@/theme/colors/colors'
-
-export const playBell = (pathToMp3: string) => {
-	const sound = new Audio(pathToMp3)
-	sound.play()
-}
 
 export const getTimeDifference = (t1: Date, t2: Date) => {
 	// Get the difference in milliseconds
@@ -66,8 +61,8 @@ export const getRealTimeSchedule = (
 			ctx.textAlign = 'right'
 			ctx.fillText(
 				str2,
-				// use "Mod fifteen" because it will be longer than any of the mod names
-				x + ctx.measureText('Mod fifteen:').width * 2.5,
+				// use "Student Lunch:" because it will be the longest of the mod names
+				x + ctx.measureText('Student Lunch:').width * 2.5,
 				y + fontHeight + i * lineHeight
 			)
 		})
@@ -115,10 +110,6 @@ export const nextEndOfMod = (
 		const diff = getTimeDifference(now, endOfNextPeriod)
 		diff.seconds = 59 - now.getSeconds()
 
-		const hours = diff.hours
-		const minutes = diff.minutes
-		const seconds = diff.seconds
-
 		let str = ''
 		if (diff.diffInMs > getLongestModMs(schedule)) {
 			// A long time until next mod (probably the end of the day or weekend etc.)
@@ -154,47 +145,6 @@ export const getTimeLeftInDay = (
 		seconds: seconds,
 		negative: false,
 		diffInMs: 1,
-	}
-}
-export const currentTimeClock = (
-	ctx: CanvasRenderingContext2D | null,
-	now: Date,
-	schedule: Schedule,
-	x: number,
-	y: number
-) => {
-	if (ctx !== null) {
-		ctx.fillStyle = dracYellow
-		const str = now.toLocaleString([], {
-			hour: '2-digit',
-			minute: '2-digit',
-		})
-		ctx.fillText(str, x, y)
-
-		// Check if we should play a bell
-		schedule.periods.forEach((period) => {
-			const ahora = {
-				hours: now.getHours(),
-				minutes: now.getMinutes(),
-				seconds: now.getSeconds(),
-			}
-			const startTime = {
-				hours: period.start.getHours(),
-				minutes: period.start.getMinutes(),
-				seconds: period.start.getSeconds(),
-			}
-
-			const endTime = {
-				hours: period.end.getHours(),
-				minutes: period.end.getMinutes(),
-				seconds: period.end.getSeconds(),
-			}
-
-			// Play a bell sound if it's either the start or end of a mod
-			if (ahora === startTime || ahora === endTime) {
-				playBell('@/assets/germanSchoolBell.mp3')
-			}
-		})
 	}
 }
 
