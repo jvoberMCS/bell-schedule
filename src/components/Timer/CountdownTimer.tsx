@@ -78,21 +78,92 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		})
 	}
 
-	const getTimeDifference = (t1: Date, t2: Date) => {
-		// Get the difference in milliseconds
-		const diffInMilliseconds = t2.getTime() - t1.getTime()
+	const msToSeconds = (ms: number) => {
+		return ms / 1000
+	}
 
-		// Calculate the difference in hours, minutes, and seconds
-		const diffInSeconds = Math.abs(Math.round(diffInMilliseconds / 1000))
-		const hours = Math.floor(diffInSeconds / 3600)
-		const minutes = Math.floor((diffInSeconds % 3600) / 60)
-		const seconds = diffInSeconds % 60
+	const secondsToMinutes = (seconds: number) => {
+		return seconds / 60
+	}
+
+	const minutesToHours = (minutes: number) => {
+		return minutes / 60
+	}
+
+	const hoursToDays = (hours: number) => {
+		return hours / 24
+	}
+
+	const msToMinutes = (ms: number) => {
+		return secondsToMinutes(msToSeconds(ms))
+	}
+
+	const msToHours = (ms: number) => {
+		return minutesToHours(msToMinutes(ms))
+	}
+
+	const msToDays = (ms: number) => {
+		return hoursToDays(msToHours(ms))
+	}
+
+	const hoursToMinutes = (hours: number) => {
+		return hours * 60
+	}
+
+	const minutesToSeconds = (minutes: number) => {
+		return minutes * 60
+	}
+
+	const secondsToMilliseconds = (seconds: number) => {
+		return seconds * 1000
+	}
+
+	const daysToHours = (days: number) => {
+		return days * 24
+	}
+
+	const daysToMinutes = (days: number) => {
+		return hoursToMinutes(daysToHours(days))
+	}
+
+	const getTimeDifference = (
+		t1: Date,
+		t2: Date
+	): {
+		days: number
+		hours: number
+		minutes: number
+		seconds: number
+		milliseconds: number
+		deltaMs: number
+	} => {
+		const deltaMs = t2.getTime() - t1.getTime()
+		const rawSeconds = msToSeconds(deltaMs)
+		const rawMinutes = msToMinutes(deltaMs)
+		const rawHours = msToHours(deltaMs)
+		const rawDays = msToDays(deltaMs)
+
+		const days = Math.floor(rawDays)
+		const hours = Math.floor(rawHours) - daysToHours(days)
+		const minutes =
+			Math.floor(rawMinutes) - hoursToMinutes(hours) - daysToMinutes(days)
+		const seconds =
+			Math.floor(rawSeconds) -
+			minutesToSeconds(minutes) -
+			minutesToSeconds(hoursToMinutes(hours)) +
+			1
+		const milliseconds = Math.floor(deltaMs)
+
+		// const isAfterSchool =
+		// 	endOfDay.getTime() - t1.getTime() > 0 ? false : true
+
 		return {
+			days: days,
 			hours: hours,
 			minutes: minutes,
 			seconds: seconds,
-			negative: diffInMilliseconds < 0 ? true : false,
-			diffInMs: diffInMilliseconds,
+			milliseconds: milliseconds,
+			deltaMs: deltaMs,
 		}
 	}
 
@@ -121,38 +192,47 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		now: Date,
 		schedule: Schedule
 	): {
+		days: number
 		hours: number
 		minutes: number
 		seconds: number
-		negative: boolean
+		milliseconds: number
+		isAfterSchool: boolean
 		diffInMs: number
 	} => {
 		const endOfDay = new Date(
 			schedule.periods[schedule.periods.length - 1].end.time
 		)
 
-		// Just kinda works? Not sure why to be honest.
-		// const hours = endOfDay.getHours() - now.getHours()- 1
-		// const minutes = 59 + endOfDay.getMinutes() - now.getMinutes()
-		// const seconds = 59 - now.getSeconds()
-		const neg = endOfDay.getTime() - now.getTime()
-		const hours =
-			endOfDay.getHours() - now.getHours() < 0
-				? now.getHours() - endOfDay.getHours()
-				: endOfDay.getHours() - now.getHours()
-		const minutes =
-			endOfDay.getMinutes() - now.getMinutes() < 0
-				? now.getMinutes() - endOfDay.getMinutes()
-				: endOfDay.getMinutes() - now.getMinutes()
-		const seconds = neg < 0 ? now.getSeconds() : 60 - now.getSeconds()
+		const timeDifference = getTimeDifference(now, endOfDay)
+
+		const isAfterSchool =
+			endOfDay.getTime() - now.getTime() > 0 ? false : true
 
 		return {
-			hours: hours,
-			minutes: minutes,
-			seconds: seconds,
-			negative: neg < 0 ? true : false,
-			diffInMs: 1,
+			days: timeDifference.days,
+			hours:
+				timeDifference.minutes === 60
+					? timeDifference.hours + 1
+					: timeDifference.hours,
+			minutes:
+				timeDifference.seconds === 60
+					? timeDifference.minutes + 1
+					: timeDifference.minutes,
+			seconds: timeDifference.seconds === 60 ? 0 : timeDifference.seconds,
+			milliseconds: timeDifference.milliseconds,
+			isAfterSchool: isAfterSchool,
+			diffInMs: timeDifference.deltaMs,
 		}
+	}
+
+	const getTimeLeftInMod = (now: Date, schedule: Schedule) => {
+		const endOfNextPeriod = new Date(
+			getCurrentPeriod(now, schedule).end.time
+		)
+		const diff = getTimeDifference(now, endOfNextPeriod)
+
+		return diff
 	}
 
 	const drawNextEndOfMod = (
@@ -168,11 +248,11 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			const endOfNextPeriod = new Date(
 				getCurrentPeriod(now, schedule).end.time
 			)
+
 			if (now.getHours() > 14 && now.getMinutes() > 5) {
 				endOfNextPeriod.setDate(now.getDate() + 1)
 			}
-			const diff = getTimeDifference(now, endOfNextPeriod)
-			diff.seconds = 59 - now.getSeconds()
+			const diff = getTimeLeftInMod(now, schedule)
 
 			let str = ''
 			if (
@@ -183,7 +263,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				str = `The day is over!`
 			} else {
 				// Normal mod time
-				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds}`
+				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes === 60 ? 59 : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? 59 : diff.seconds}`
 			}
 			ctx.fillStyle = dracFg
 			ctx.fillText(str, x, y)
@@ -255,8 +335,22 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			ctx.textAlign = 'center'
 			ctx.fillStyle = dracGreen
 			const tl = getTimeLeftInDay(now, schedule)
-			const str = `${tl.negative === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
-			ctx.fillText(str, x, y)
+			const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
+			ctx.fillText(str, x, y + 200)
+			// ctx.font = '30pt Fira Code'
+			// ctx.textAlign = 'center'
+			// ctx.fillStyle = dracGreen
+			// const tl = getTimeLeftInDay(now, schedule)
+			// const str1 = `Days: ${tl.days < 10 ? '0' : ''}${tl.days}`
+			// const str2 = `Hours: ${tl.hours < 10 ? '0' : ''}${tl.hours}`
+			// const str3 = `Minutes: ${tl.minutes < 10 ? '0' : ''}${tl.minutes}`
+			// const str4 = `Seconds: ${tl.seconds < 10 ? '0' : ''}${tl.seconds}`
+			// const str5 = `Milliseconds: ${tl.milliseconds < 10 ? '0' : ''}${tl.milliseconds}`
+			// ctx.fillText(str1, x, y + 50)
+			// ctx.fillText(str2, x, y + 100)
+			// ctx.fillText(str3, x, y + 150)
+			// ctx.fillText(str4, x, y + 200)
+			// ctx.fillText(str5, x, y + 250)
 		}
 	}
 
@@ -307,7 +401,8 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 			drawCurrentTime(ctx, now, w * 0.75, h * 0.25)
 			drawNextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.5)
-			drawTimeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
+			//drawTimeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
+			drawTimeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.5)
 
 			drawDividerLine(ctx, w, h)
 

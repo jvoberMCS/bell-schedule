@@ -2,6 +2,8 @@ export const getScheduleTime = (hours: number, minutes: number) => {
 	const time = new Date()
 	time.setHours(hours)
 	time.setMinutes(minutes)
+	time.setSeconds(0)
+	time.setMilliseconds(0)
 	return time
 }
 
@@ -26,7 +28,6 @@ export const getScheduleTime = (hours: number, minutes: number) => {
 // }
 
 export const ScheduleList = [
-	,
 	{
 		name: 'Regular Schedule',
 		selectionID: 'REGULAR',
