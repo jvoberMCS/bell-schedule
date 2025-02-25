@@ -5,25 +5,25 @@ export const getScheduleTime = (hours: number, minutes: number) => {
 	return time
 }
 
-const getNow = () => {
-	const now = new Date()
-	now.setHours(now.getMinutes() === 59 ? now.getHours() + 1 : now.getHours())
-	now.setMinutes(
-		now.getSeconds() === 59 ? now.getMinutes() + 1 : now.getMinutes()
-	)
-	return now
-}
+// const getNow = () => {
+// 	const now = new Date()
+// 	now.setHours(now.getMinutes() === 59 ? now.getHours() + 1 : now.getHours())
+// 	now.setMinutes(
+// 		now.getSeconds() === 59 ? now.getMinutes() + 1 : now.getMinutes()
+// 	)
+// 	return now
+// }
 
-const getNowPlusMin = (minutesToAdd: number) => {
-	const now = new Date()
-	now.setHours(now.getMinutes() === 59 ? now.getHours() + 1 : now.getHours())
-	now.setMinutes(
-		now.getSeconds() === 59
-			? now.getMinutes() + minutesToAdd + 1
-			: now.getMinutes() + minutesToAdd
-	)
-	return now
-}
+// const getNowPlusMin = (minutesToAdd: number) => {
+// 	const now = new Date()
+// 	now.setHours(now.getMinutes() === 59 ? now.getHours() + 1 : now.getHours())
+// 	now.setMinutes(
+// 		now.getSeconds() === 59
+// 			? now.getMinutes() + minutesToAdd + 1
+// 			: now.getMinutes() + minutesToAdd
+// 	)
+// 	return now
+// }
 
 export const ScheduleList = [
 	,
