@@ -872,7 +872,7 @@ export const ScheduleList = [
 			},
 		],
 	},
-	{
+	/* {
 		name: 'Test Schedule',
 		selectionID: 'TEST',
 		periods: [
@@ -976,5 +976,6 @@ export const ScheduleList = [
 				},
 			},
 		],
-	},
+	} */
+	,
 ]

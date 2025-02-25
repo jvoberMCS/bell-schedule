@@ -1,12 +1,11 @@
 import { useMainStore } from '@/stores/MainStore'
 import {
-	dracBlack,
-	dracComment,
+	dracCyan,
 	dracFg,
 	dracGray,
 	dracGreen,
+	dracPurple,
 	dracRed,
-	dracYellow,
 	massillonOrange,
 } from '@/theme/colors/colors'
 import { Box } from '@chakra-ui/react/box'
@@ -35,7 +34,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		if (ctx !== null) {
 			ctx.font = '30pt Fira Code'
 			ctx.textAlign = 'center'
-			ctx.fillStyle = dracYellow
+			ctx.fillStyle = dracCyan
 			const str = now.toLocaleString([], {
 				hour: '2-digit',
 				minute: '2-digit',
@@ -217,7 +216,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 						? currentPeriod.start.time === bell[0] &&
 							currentPeriod.end.time === bell[2]
 							? massillonOrange
-							: dracBlack
+							: '#6272A4'
 						: dracGray
 
 				const fontHeight =
@@ -268,7 +267,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 	) => {
 		if (ctx !== null) {
 			// Start a new Path
-			ctx.strokeStyle = dracComment
+			ctx.strokeStyle = dracPurple
 			ctx.beginPath()
 			ctx.moveTo(w * 0.55, 0)
 			ctx.lineTo(w * 0.55, h)
