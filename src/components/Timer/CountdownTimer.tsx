@@ -295,23 +295,38 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 					ctx.measureText(str1).fontBoundingBoxDescent
 				const lineSpacing = fontHeight * 0.1
 				const lineHeight = fontHeight + lineSpacing
+				const totalHeight = lineHeight * bells.length
+
+				const yOffset =
+					canvasRef.current !== null
+						? (canvasRef.current.height - totalHeight) / 2
+						: 0
+				const yLocation = yOffset + lineHeight * i
 
 				ctx.textAlign = 'left'
 
-				ctx.strokeText(str1, x, y + fontHeight + i * lineHeight)
-				ctx.fillText(str1, x, y + fontHeight + i * lineHeight)
+				ctx.strokeText(str1, x, yLocation)
+				ctx.fillText(str1, x, yLocation)
 				ctx.textAlign = 'right'
 				ctx.strokeText(
 					str2,
 					// use "Student Lunch:" because it will be the longest of the mod names
-					x + ctx.measureText('Student Lunch:').width * 2.5,
-					y + fontHeight + i * lineHeight
+					x +
+						ctx.measureText('Student Lunch:').width * 2.5 +
+						(canvasRef.current !== null
+							? canvasRef.current.width * 0.05
+							: 0),
+					yLocation
 				)
 				ctx.fillText(
 					str2,
 					// use "Student Lunch:" because it will be the longest of the mod names
-					x + ctx.measureText('Student Lunch:').width * 2.5,
-					y + fontHeight + i * lineHeight
+					x +
+						ctx.measureText('Student Lunch:').width * 2.5 +
+						(canvasRef.current !== null
+							? canvasRef.current.width * 0.05
+							: 0),
+					yLocation
 				)
 			})
 			ctx.fillStyle = dracRed
@@ -387,7 +402,8 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				return [period.start.time, now, period.end.time]
 			})
 
-			drawSchedule(ctx, bells, now, schedule, w * 0.05, h * 0.1)
+			//drawSchedule(ctx, bells, now, schedule, w, h)
+			drawSchedule(ctx, bells, now, schedule, w * 0.015, 0)
 
 			drawCurrentTime(ctx, now, w * 0.775, h * 0.25)
 			drawNextEndOfMod(ctx, now, schedule, w * 0.775, h * 0.5)

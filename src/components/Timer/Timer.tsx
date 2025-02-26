@@ -1,6 +1,6 @@
 import { ScheduleSelect } from '@/components/ScheduleSelect'
 import { CountdownTimer } from '@/components/Timer/CountdownTimer'
-import { Box } from '@chakra-ui/react'
+import { Box, VStack } from '@chakra-ui/react'
 
 type Props = {}
 type TimerProps =
@@ -10,7 +10,7 @@ type TimerProps =
 
 export const Timer: TimerProps = () => {
 	return (
-		<Box className='Timer' color='dracFg'>
+		<VStack className='Timer' color='dracFg'>
 			<Box h={window.innerHeight * 0.1}>
 				<ScheduleSelect />
 			</Box>
@@ -20,6 +20,6 @@ export const Timer: TimerProps = () => {
 					height={window.innerHeight * 0.9}
 				/>
 			</Box>
-		</Box>
+		</VStack>
 	)
 }
