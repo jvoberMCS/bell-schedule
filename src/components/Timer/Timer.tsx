@@ -11,9 +11,7 @@ type TimerProps =
 export const Timer: TimerProps = () => {
 	return (
 		<VStack className='Timer' color='dracFg'>
-			<Box h={window.innerHeight * 0.1}>
-				<ScheduleSelect />
-			</Box>
+			<ScheduleSelect />
 			<Box width={window.innerWidth}>
 				<CountdownTimer
 					width={window.innerWidth}

@@ -7,7 +7,7 @@ const config = defineConfig({
 	cssVarsRoot: ':where(:root, :host)',
 	globalCss: {
 		'html, body': {
-			background: C.background.DEFAULT.value,
+			background: '#282A36',
 		},
 	},
 	theme: {
