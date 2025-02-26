@@ -1,6 +1,6 @@
 import { useMainStore } from '@/stores/MainStore'
 import { Box, NativeSelectField, NativeSelectRoot } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
 type Props = {}
@@ -15,21 +15,23 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 		(state) => state.setScheduleSelection
 	)
 	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
+	const [value, setValue] = useState(
+		schedules.filter((schedule) => {
+			return schedule.selectionID === scheduleSelection
+		})[0].name
+	)
 
 	return (
 		<Box className='ScheduleSelect' color='dracFg'>
 			<NativeSelectRoot>
 				<NativeSelectField
-					onChange={(e) =>
+					onChange={(e) => {
 						setScheduleSelection(
 							e.currentTarget.value as ScheduleSelection
 						)
-					}
-					value={
-						schedules.filter((schedule) => {
-							return schedule.selectionID === scheduleSelection
-						})[0].name
-					}
+						setValue(e.currentTarget.value as ScheduleSelection)
+					}}
+					value={value}
 				>
 					{schedules.map((schedule) => {
 						return (

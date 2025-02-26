@@ -1,9 +1,17 @@
+import {
+	daysToHours,
+	daysToMinutes,
+	hoursToMinutes,
+	minutesToSeconds,
+	msToDays,
+	msToHours,
+	msToMinutes,
+	msToSeconds,
+} from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import {
-	dracCyan,
 	dracFg,
 	dracGray,
-	dracGreen,
 	dracPurple,
 	dracRed,
 	massillonOrange,
@@ -34,12 +42,17 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		if (ctx !== null) {
 			ctx.font = '30pt Fira Code'
 			ctx.textAlign = 'center'
-			ctx.fillStyle = dracCyan
+			ctx.fillStyle = dracFg
 			const str = now.toLocaleString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 				second: 'numeric',
 			})
+			ctx.fillStyle = dracFg
+			ctx.strokeStyle = 'black'
+			ctx.lineWidth = 6
+			ctx.miterLimit = 2 // Gets rid of glitches
+			ctx.strokeText(str, x, y)
 			ctx.fillText(str, x, y)
 		}
 	}
@@ -76,54 +89,6 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				playBellSound()
 			}
 		})
-	}
-
-	const msToSeconds = (ms: number) => {
-		return ms / 1000
-	}
-
-	const secondsToMinutes = (seconds: number) => {
-		return seconds / 60
-	}
-
-	const minutesToHours = (minutes: number) => {
-		return minutes / 60
-	}
-
-	const hoursToDays = (hours: number) => {
-		return hours / 24
-	}
-
-	const msToMinutes = (ms: number) => {
-		return secondsToMinutes(msToSeconds(ms))
-	}
-
-	const msToHours = (ms: number) => {
-		return minutesToHours(msToMinutes(ms))
-	}
-
-	const msToDays = (ms: number) => {
-		return hoursToDays(msToHours(ms))
-	}
-
-	const hoursToMinutes = (hours: number) => {
-		return hours * 60
-	}
-
-	const minutesToSeconds = (minutes: number) => {
-		return minutes * 60
-	}
-
-	const secondsToMilliseconds = (seconds: number) => {
-		return seconds * 1000
-	}
-
-	const daysToHours = (days: number) => {
-		return days * 24
-	}
-
-	const daysToMinutes = (days: number) => {
-		return hoursToMinutes(daysToHours(days))
 	}
 
 	const getTimeDifference = (
@@ -204,22 +169,41 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			schedule.periods[schedule.periods.length - 1].end.time
 		)
 
-		const timeDifference = getTimeDifference(now, endOfDay)
-
 		const isAfterSchool =
 			endOfDay.getTime() - now.getTime() > 0 ? false : true
+
+		const timeDifference =
+			isAfterSchool === true
+				? getTimeDifference(endOfDay, now)
+				: getTimeDifference(now, endOfDay)
 
 		return {
 			days: timeDifference.days,
 			hours:
-				timeDifference.minutes === 60
-					? timeDifference.hours + 1
-					: timeDifference.hours,
+				isAfterSchool === false
+					? timeDifference.hours === 24
+						? timeDifference.hours + 1
+						: timeDifference.hours
+					: timeDifference.hours - 1 === 24
+						? 0
+						: timeDifference.hours,
 			minutes:
-				timeDifference.seconds === 60
-					? timeDifference.minutes + 1
-					: timeDifference.minutes,
-			seconds: timeDifference.seconds === 60 ? 0 : timeDifference.seconds,
+				isAfterSchool === false
+					? timeDifference.minutes === 60
+						? 0
+						: timeDifference.minutes
+					: timeDifference.minutes - 1 === 60
+						? 0
+						: timeDifference.minutes,
+			seconds:
+				isAfterSchool === false
+					? timeDifference.seconds === 60
+						? 0
+						: timeDifference.seconds
+					: timeDifference.seconds - 1 === 60
+						? 0
+						: timeDifference.seconds - 1,
+
 			milliseconds: timeDifference.milliseconds,
 			isAfterSchool: isAfterSchool,
 			diffInMs: timeDifference.deltaMs,
@@ -266,6 +250,10 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes === 60 ? 59 : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? 59 : diff.seconds}`
 			}
 			ctx.fillStyle = dracFg
+			ctx.strokeStyle = 'black'
+			ctx.lineWidth = 6
+			ctx.miterLimit = 2 // Gets rid of glitches
+			ctx.strokeText(str, x, y)
 			ctx.fillText(str, x, y)
 		}
 	}
@@ -291,6 +279,9 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				const str2 = `${startTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
 				// Color the current mod a different color
 				const currentPeriod = getCurrentPeriod(now, schedule)
+				ctx.strokeStyle = 'black'
+				ctx.lineWidth = 6
+				ctx.miterLimit = 2 // Gets rid of glitches
 				ctx.fillStyle =
 					bell[2] > bell[1]
 						? currentPeriod.start.time === bell[0] &&
@@ -307,8 +298,15 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 				ctx.textAlign = 'left'
 
+				ctx.strokeText(str1, x, y + fontHeight + i * lineHeight)
 				ctx.fillText(str1, x, y + fontHeight + i * lineHeight)
 				ctx.textAlign = 'right'
+				ctx.strokeText(
+					str2,
+					// use "Student Lunch:" because it will be the longest of the mod names
+					x + ctx.measureText('Student Lunch:').width * 2.5,
+					y + fontHeight + i * lineHeight
+				)
 				ctx.fillText(
 					str2,
 					// use "Student Lunch:" because it will be the longest of the mod names
@@ -333,24 +331,16 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		if (ctx !== null) {
 			ctx.font = '30pt Fira Code'
 			ctx.textAlign = 'center'
-			ctx.fillStyle = dracGreen
+			ctx.fillStyle = dracFg
+
 			const tl = getTimeLeftInDay(now, schedule)
+
 			const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
-			ctx.fillText(str, x, y + 200)
-			// ctx.font = '30pt Fira Code'
-			// ctx.textAlign = 'center'
-			// ctx.fillStyle = dracGreen
-			// const tl = getTimeLeftInDay(now, schedule)
-			// const str1 = `Days: ${tl.days < 10 ? '0' : ''}${tl.days}`
-			// const str2 = `Hours: ${tl.hours < 10 ? '0' : ''}${tl.hours}`
-			// const str3 = `Minutes: ${tl.minutes < 10 ? '0' : ''}${tl.minutes}`
-			// const str4 = `Seconds: ${tl.seconds < 10 ? '0' : ''}${tl.seconds}`
-			// const str5 = `Milliseconds: ${tl.milliseconds < 10 ? '0' : ''}${tl.milliseconds}`
-			// ctx.fillText(str1, x, y + 50)
-			// ctx.fillText(str2, x, y + 100)
-			// ctx.fillText(str3, x, y + 150)
-			// ctx.fillText(str4, x, y + 200)
-			// ctx.fillText(str5, x, y + 250)
+			ctx.strokeStyle = 'black'
+			ctx.lineWidth = 6
+			ctx.miterLimit = 2 // Gets rid of glitches
+			ctx.strokeText(str, x, y)
+			ctx.fillText(str, x, y)
 		}
 	}
 
@@ -363,8 +353,8 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			// Start a new Path
 			ctx.strokeStyle = dracPurple
 			ctx.beginPath()
-			ctx.moveTo(w * 0.55, 0)
-			ctx.lineTo(w * 0.55, h)
+			ctx.moveTo(w, 0)
+			ctx.lineTo(w, h)
 		}
 	}
 
@@ -399,12 +389,11 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 			drawSchedule(ctx, bells, now, schedule, w * 0.05, h * 0.1)
 
-			drawCurrentTime(ctx, now, w * 0.75, h * 0.25)
-			drawNextEndOfMod(ctx, now, schedule, w * 0.75, h * 0.5)
-			//drawTimeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.75)
-			drawTimeLeftInDay(ctx, now, schedule, w * 0.75, h * 0.5)
+			drawCurrentTime(ctx, now, w * 0.775, h * 0.25)
+			drawNextEndOfMod(ctx, now, schedule, w * 0.775, h * 0.5)
+			drawTimeLeftInDay(ctx, now, schedule, w * 0.775, h * 0.75)
 
-			drawDividerLine(ctx, w, h)
+			drawDividerLine(ctx, w * 0.55, h)
 
 			// Draw the Path
 			ctx.stroke()
