@@ -13,7 +13,6 @@ import {
 	dracFg,
 	dracGray,
 	dracPurple,
-	dracRed,
 	massillonOrange,
 } from '@/theme/colors/colors'
 import { Box } from '@chakra-ui/react/box'
@@ -40,7 +39,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		y: number
 	) => {
 		if (ctx !== null) {
-			ctx.font = '30pt Fira Code'
+			ctx.font = '2em Fira Code'
 			ctx.textAlign = 'center'
 			ctx.fillStyle = dracFg
 			const str = now.toLocaleString([], {
@@ -227,7 +226,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		y: number
 	) => {
 		if (ctx !== null) {
-			ctx.font = '30pt Fira Code'
+			ctx.font = '2em Fira Code'
 			ctx.textAlign = 'center'
 			const endOfNextPeriod = new Date(
 				getCurrentPeriod(now, schedule).end.time
@@ -268,7 +267,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 	) => {
 		if (ctx !== null) {
 			// Set text settings
-			ctx.font = '32pt Fira Code'
+			ctx.font = '2em Fira Code'
 
 			// bell -----> [startTime, now, endTime]
 			bells.forEach((bell, i) => {
@@ -329,9 +328,8 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 					yLocation
 				)
 			})
-			ctx.fillStyle = dracRed
 			// Reset Text Settings
-			ctx.font = '20pt Fira Code'
+			ctx.font = '1.5em Fira Code'
 			ctx.textAlign = 'center'
 		}
 	}
@@ -344,7 +342,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		y: number
 	) => {
 		if (ctx !== null) {
-			ctx.font = '30pt Fira Code'
+			ctx.font = '2em Fira Code'
 			ctx.textAlign = 'center'
 			ctx.fillStyle = dracFg
 
