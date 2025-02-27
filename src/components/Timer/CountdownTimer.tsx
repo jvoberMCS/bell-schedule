@@ -246,7 +246,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				str = `The day is over!`
 			} else {
 				// Normal mod time
-				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.minutes === 60 ? 59 : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? 59 : diff.seconds}`
+				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
 			}
 			ctx.fillStyle = dracFg
 			ctx.strokeStyle = 'black'
@@ -348,7 +348,9 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 			const tl = getTimeLeftInDay(now, schedule)
 
-			const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
+			// const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.minutes + 1}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
+			const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 0 ? tl.minutes + 1 : tl.minutes === 60 ? '00' : tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.seconds}`
+
 			ctx.strokeStyle = 'black'
 			ctx.lineWidth = 6
 			ctx.miterLimit = 2 // Gets rid of glitches
