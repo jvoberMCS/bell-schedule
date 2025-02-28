@@ -131,6 +131,17 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		}
 	}
 
+	const getPreviousPeriod = (now: Date, schedule: Schedule) => {
+		const pastAndPresentMods = schedule.periods.filter((period) => {
+			return period.end.time < now
+		})
+		if (schedule.periods[pastAndPresentMods.length] !== undefined) {
+			return schedule.periods[pastAndPresentMods.length - 1]
+		} else {
+			return schedule.periods[0]
+		}
+	}
+
 	const getCurrentPeriod = (now: Date, schedule: Schedule) => {
 		const pastAndPresentMods = schedule.periods.filter((period) => {
 			return period.end.time < now
@@ -138,7 +149,17 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		if (schedule.periods[pastAndPresentMods.length] !== undefined) {
 			return schedule.periods[pastAndPresentMods.length]
 		} else {
-			//const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1))
+			return schedule.periods[0]
+		}
+	}
+
+	const getNextPeriod = (now: Date, schedule: Schedule) => {
+		const pastAndPresentMods = schedule.periods.filter((period) => {
+			return period.end.time < now
+		})
+		if (schedule.periods[pastAndPresentMods.length] !== undefined) {
+			return schedule.periods[pastAndPresentMods.length + 1]
+		} else {
 			return schedule.periods[0]
 		}
 	}
@@ -235,9 +256,11 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			if (now.getHours() > 14 && now.getMinutes() > 5) {
 				endOfNextPeriod.setDate(now.getDate() + 1)
 			}
+
 			const diff = getTimeLeftInMod(now, schedule)
 
 			let str = ''
+
 			if (
 				endOfNextPeriod.getTime() - now.getTime() >
 					getLongestModMs(schedule) ||
@@ -246,7 +269,10 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				str = `The day is over!`
 			} else {
 				// Normal mod time
-				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
+				str =
+					isClassChange(now, schedule) === true
+						? `Class Change`
+						: `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
 			}
 			ctx.fillStyle = dracFg
 			ctx.strokeStyle = 'black'
@@ -255,6 +281,16 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			ctx.strokeText(str, x, y)
 			ctx.fillText(str, x, y)
 		}
+	}
+
+	const isClassChange = (now: Date, schedule: Schedule) => {
+		const currentPeriod = getCurrentPeriod(now, schedule)
+		const prevPeriod = getPreviousPeriod(now, schedule)
+
+		if (prevPeriod.end.time < now && now < currentPeriod.start.time) {
+			return true
+		}
+		return false
 	}
 
 	const drawSchedule = (
