@@ -288,17 +288,24 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			let str = ''
 
 			if (
-				endOfNextPeriod.getTime() - now.getTime() >
-					getLongestModMs(schedule) ||
-				endOfNextPeriod.getTime() - now.getTime() < 0
+				// If it is currently AFTER the end of the last mod (and before midnight), it is after school.
+				//endOfNextPeriod.getTime() - now.getTime() < 0
+				isAfterSchool(now, schedule) === true
 			) {
-				str = `The day is over!`
+				str = `After School`
+			} else if (isBeforeSchool(now, schedule) === true) {
+				// If it is BEFORE the beginning of the first Mod, it is before school.
+				str = `Before School`
+			} else if (isClassChange(now, schedule) === true) {
+				// It is between classes.  Display the time left before the bell rings to start class TODO
+				const timeLeftInClassChange = getTimeDifference(
+					now,
+					getNextPeriod(now, schedule).start.time
+				)
+				str = `Class Change: ${timeLeftInClassChange.minutes < 10 ? '0' : null}${timeLeftInClassChange.minutes}:${timeLeftInClassChange.seconds < 10 ? '0' : null}${timeLeftInClassChange.seconds}`
 			} else {
 				// Normal mod time
-				str =
-					isClassChange(now, schedule) === true
-						? `Class Change`
-						: `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
+				str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
 			}
 			ctx.strokeStyle =
 				isBeforeSchool(now, schedule) === true
@@ -453,7 +460,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 			const tl = getTimeLeftInDay(now, schedule)
 
-			// const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.minutes + 1}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
+			// TODO: Make this more robust with "Time until school starts" and "Time Since End Of Day" etc.  Use new functions that detect if it is before / after school?? isAfterSchool() isBeforeSchool()
 			const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 0 ? tl.minutes + 1 : tl.minutes === 60 ? '00' : tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.seconds}`
 
 			ctx.strokeStyle =
