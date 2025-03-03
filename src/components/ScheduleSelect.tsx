@@ -1,6 +1,13 @@
+import germanSchoolBellSound from '@/assets/germanSchoolBell.mp3'
 import { useMainStore } from '@/stores/MainStore'
-import { Box, NativeSelectField, NativeSelectRoot } from '@chakra-ui/react'
+import {
+	Box,
+	Button,
+	NativeSelectField,
+	NativeSelectRoot,
+} from '@chakra-ui/react'
 import React, { useState } from 'react'
+import useSound from 'use-sound'
 import { v4 as uuid } from 'uuid'
 
 type Props = {}
@@ -10,6 +17,7 @@ type ScheduleSelectProps =
 		: React.FC<Props>
 
 export const ScheduleSelect: ScheduleSelectProps = () => {
+	const [playBellSound] = useSound(germanSchoolBellSound)
 	const schedules = useMainStore((state) => state.schedules)
 	const setScheduleSelection = useMainStore(
 		(state) => state.setScheduleSelection
@@ -42,6 +50,15 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 					})}
 				</NativeSelectField>
 			</NativeSelectRoot>
+			<Button
+				w='5vw'
+				h='5vh'
+				onClick={() => {
+					playBellSound()
+				}}
+			>
+				Play Bell
+			</Button>
 		</Box>
 	)
 }

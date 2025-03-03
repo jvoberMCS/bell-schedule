@@ -1,3 +1,4 @@
+import germanSchoolBellSound from '@/assets/germanSchoolBell.mp3'
 import {
 	daysToHours,
 	daysToMinutes,
@@ -10,15 +11,17 @@ import {
 } from '@/functions/GlobalFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import {
+	dracBg,
+	dracBg2,
 	dracFg,
 	dracGray,
 	dracPurple,
+	dracRed,
 	massillonOrange,
 } from '@/theme/colors/colors'
 import { Box } from '@chakra-ui/react/box'
 import React, { useEffect, useRef } from 'react'
 import useSound from 'use-sound'
-import germanSchoolBellSound from '../../assets/germanSchoolBell.mp3'
 
 type Props = { width: number; height: number }
 type CountdownTimerProps =
@@ -35,20 +38,34 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 	const drawCurrentTime = (
 		ctx: CanvasRenderingContext2D | null,
 		now: Date,
+		schedule: Schedule,
 		x: number,
 		y: number
 	) => {
 		if (ctx !== null) {
 			ctx.font = '2em Fira Code'
 			ctx.textAlign = 'center'
-			ctx.fillStyle = dracFg
+			ctx.fillStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracBg
+					: isAfterSchool(now, schedule) === true
+						? dracBg
+						: isClassChange(now, schedule) === true
+							? dracBg
+							: dracFg
 			const str = now.toLocaleString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 				second: 'numeric',
 			})
-			ctx.fillStyle = dracFg
-			ctx.strokeStyle = 'black'
+			ctx.strokeStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracFg
+					: isAfterSchool(now, schedule) === true
+						? dracFg
+						: isClassChange(now, schedule) === true
+							? dracFg
+							: dracBg
 			ctx.lineWidth = 6
 			ctx.miterLimit = 2 // Gets rid of glitches
 			ctx.strokeText(str, x, y)
@@ -249,6 +266,15 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		if (ctx !== null) {
 			ctx.font = '2em Fira Code'
 			ctx.textAlign = 'center'
+
+			ctx.fillStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracBg
+					: isAfterSchool(now, schedule) === true
+						? dracBg
+						: isClassChange(now, schedule) === true
+							? dracBg
+							: dracFg
 			const endOfNextPeriod = new Date(
 				getCurrentPeriod(now, schedule).end.time
 			)
@@ -274,8 +300,14 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 						? `Class Change`
 						: `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
 			}
-			ctx.fillStyle = dracFg
-			ctx.strokeStyle = 'black'
+			ctx.strokeStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracFg
+					: isAfterSchool(now, schedule) === true
+						? dracFg
+						: isClassChange(now, schedule) === true
+							? dracFg
+							: dracBg
 			ctx.lineWidth = 6
 			ctx.miterLimit = 2 // Gets rid of glitches
 			ctx.strokeText(str, x, y)
@@ -293,17 +325,40 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		return false
 	}
 
+	const isBeforeSchool = (now: Date, schedule: Schedule) => {
+		if (now < schedule.periods[0].start.time) {
+			return true
+		}
+		return false
+	}
+
+	const isAfterSchool = (now: Date, schedule: Schedule) => {
+		const numPeriods = schedule.periods.length
+		if (now > schedule.periods[numPeriods - 1].end.time) {
+			return true
+		}
+		return false
+	}
+
 	const drawSchedule = (
 		ctx: CanvasRenderingContext2D | null,
 		bells: Date[][],
 		now: Date,
 		schedule: Schedule,
-		x: number,
-		y: number
+		x: number
 	) => {
 		if (ctx !== null) {
 			// Set text settings
 			ctx.font = '2em Fira Code'
+
+			ctx.fillStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracBg
+					: isAfterSchool(now, schedule) === true
+						? dracBg
+						: isClassChange(now, schedule) === true
+							? dracBg
+							: dracFg
 
 			// bell -----> [startTime, now, endTime]
 			bells.forEach((bell, i) => {
@@ -314,7 +369,14 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 				const str2 = `${startTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`
 				// Color the current mod a different color
 				const currentPeriod = getCurrentPeriod(now, schedule)
-				ctx.strokeStyle = 'black'
+				ctx.strokeStyle =
+					isBeforeSchool(now, schedule) === true
+						? dracFg
+						: isAfterSchool(now, schedule) === true
+							? dracFg
+							: isClassChange(now, schedule) === true
+								? dracFg
+								: dracBg
 				ctx.lineWidth = 6
 				ctx.miterLimit = 2 // Gets rid of glitches
 				ctx.fillStyle =
@@ -380,14 +442,28 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		if (ctx !== null) {
 			ctx.font = '2em Fira Code'
 			ctx.textAlign = 'center'
-			ctx.fillStyle = dracFg
+			ctx.fillStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracBg
+					: isAfterSchool(now, schedule) === true
+						? dracBg
+						: isClassChange(now, schedule) === true
+							? dracBg
+							: dracFg
 
 			const tl = getTimeLeftInDay(now, schedule)
 
 			// const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.minutes + 1}:${tl.seconds < 10 ? '0' : ''}${tl.seconds} `
 			const str = `${tl.isAfterSchool === true ? 'Since end of Day: ' : ' Time left in Day: '}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 0 ? tl.minutes + 1 : tl.minutes === 60 ? '00' : tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.seconds}`
 
-			ctx.strokeStyle = 'black'
+			ctx.strokeStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracFg
+					: isAfterSchool(now, schedule) === true
+						? dracFg
+						: isClassChange(now, schedule) === true
+							? dracFg
+							: dracBg
 			ctx.lineWidth = 6
 			ctx.miterLimit = 2 // Gets rid of glitches
 			ctx.strokeText(str, x, y)
@@ -428,20 +504,40 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 		const animate = () => {
 			ctx.clearRect(0, 0, width, height) // Clear the canvas
-			// Set starting text color
-			ctx.fillStyle = dracFg
 
 			// Get the current time
 			const now = new Date()
+
+			// Set background color
+			ctx.fillStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracBg2
+					: isAfterSchool(now, schedule) === true
+						? dracBg2
+						: isClassChange(now, schedule) === true
+							? dracRed
+							: dracBg
+
+			ctx.fillRect(0, 0, w, h)
+
+			// Set text color
+			ctx.fillStyle =
+				isBeforeSchool(now, schedule) === true
+					? dracBg
+					: isAfterSchool(now, schedule) === true
+						? dracBg
+						: isClassChange(now, schedule) === true
+							? dracBg
+							: dracFg
 
 			const bells = schedule.periods.map((period) => {
 				return [period.start.time, now, period.end.time]
 			})
 
 			//drawSchedule(ctx, bells, now, schedule, w, h)
-			drawSchedule(ctx, bells, now, schedule, w * 0.015, 0)
+			drawSchedule(ctx, bells, now, schedule, w * 0.015)
 
-			drawCurrentTime(ctx, now, w * 0.775, h * 0.25)
+			drawCurrentTime(ctx, now, schedule, w * 0.775, h * 0.25)
 			drawNextEndOfMod(ctx, now, schedule, w * 0.775, h * 0.5)
 			drawTimeLeftInDay(ctx, now, schedule, w * 0.775, h * 0.75)
 
