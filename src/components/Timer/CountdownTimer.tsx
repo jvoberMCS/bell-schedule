@@ -73,38 +73,46 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		}
 	}
 
+	const makeTimeCurrentDay = (date: Date) => {
+		const newDate = new Date()
+		newDate.setHours(date.getHours())
+		newDate.setMinutes(date.getMinutes())
+		newDate.setSeconds(0)
+		newDate.setMilliseconds(0)
+		return newDate
+	}
+
 	const checkPlayBell = (now: Date, schedule: Schedule) => {
 		// Check if we should play a bell
-		schedule.periods.forEach((period) => {
-			const ahora = {
-				hours: now.getHours(),
-				minutes: now.getMinutes(),
-				seconds: now.getSeconds(),
-			}
-			const startTime = {
-				hours: period.start.time.getHours(),
-				minutes: period.start.time.getMinutes(),
-				seconds: 0,
-			}
+		const previousPeriodStart = makeTimeCurrentDay(
+			getPreviousPeriod(now, schedule).start.time
+		)
+		const previousPeriodEnd = makeTimeCurrentDay(
+			getPreviousPeriod(now, schedule).end.time
+		)
+		const currentPeriodStart = makeTimeCurrentDay(
+			getCurrentPeriod(now, schedule).start.time
+		)
+		const currentPeriodEnd = makeTimeCurrentDay(
+			getCurrentPeriod(now, schedule).end.time
+		)
+		const nextPeriodStart = makeTimeCurrentDay(
+			getNextPeriod(now, schedule).start.time
+		)
+		const nextPeriodEnd = makeTimeCurrentDay(
+			getNextPeriod(now, schedule).end.time
+		)
 
-			const endTime = {
-				hours: period.end.time.getHours(),
-				minutes: period.end.time.getMinutes(),
-				seconds: 0,
-			}
-
-			// If the period start time h/m/s match, then play the bell sound.
-			if (
-				(ahora.hours === startTime.hours &&
-					ahora.minutes === startTime.minutes &&
-					ahora.seconds === startTime.seconds) ||
-				(ahora.hours === endTime.hours &&
-					ahora.minutes === endTime.minutes &&
-					ahora.seconds === endTime.seconds)
-			) {
-				playBellSound()
-			}
-		})
+		if (
+			now === previousPeriodStart ||
+			now === previousPeriodEnd ||
+			now === currentPeriodStart ||
+			now === currentPeriodEnd ||
+			now === nextPeriodStart ||
+			now === nextPeriodEnd
+		) {
+			playBellSound()
+		}
 	}
 
 	const getTimeDifference = (
@@ -318,6 +326,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			ctx.lineWidth = 6
 			ctx.miterLimit = 2 // Gets rid of glitches
 			ctx.strokeText(str, x, y)
+			ctx.fillStyle = dracRed
 			ctx.fillText(str, x, y)
 		}
 	}
@@ -522,7 +531,7 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 					: isAfterSchool(now, schedule) === true
 						? dracBg2
 						: isClassChange(now, schedule) === true
-							? dracRed
+							? dracBg
 							: dracBg
 
 			ctx.fillRect(0, 0, w, h)
