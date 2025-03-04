@@ -34,6 +34,8 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 	const schedules = useMainStore((state) => state.schedules)
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 	const [playBellSound] = useSound(germanSchoolBellSound)
+	const audioContextRef = useRef(null)
+	const oscillatorRef = useRef(null)
 
 	const drawCurrentTime = (
 		ctx: CanvasRenderingContext2D | null,
@@ -81,6 +83,10 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 		newDate.setMilliseconds(0)
 		return newDate
 	}
+
+	const playTone = () => {}
+
+	const checkPlayTone = (now: Date, schedule: Schedule) => {}
 
 	const checkPlayBell = (now: Date, schedule: Schedule) => {
 		// Check if we should play a bell
@@ -333,7 +339,10 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 
 	const isClassChange = (now: Date, schedule: Schedule) => {
 		const currentPeriod = getCurrentPeriod(now, schedule)
-		const prevPeriod = getPreviousPeriod(now, schedule)
+		const prevPeriod =
+			getPreviousPeriod(now, schedule) !== undefined
+				? getPreviousPeriod(now, schedule)
+				: schedule.periods[0]
 
 		if (prevPeriod.end.time < now && now < currentPeriod.start.time) {
 			return true
@@ -507,12 +516,23 @@ export const CountdownTimer: CountdownTimerProps = ({ width, height }) => {
 			console.error('Canvas is null')
 			return
 		}
+
 		// Proceed
 		const w = canvas.width
 		const h = canvas.height
 		const ctx = canvas.getContext('2d')
 
 		if (!ctx) return // Check to make sure context isn't null
+
+		audioContextRef.current = new (window.AudioContext ||
+			window.webkitAudioContext)()
+		oscillatorRef.current = audioContextRef.current.createOscillator()
+		oscillatorRef.current.type = 'sine'
+		oscillatorRef.current.frequency.setValueAtTime(
+			440,
+			audioContextRef.current.currentTime
+		) // Set frequency to 440 Hz (A4 note)
+		oscillatorRef.current.connect(audioContextRef.current.destination)
 
 		const schedule = schedules.filter(
 			(schedule) => schedule.selectionID === scheduleSelection
