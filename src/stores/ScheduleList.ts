@@ -34,102 +34,88 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(7, 59),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(7, 59),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(7, 59),
+				end: getScheduleTime(8, 2),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(8, 2),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 46),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 2),
+				end: getScheduleTime(8, 46),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 46),
+				end: getScheduleTime(8, 49),
 			},
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(8, 49),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 33),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 49),
+				end: getScheduleTime(9, 33),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 33),
+				end: getScheduleTime(9, 36),
 			},
 			{
 				name: 'Mod Four',
-				start: {
-					time: getScheduleTime(9, 36),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 6),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 36),
+				end: getScheduleTime(10, 6),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 6),
+				end: getScheduleTime(10, 9),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(10, 9),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 53),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 9),
+				end: getScheduleTime(10, 53),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 53),
+				end: getScheduleTime(10, 56),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(10, 56),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 40),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 56),
+				end: getScheduleTime(11, 40),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 40),
+				end: getScheduleTime(11, 43),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(11, 43),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 27),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 43),
+				end: getScheduleTime(12, 27),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 27),
+				end: getScheduleTime(12, 30),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(12, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(13, 14),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 30),
+				end: getScheduleTime(13, 14),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(13, 14),
+				end: getScheduleTime(13, 17),
 			},
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(13, 17),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 17),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -139,99 +125,88 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: { time: getScheduleTime(8, 0), bellPlayed: false },
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(8, 0),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 0),
+				end: getScheduleTime(8, 3),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(8, 3),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 48),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 3),
+				end: getScheduleTime(8, 48),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 48),
+				end: getScheduleTime(8, 51),
 			},
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(8, 51),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 41),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 51),
+				end: getScheduleTime(9, 41),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 41),
+				end: getScheduleTime(9, 44),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(9, 44),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 29),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 44),
+				end: getScheduleTime(10, 29),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 29),
+				end: getScheduleTime(10, 32),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(10, 32),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 17),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 32),
+				end: getScheduleTime(11, 17),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 17),
+				end: getScheduleTime(11, 20),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(11, 20),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 20),
+				end: getScheduleTime(12, 5),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 5),
+				end: getScheduleTime(12, 8),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(12, 8),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 53),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 8),
+				end: getScheduleTime(12, 53),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 53),
+				end: getScheduleTime(12, 56),
 			},
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(12, 56),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(13, 41),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 56),
+				end: getScheduleTime(13, 41),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(13, 41),
+				end: getScheduleTime(13, 50),
 			},
 			{
 				name: 'Rally',
-				start: {
-					time: getScheduleTime(13, 50),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 50),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -246,102 +221,88 @@ export const ScheduleList = [
 			// },
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(7, 55),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(7, 55),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(7, 55),
+				end: getScheduleTime(7, 58),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(7, 58),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 38),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 58),
+				end: getScheduleTime(8, 38),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 38),
+				end: getScheduleTime(8, 41),
 			},
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(8, 41),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 23),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 41),
+				end: getScheduleTime(9, 23),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 23),
+				end: getScheduleTime(9, 26),
 			},
 			{
 				name: 'Assembly',
-				start: {
-					time: getScheduleTime(9, 26),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 26),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 26),
+				end: getScheduleTime(10, 26),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 26),
+				end: getScheduleTime(10, 29),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(10, 29),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 9),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 29),
+				end: getScheduleTime(11, 9),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 9),
+				end: getScheduleTime(11, 12),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(11, 12),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 52),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 12),
+				end: getScheduleTime(11, 52),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 52),
+				end: getScheduleTime(11, 55),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(11, 55),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 35),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 55),
+				end: getScheduleTime(12, 35),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 35),
+				end: getScheduleTime(12, 38),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(12, 38),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(13, 18),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 38),
+				end: getScheduleTime(13, 18),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(13, 18),
+				end: getScheduleTime(13, 21),
 			},
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(13, 21),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 21),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -351,102 +312,88 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Air Test',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(9, 15),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 15),
+				end: getScheduleTime(9, 20),
 			},
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(9, 20),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 48),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 20),
+				end: getScheduleTime(9, 48),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 48),
+				end: getScheduleTime(9, 51),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(9, 51),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 19),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 51),
+				end: getScheduleTime(10, 19),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 19),
+				end: getScheduleTime(10, 22),
 			},
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(10, 22),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 50),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 22),
+				end: getScheduleTime(10, 50),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 50),
+				end: getScheduleTime(10, 53),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(10, 53),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 33),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 53),
+				end: getScheduleTime(11, 33),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 33),
+				end: getScheduleTime(11, 36),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(11, 36),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 16),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 36),
+				end: getScheduleTime(12, 16),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 16),
+				end: getScheduleTime(12, 19),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(12, 19),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 59),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 19),
+				end: getScheduleTime(12, 59),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 59),
+				end: getScheduleTime(13, 2),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(13, 2),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(13, 30),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 2),
+				end: getScheduleTime(13, 30),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(13, 30),
+				end: getScheduleTime(13, 33),
 			},
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(13, 33),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 33),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -456,69 +403,53 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(8, 15),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 15),
+				end: getScheduleTime(8, 20),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(8, 20),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 20),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 20),
+				end: getScheduleTime(9, 20),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 20),
+				end: getScheduleTime(9, 25),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(9, 25),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 25),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 25),
+				end: getScheduleTime(10, 25),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 25),
+				end: getScheduleTime(10, 30),
 			},
 			{
 				name: 'Student Lunch',
-				start: {
-					time: getScheduleTime(10, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 0),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 30),
+				end: getScheduleTime(11, 0),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 0),
+				end: getScheduleTime(10, 30),
 			},
 			{
 				name: 'Staff Lunch',
-				start: {
-					time: getScheduleTime(10, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 30),
+				end: getScheduleTime(11, 15),
 			},
 			{
 				name: 'Make-Ups',
-				start: {
-					time: getScheduleTime(11, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 15),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -528,69 +459,53 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(8, 15),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 15),
+				end: getScheduleTime(8, 20),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(8, 20),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 20),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 20),
+				end: getScheduleTime(9, 20),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 20),
+				end: getScheduleTime(9, 25),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(9, 25),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 25),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 25),
+				end: getScheduleTime(10, 25),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 25),
+				end: getScheduleTime(10, 30),
 			},
 			{
 				name: 'Student Lunch',
-				start: {
-					time: getScheduleTime(10, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 0),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 30),
+				end: getScheduleTime(11, 0),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 0),
+				end: getScheduleTime(10, 30),
 			},
 			{
 				name: 'Staff Lunch',
-				start: {
-					time: getScheduleTime(10, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 30),
+				end: getScheduleTime(11, 15),
 			},
 			{
 				name: 'Make-Ups',
-				start: {
-					time: getScheduleTime(11, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 15),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -600,69 +515,53 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(8, 15),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 15),
+				end: getScheduleTime(8, 20),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(8, 20),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 20),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 20),
+				end: getScheduleTime(9, 20),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 20),
+				end: getScheduleTime(9, 25),
 			},
 			{
 				name: 'Make-Ups',
-				start: {
-					time: getScheduleTime(9, 25),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 25),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 25),
+				end: getScheduleTime(10, 25),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 25),
+				end: getScheduleTime(10, 30),
 			},
 			{
 				name: 'Student Lunch',
-				start: {
-					time: getScheduleTime(10, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 0),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 30),
+				end: getScheduleTime(11, 0),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 0),
+				end: getScheduleTime(10, 30),
 			},
 			{
 				name: 'Staff Lunch',
-				start: {
-					time: getScheduleTime(10, 30),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 15),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 30),
+				end: getScheduleTime(11, 15),
 			},
 			{
 				name: 'Make-Ups',
-				start: {
-					time: getScheduleTime(11, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 15),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
@@ -672,99 +571,88 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: { time: getScheduleTime(8, 5), bellPlayed: false },
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(8, 5),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 5),
+				end: getScheduleTime(8, 8),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(8, 8),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 44),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 8),
+				end: getScheduleTime(8, 44),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 44),
+				end: getScheduleTime(8, 47),
 			},
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(8, 47),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 23),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 47),
+				end: getScheduleTime(9, 23),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 23),
+				end: getScheduleTime(9, 26),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(9, 26),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 6),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 26),
+				end: getScheduleTime(10, 6),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 6),
+				end: getScheduleTime(10, 9),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(10, 9),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 49),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 9),
+				end: getScheduleTime(10, 49),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 49),
+				end: getScheduleTime(10, 52),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(10, 52),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 32),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 52),
+				end: getScheduleTime(11, 32),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 32),
+				end: getScheduleTime(11, 35),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(11, 35),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 11),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 35),
+				end: getScheduleTime(12, 11),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 11),
+				end: getScheduleTime(12, 14),
 			},
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(12, 14),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 55),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 14),
+				end: getScheduleTime(12, 55),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 55),
+				end: getScheduleTime(13, 15),
 			},
 			{
 				name: 'Rally',
-				start: {
-					time: getScheduleTime(13, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 0),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 15),
+				end: getScheduleTime(12, 0),
 			},
 		],
 	},
@@ -774,209 +662,89 @@ export const ScheduleList = [
 		periods: [
 			{
 				name: 'Mod One',
-				start: {
-					time: getScheduleTime(7, 15),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(7, 51),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 15),
+				end: getScheduleTime(7, 51),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(7, 51),
+				end: getScheduleTime(7, 54),
 			},
 			{
 				name: 'Mod Two',
-				start: {
-					time: getScheduleTime(7, 54),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(8, 30),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(7, 54),
+				end: getScheduleTime(8, 30),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(8, 30),
+				end: getScheduleTime(8, 33),
 			},
 			{
 				name: 'Mod Three',
-				start: {
-					time: getScheduleTime(8, 33),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(9, 13),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(8, 33),
+				end: getScheduleTime(9, 13),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(9, 13),
+				end: getScheduleTime(9, 16),
 			},
 			{
 				name: 'Assembly',
-				start: {
-					time: getScheduleTime(9, 16),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(10, 26),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(9, 16),
+				end: getScheduleTime(10, 26),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(10, 26),
+				end: getScheduleTime(10, 29),
 			},
 			{
 				name: 'Mod Five',
-				start: {
-					time: getScheduleTime(10, 29),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 9),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(10, 29),
+				end: getScheduleTime(11, 9),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 9),
+				end: getScheduleTime(11, 12),
 			},
 			{
 				name: 'Mod Six',
-				start: {
-					time: getScheduleTime(11, 12),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(11, 52),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 12),
+				end: getScheduleTime(11, 52),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(11, 52),
+				end: getScheduleTime(11, 55),
 			},
 			{
 				name: 'Mod Seven',
-				start: {
-					time: getScheduleTime(11, 55),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(12, 35),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(11, 55),
+				end: getScheduleTime(12, 35),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(12, 35),
+				end: getScheduleTime(12, 38),
 			},
 			{
 				name: 'Mod Eight',
-				start: {
-					time: getScheduleTime(12, 38),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(13, 18),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(12, 38),
+				end: getScheduleTime(13, 18),
+			},
+			{
+				name: 'Class Change',
+				start: getScheduleTime(13, 18),
+				end: getScheduleTime(13, 21),
 			},
 			{
 				name: 'Mod Nine',
-				start: {
-					time: getScheduleTime(13, 21),
-					bellPlayed: false,
-				},
-				end: {
-					time: getScheduleTime(14, 5),
-					bellPlayed: false,
-				},
+				start: getScheduleTime(13, 21),
+				end: getScheduleTime(14, 5),
 			},
 		],
 	},
-	/* {
-		name: 'Test Schedule',
-		selectionID: 'TEST',
-		periods: [
-			{
-				name: 'Test Mod 1',
-				start: {
-					time: getNow(),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(1),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 2',
-				start: {
-					time: getNowPlusMin(2),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(3),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 3',
-				start: {
-					time: getNowPlusMin(4),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(5),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 4',
-				start: {
-					time: getNowPlusMin(6),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(7),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 5',
-				start: {
-					time: getNowPlusMin(8),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(9),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 6',
-				start: {
-					time: getNowPlusMin(10),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(11),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 7',
-				start: {
-					time: getNowPlusMin(12),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(13),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 8',
-				start: {
-					time: getNowPlusMin(14),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(15),
-					bellPlayed: false,
-				},
-			},
-			{
-				name: 'Test Mod 9',
-				start: {
-					time: getNowPlusMin(16),
-					bellPlayed: false,
-				},
-				end: {
-					time: getNowPlusMin(17),
-					bellPlayed: false,
-				},
-			},
-		],
-	} */
-	,
 ]

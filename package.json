@@ -31,12 +31,13 @@
 		"react-icons": "^4.12.0",
 		"react-router-dom": "^6.28.0",
 		"react-svg": "^16.1.33",
+		"tone": "^15.0.4",
+		"typescript": "^5.3.3",
 		"use-sound": "^5.0.0",
 		"uuid": "^9.0.1",
 		"vite": "^4.5.2",
 		"vite-tsconfig-paths": "^5.1.2",
-		"zustand": "^4.5.0",
-		"typescript": "^5.3.3"
+		"zustand": "^4.5.0"
 	},
 	"devDependencies": {
 		"@types/gapi": "*",

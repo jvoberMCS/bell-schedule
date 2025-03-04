@@ -6,6 +6,7 @@ type State = {
 	/* Values go here.*/
 	scheduleSelection: ScheduleSelection
 	schedules: Schedule[]
+	isMuted: boolean
 	timeUntilNextMod: {
 		hours: number
 		minutes: number
@@ -21,6 +22,7 @@ type State = {
 type Action = {
 	/* Ways to alter the state go here.*/
 	setScheduleSelection: (newScheduleSelection: ScheduleSelection) => void
+	setIsMuted: (newMutedState: boolean) => void
 	setTimeUntilNextMod: (timeUntilNextMod: {
 		hours: number
 		minutes: number
@@ -42,6 +44,7 @@ export const useMainStore = create<State & Action>()(
 		///////////
 		scheduleSelection: 'REGULAR',
 		schedules: ScheduleList as Schedule[],
+		isMuted: true,
 
 		/////////////
 		// Actions //
@@ -50,6 +53,11 @@ export const useMainStore = create<State & Action>()(
 			set((state) => {
 				state.scheduleSelection = newScheduleSelection
 			}),
+		setIsMuted: (newMutedState) =>
+			set((state) => {
+				state.isMuted = newMutedState
+			}),
+
 		setTimeUntilNextMod: (timeUntilNextMod) =>
 			set((state) => {
 				state.timeUntilNextMod = timeUntilNextMod

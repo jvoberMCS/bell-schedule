@@ -310,9 +310,11 @@ type UTCFields = {
 
 type Period = {
 	name: ModName
-	start: { time: Date; bellPlayed: boolean }
-	end: { time: Date; bellPlayed: boolean }
+	start: Date
+	end: Date
 }
+
+type Bell = Period & { now: Date }
 
 type Schedule = {
 	name: string
@@ -342,6 +344,7 @@ type ModName =
 	| 'Mod Seven'
 	| 'Mod Eight'
 	| 'Mod Nine'
+	| 'Class Change'
 	| 'Mod X'
 	| 'Rally'
 	| 'Assembly'

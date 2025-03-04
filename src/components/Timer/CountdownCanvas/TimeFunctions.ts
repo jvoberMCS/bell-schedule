@@ -61,7 +61,7 @@ export const GetTimeDifference = (
 
 export const GetPreviousPeriod = (now: Date, schedule: Schedule) => {
 	const pastAndPresentMods = schedule.periods.filter((period) => {
-		return period.end.time < now
+		return period.end < now
 	})
 	if (schedule.periods[pastAndPresentMods.length] !== undefined) {
 		return schedule.periods[pastAndPresentMods.length - 1]
@@ -72,7 +72,7 @@ export const GetPreviousPeriod = (now: Date, schedule: Schedule) => {
 
 export const GetCurrentPeriod = (now: Date, schedule: Schedule) => {
 	const pastAndPresentMods = schedule.periods.filter((period) => {
-		return period.end.time < now
+		return period.end < now
 	})
 	if (schedule.periods[pastAndPresentMods.length] !== undefined) {
 		return schedule.periods[pastAndPresentMods.length]
@@ -83,7 +83,7 @@ export const GetCurrentPeriod = (now: Date, schedule: Schedule) => {
 
 export const GetNextPeriod = (now: Date, schedule: Schedule) => {
 	const pastAndPresentMods = schedule.periods.filter((period) => {
-		return period.end.time < now
+		return period.end < now
 	})
 	if (schedule.periods[pastAndPresentMods.length] !== undefined) {
 		return schedule.periods[pastAndPresentMods.length + 1]
@@ -95,7 +95,7 @@ export const GetNextPeriod = (now: Date, schedule: Schedule) => {
 export const GetLongestModMs = (schedule: Schedule) => {
 	let longestModMs = 0
 	schedule.periods.forEach((period) => {
-		const diff = period.end.time.getTime() - period.start.time.getTime()
+		const diff = period.end.getTime() - period.start.getTime()
 		diff > longestModMs ? (longestModMs = diff) : null
 	})
 	return longestModMs
@@ -113,9 +113,7 @@ export const GetTimeLeftInDay = (
 	isAfterSchool: boolean
 	diffInMs: number
 } => {
-	const endOfDay = new Date(
-		schedule.periods[schedule.periods.length - 1].end.time
-	)
+	const endOfDay = new Date(schedule.periods[schedule.periods.length - 1].end)
 
 	const isAfterSchool = endOfDay.getTime() - now.getTime() > 0 ? false : true
 
@@ -158,7 +156,7 @@ export const GetTimeLeftInDay = (
 }
 
 export const GetTimeLeftInMod = (now: Date, schedule: Schedule) => {
-	const endOfNextPeriod = new Date(GetCurrentPeriod(now, schedule).end.time)
+	const endOfNextPeriod = new Date(GetCurrentPeriod(now, schedule).end)
 	const diff = GetTimeDifference(now, endOfNextPeriod)
 
 	return diff
@@ -171,14 +169,14 @@ export const IsClassChange = (now: Date, schedule: Schedule) => {
 			? GetPreviousPeriod(now, schedule)
 			: schedule.periods[0] // if undefined, it means it didn't find a previous period.  Should be beginning of the day, so make it the first in the array.
 
-	if (prevPeriod.end.time < now && now < currentPeriod.start.time) {
+	if (prevPeriod.end < now && now < currentPeriod.start) {
 		return true
 	}
 	return false
 }
 
 export const isBeforeSchool = (now: Date, schedule: Schedule) => {
-	if (now < schedule.periods[0].start.time) {
+	if (now < schedule.periods[0].start) {
 		return true
 	}
 	return false
@@ -186,7 +184,7 @@ export const isBeforeSchool = (now: Date, schedule: Schedule) => {
 
 export const isAfterSchool = (now: Date, schedule: Schedule) => {
 	const numPeriods = schedule.periods.length
-	if (now > schedule.periods[numPeriods - 1].end.time) {
+	if (now > schedule.periods[numPeriods - 1].end) {
 		return true
 	}
 	return false
