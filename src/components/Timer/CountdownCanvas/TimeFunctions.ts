@@ -110,22 +110,19 @@ export const GetTimeLeftInDay = (
 	minutes: number
 	seconds: number
 	milliseconds: number
-	isAfterSchool: boolean
 	diffInMs: number
 } => {
 	const endOfDay = new Date(schedule.periods[schedule.periods.length - 1].end)
 
-	const isAfterSchool = endOfDay.getTime() - now.getTime() > 0 ? false : true
-
 	const timeDifference =
-		isAfterSchool === true
+		IsAfterSchool(now, schedule) === true
 			? GetTimeDifference(endOfDay, now)
 			: GetTimeDifference(now, endOfDay)
 
 	return {
 		days: timeDifference.days,
 		hours:
-			isAfterSchool === false
+			IsAfterSchool(now, schedule) === false
 				? timeDifference.hours === 24
 					? timeDifference.hours + 1
 					: timeDifference.hours
@@ -133,7 +130,7 @@ export const GetTimeLeftInDay = (
 					? 0
 					: timeDifference.hours,
 		minutes:
-			isAfterSchool === false
+			IsAfterSchool(now, schedule) === false
 				? timeDifference.minutes === 60
 					? 0
 					: timeDifference.minutes
@@ -141,7 +138,7 @@ export const GetTimeLeftInDay = (
 					? 0
 					: timeDifference.minutes,
 		seconds:
-			isAfterSchool === false
+			IsAfterSchool(now, schedule) === false
 				? timeDifference.seconds === 60
 					? 0
 					: timeDifference.seconds
@@ -150,7 +147,6 @@ export const GetTimeLeftInDay = (
 					: timeDifference.seconds - 1,
 
 		milliseconds: timeDifference.milliseconds,
-		isAfterSchool: isAfterSchool,
 		diffInMs: timeDifference.deltaMs,
 	}
 }
@@ -175,14 +171,14 @@ export const IsClassChange = (now: Date, schedule: Schedule) => {
 	return false
 }
 
-export const isBeforeSchool = (now: Date, schedule: Schedule) => {
+export const IsBeforeSchool = (now: Date, schedule: Schedule) => {
 	if (now < schedule.periods[0].start) {
 		return true
 	}
 	return false
 }
 
-export const isAfterSchool = (now: Date, schedule: Schedule) => {
+export const IsAfterSchool = (now: Date, schedule: Schedule) => {
 	const numPeriods = schedule.periods.length
 	if (now > schedule.periods[numPeriods - 1].end) {
 		return true

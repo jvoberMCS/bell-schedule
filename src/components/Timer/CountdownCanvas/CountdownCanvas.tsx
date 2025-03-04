@@ -6,8 +6,8 @@ import {
 	DrawTimeLeftInDay,
 } from '@/components/Timer/CountdownCanvas/DrawFunctions'
 import {
-	isAfterSchool,
-	isBeforeSchool,
+	IsAfterSchool,
+	IsBeforeSchool,
 	IsClassChange,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions'
 import { useMainStore } from '@/stores/MainStore'
@@ -82,9 +82,9 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 
 			// Set background color
 			ctx.fillStyle =
-				isBeforeSchool(now, schedule) === true
+				IsBeforeSchool(now, schedule) === true
 					? dracBg2
-					: isAfterSchool(now, schedule) === true
+					: IsAfterSchool(now, schedule) === true
 						? dracBg2
 						: IsClassChange(now, schedule) === true
 							? dracBg
@@ -94,9 +94,9 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 
 			// Set text color
 			ctx.fillStyle =
-				isBeforeSchool(now, schedule) === true
+				IsBeforeSchool(now, schedule) === true
 					? dracBg
-					: isAfterSchool(now, schedule) === true
+					: IsAfterSchool(now, schedule) === true
 						? dracBg
 						: IsClassChange(now, schedule) === true
 							? dracBg

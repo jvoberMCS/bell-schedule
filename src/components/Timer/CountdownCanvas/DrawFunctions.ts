@@ -2,8 +2,8 @@ import {
 	GetCurrentPeriod,
 	GetTimeLeftInDay,
 	GetTimeLeftInMod,
-	isAfterSchool,
-	isBeforeSchool,
+	IsAfterSchool,
+	IsBeforeSchool,
 	IsClassChange,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions'
 import {
@@ -24,6 +24,9 @@ export const DrawCurrentTime = (
 	y: number
 ) => {
 	if (ctx !== null) {
+		const beforeSchool = IsBeforeSchool(now, schedule)
+		const afterSchool = IsAfterSchool(now, schedule)
+		const classChange = IsClassChange(now, schedule)
 		ctx.font = '2em Fira Code'
 		ctx.textAlign = 'center'
 		const str = now.toLocaleString([], {
@@ -33,20 +36,20 @@ export const DrawCurrentTime = (
 		})
 		// Text Color
 		ctx.fillStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracFg // Color for text when it is before school
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracBg2 // Color for text when it is after school
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracCl // Color for text when it is between classes
 						: dracBlack // Color for text when it is during class
 		// Outline Color
 		ctx.strokeStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracFg // Color for outline of text when it is before school
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracFg // Color for outline of text when it is after school
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracPurple // Color for outline of text when it is between classes
 						: dracOrange // Color for outline of text when it is during class
 		ctx.lineWidth = 2 // Outline width in pixels
@@ -64,15 +67,18 @@ export const DrawNextEndOfMod = (
 	y: number
 ) => {
 	if (ctx !== null) {
+		const beforeSchool = IsBeforeSchool(now, schedule)
+		const afterSchool = IsAfterSchool(now, schedule)
+		const classChange = IsClassChange(now, schedule)
 		ctx.font = '2em Fira Code'
 		ctx.textAlign = 'center'
 
 		ctx.fillStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracBg
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracBg2
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracBg
 						: dracFg
 		const endOfNextPeriod = new Date(GetCurrentPeriod(now, schedule).end)
@@ -88,10 +94,10 @@ export const DrawNextEndOfMod = (
 		if (
 			// If it is currently AFTER the end of the last mod (and before midnight), it is after school.
 			//endOfNextPeriod.getTime() - now.getTime() < 0
-			isAfterSchool(now, schedule) === true
+			afterSchool === true
 		) {
 			str = `After School`
-		} else if (isBeforeSchool(now, schedule) === true) {
+		} else if (beforeSchool === true) {
 			// If it is BEFORE the beginning of the first Mod, it is before school.
 			str = `Before School`
 		} else if (IsClassChange(now, schedule) === true) {
@@ -102,20 +108,20 @@ export const DrawNextEndOfMod = (
 		}
 		// Text Color
 		ctx.fillStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracFg // Color for text when it is before school
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracBg2 // Color for text when it is after school
 					: IsClassChange(now, schedule) === true
 						? dracCl // Color for text when it is between classes
 						: dracBlack // Color for text when it is during class
 		// Outline Color
 		ctx.strokeStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracFg // Color for outline of text when it is before school
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracFg // Color for outline of text when it is after school
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracPurple // Color for outline of text when it is between classes
 						: dracOrange // Color for outline of text when it is during class
 		ctx.lineWidth = 2 // Outline width in pixels
@@ -134,15 +140,19 @@ export const DrawSchedule = (
 	x: number
 ) => {
 	if (ctx !== null) {
+		const beforeSchool = IsBeforeSchool(now, schedule)
+		const afterSchool = IsAfterSchool(now, schedule)
+		const classChange = IsClassChange(now, schedule)
+
 		// Set text settings
 		ctx.font = '2em Fira Code'
 
 		ctx.fillStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracBg
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracBg2
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracBg
 						: dracFg
 
@@ -157,11 +167,11 @@ export const DrawSchedule = (
 			// Color the current mod a different color
 			const currentPeriod = GetCurrentPeriod(now, schedule)
 			ctx.strokeStyle =
-				isBeforeSchool(now, schedule) === true
+				beforeSchool === true
 					? dracFg
-					: isAfterSchool(now, schedule) === true
+					: afterSchool === true
 						? dracFg
-						: IsClassChange(now, schedule) === true
+						: classChange === true
 							? dracFg
 							: dracBg
 			ctx.lineWidth = 2
@@ -221,38 +231,42 @@ export const DrawTimeLeftInDay = (
 	y: number
 ) => {
 	if (ctx !== null) {
+		const beforeSchool = IsBeforeSchool(now, schedule)
+		const afterSchool = IsAfterSchool(now, schedule)
+		const classChange = IsClassChange(now, schedule)
+
 		ctx.font = '2em Fira Code'
 		ctx.textAlign = 'center'
 		ctx.fillStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracBg
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracBg2
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracBg
 						: dracFg
 
 		const tl = GetTimeLeftInDay(now, schedule)
 
 		// TODO: Make this more robust with "Time until school starts" and "Time Since End Of Day" etc.  Use new functions that detect if it is before / after school?? isAfterSchool() isBeforeSchool()
-		const str = `${tl.isAfterSchool === true ? 'Time Since End of Day: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 0 ? tl.minutes + 1 : tl.minutes === 60 ? '00' : tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.seconds}`
+		const str = `${afterSchool === true ? 'Time Since End of Day: ' : beforeSchool === true ? 'Time Until School Starts: ' : ' Time left in Day: '}${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 0 ? tl.minutes + 1 : tl.minutes === 60 ? '00' : tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.seconds}`
 
 		// Text Color
 		ctx.fillStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracFg // Color for text when it is before school
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracBg2 // Color for text when it is after school
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracCl // Color for text when it is between classes
 						: dracBlack // Color for text when it is during class
 		// Outline Color
 		ctx.strokeStyle =
-			isBeforeSchool(now, schedule) === true
+			beforeSchool === true
 				? dracFg // Color for outline of text when it is before school
-				: isAfterSchool(now, schedule) === true
+				: afterSchool === true
 					? dracFg // Color for outline of text when it is after school
-					: IsClassChange(now, schedule) === true
+					: classChange === true
 						? dracPurple // Color for outline of text when it is between classes
 						: dracOrange // Color for outline of text when it is during class
 		ctx.lineWidth = 2 // Outline width in pixels
