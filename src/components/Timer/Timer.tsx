@@ -1,5 +1,5 @@
 import { ScheduleSelect } from '@/components/ScheduleSelect'
-import { CountdownTimer } from '@/components/Timer/CountdownTimer'
+import { CountdownTimer } from '@/components/Timer/CountdownCanvas/CountdownCanvas'
 import { Box, VStack } from '@chakra-ui/react'
 
 type Props = {}
