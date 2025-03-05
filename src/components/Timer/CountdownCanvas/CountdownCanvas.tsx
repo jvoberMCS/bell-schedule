@@ -14,7 +14,6 @@ import { useMainStore } from '@/stores/MainStore'
 import { dracBg, dracBg2, dracFg, Gray } from '@/theme/colors/colors'
 import { HStack } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react/box'
-import { Button } from '@chakra-ui/react/button'
 import React, { useEffect, useRef } from 'react'
 import * as Tone from 'tone'
 
@@ -133,7 +132,7 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 		<Box>
 			<canvas ref={canvasRef} width={width} height={height} />
 			<HStack>
-				<Button
+				{/* <Button
 					onClick={() => {
 						playClassChangeTone(synth)
 					}}
@@ -142,7 +141,7 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 				</Button>
 				<Button onClick={() => playWarningTone(synth)}>
 					Play Warning Tone
-				</Button>
+				</Button> */}
 			</HStack>
 		</Box>
 	)
