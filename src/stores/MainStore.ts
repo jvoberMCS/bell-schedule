@@ -5,6 +5,7 @@ import { immer } from 'zustand/middleware/immer'
 type State = {
 	/* Values go here.*/
 	scheduleSelection: ScheduleSelection
+	scheduleSelectionChanged: boolean
 	schedules: Schedule[]
 	isMuted: boolean
 	timeUntilNextMod: {
@@ -22,6 +23,7 @@ type State = {
 type Action = {
 	/* Ways to alter the state go here.*/
 	setScheduleSelection: (newScheduleSelection: ScheduleSelection) => void
+	setScheduleSelectionChanged: (didScheduleSelectionChange: boolean) => void
 	setIsMuted: (newMutedState: boolean) => void
 	setTimeUntilNextMod: (timeUntilNextMod: {
 		hours: number
@@ -43,7 +45,8 @@ export const useMainStore = create<State & Action>()(
 		// State //
 		///////////
 		scheduleSelection: 'REGULAR',
-		schedules: ScheduleList as Schedule[],
+		scheduleSelectionChanged: false,
+		schedules: ScheduleList,
 		isMuted: true,
 
 		/////////////
@@ -53,11 +56,17 @@ export const useMainStore = create<State & Action>()(
 			set((state) => {
 				state.scheduleSelection = newScheduleSelection
 			}),
+		setScheduleSelectionChanged: (didScheduleSelectionChange) =>
+			set((state) => {
+				if (state.scheduleSelectionChanged === true) {
+					console.log('Schedule Selection Changed.')
+				}
+				state.scheduleSelectionChanged = didScheduleSelectionChange
+			}),
 		setIsMuted: (newMutedState) =>
 			set((state) => {
 				state.isMuted = newMutedState
 			}),
-
 		setTimeUntilNextMod: (timeUntilNextMod) =>
 			set((state) => {
 				state.timeUntilNextMod = timeUntilNextMod

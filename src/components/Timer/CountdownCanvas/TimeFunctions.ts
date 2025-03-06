@@ -101,54 +101,65 @@ export const GetLongestModMs = (schedule: Schedule) => {
 	return longestModMs
 }
 
-export const GetTimeLeftInDay = (
-	now: Date,
-	schedule: Schedule
-): {
-	days: number
-	hours: number
-	minutes: number
-	seconds: number
-	milliseconds: number
-	diffInMs: number
-} => {
-	const endOfDay = new Date(schedule.periods[schedule.periods.length - 1].end)
+// export const GetTimeLeftInDay = (
+// 	now: Date,
+// 	schedule: Schedule
+// ): {
+// 	days: number
+// 	hours: number
+// 	minutes: number
+// 	seconds: number
+// 	milliseconds: number
+// 	diffInMs: number
+// } => {
+// 	const endOfDay = new Date(
+// 		schedule.periods.filter(
+// 			(period) => period.name === 'Student Dismissal'
+// 		)[0].start
+// 	)
 
-	const timeDifference =
-		IsAfterSchool(now, schedule) === true
-			? GetTimeDifference(endOfDay, now)
-			: GetTimeDifference(now, endOfDay)
+// 	const chunkOfDay = getChunkOfDay(now, schedule)
 
-	return {
-		days: timeDifference.days,
-		hours:
-			IsAfterSchool(now, schedule) === false
-				? timeDifference.hours === 24
-					? timeDifference.hours + 1
-					: timeDifference.hours
-				: timeDifference.hours - 1 === 24
-					? 0
-					: timeDifference.hours,
-		minutes:
-			IsAfterSchool(now, schedule) === false
-				? timeDifference.minutes === 60
-					? 0
-					: timeDifference.minutes
-				: timeDifference.minutes - 1 === 60
-					? 0
-					: timeDifference.minutes,
-		seconds:
-			IsAfterSchool(now, schedule) === false
-				? timeDifference.seconds === 60
-					? 0
-					: timeDifference.seconds
-				: timeDifference.seconds - 1 === 60
-					? 0
-					: timeDifference.seconds - 1,
+// 	const timeDifference =
+// 		chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
+// 			? GetTimeDifference(endOfDay, now)
+// 			: GetTimeDifference(now, endOfDay)
 
-		milliseconds: timeDifference.milliseconds,
-		diffInMs: timeDifference.deltaMs,
-	}
+// 	return {
+// 		days: timeDifference.days,
+// 		hours:
+// 			IsAfterSchool(now, schedule) === false
+// 				? timeDifference.hours === 24
+// 					? timeDifference.hours + 1
+// 					: timeDifference.hours
+// 				: timeDifference.hours - 1 === 24
+// 					? 0
+// 					: timeDifference.hours,
+// 		minutes:
+// 			IsAfterSchool(now, schedule) === false
+// 				? timeDifference.minutes === 60
+// 					? 0
+// 					: timeDifference.minutes
+// 				: timeDifference.minutes - 1 === 60
+// 					? 0
+// 					: timeDifference.minutes,
+// 		seconds:
+// 			IsAfterSchool(now, schedule) === false
+// 				? timeDifference.seconds === 60
+// 					? 0
+// 					: timeDifference.seconds
+// 				: timeDifference.seconds - 1 === 60
+// 					? 0
+// 					: timeDifference.seconds - 1,
+
+// 		milliseconds: timeDifference.milliseconds,
+// 		diffInMs: timeDifference.deltaMs,
+// 	}
+// }
+
+export const GetTimeUntilEndOfDay = (now: Date, schedule: Schedule) => {
+	const endOfDay = GetEndOfDay(schedule)
+	return GetTimeDifference(now, endOfDay)
 }
 
 export const GetTimeLeftInMod = (now: Date, schedule: Schedule) => {
@@ -184,4 +195,53 @@ export const IsAfterSchool = (now: Date, schedule: Schedule) => {
 		return true
 	}
 	return false
+}
+
+export const getChunkOfDay = (now: Date, schedule: Schedule) => {
+	const currentPeriod = GetCurrentPeriod(now, schedule)
+
+	let val: ChunkOfDay
+	switch (currentPeriod.name) {
+		case 'Before School':
+		case 'Student Arrival':
+		case 'Student Dismissal':
+		case 'After School':
+			val = currentPeriod.name
+			break
+		case 'Class Change 1':
+		case 'Class Change 2':
+		case 'Class Change 3':
+		case 'Class Change 4':
+		case 'Class Change 5':
+		case 'Class Change 6':
+		case 'Class Change 7':
+		case 'Class Change 8':
+			val = 'Class Change'
+			break
+		default:
+			val = 'Class Period'
+			break
+	}
+
+	return val
+}
+
+export const GetEndOfDay = (schedule: Schedule) => {
+	return schedule.periods.filter(
+		(period) => period.name === 'Student Dismissal'
+	)[0].start
+}
+
+export const GetTimeSinceEndOfDay = (now: Date, schedule: Schedule) => {
+	return GetTimeDifference(GetEndOfDay(schedule), now)
+}
+
+export const GetBeginningOfDay = (schedule: Schedule) => {
+	return schedule.periods.filter(
+		(period) => period.name === 'Student Arrival'
+	)[0].end
+}
+
+export const GetTimeUntilBeginningOfDay = (now: Date, schedule: Schedule) => {
+	return GetTimeDifference(now, GetBeginningOfDay(schedule))
 }

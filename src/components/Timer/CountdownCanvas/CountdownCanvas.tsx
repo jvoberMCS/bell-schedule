@@ -6,15 +6,15 @@ import {
 	DrawTimeLeftInDay,
 } from '@/components/Timer/CountdownCanvas/DrawFunctions'
 import {
+	GetCurrentPeriod,
 	IsAfterSchool,
 	IsBeforeSchool,
 	IsClassChange,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import { dracBg, dracBg2, dracFg, Gray } from '@/theme/colors/colors'
-import { HStack } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react/box'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as Tone from 'tone'
 
 type Props = { width: number; height: number }
@@ -27,7 +27,15 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
 	const schedules = useMainStore((state) => state.schedules)
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
+	const scheduleSelectionChanged = useMainStore(
+		(state) => state.scheduleSelectionChanged
+	)
+	const setScheduleSelectionChanged = useMainStore(
+		(state) => state.setScheduleSelectionChanged
+	)
 	const isMuted = useMainStore((state) => state.isMuted)
+
+	const [bRung, setBRung] = useState([] as ModName[])
 	// Tone.js
 	const synth = new Tone.Synth().toDestination()
 
@@ -55,6 +63,22 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 		}
 	}
 
+	const checkShouldPlayClassChangeTone = (now: Date, schedule: Schedule) => {
+		// Check if we should play a bell
+		const currentPeriod = GetCurrentPeriod(now, schedule)
+		// If shouldPlayBell is true, we should update the previous / current / next period names in the store
+		if (!bRung.includes(currentPeriod.name)) {
+			let newBRung = bRung
+			newBRung.push(currentPeriod.name)
+			setBRung(newBRung)
+			if (isMuted === false) {
+				playClassChangeTone(synth)
+			} else {
+				console.log('Silent Bell')
+			}
+		}
+	}
+
 	useEffect(() => {
 		const canvas = canvasRef.current
 		if (!canvas) {
@@ -74,6 +98,9 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 		)[0]
 
 		const animate = () => {
+			if (scheduleSelectionChanged === true) {
+				setScheduleSelectionChanged(false)
+			}
 			ctx.clearRect(0, 0, width, height) // Clear the canvas
 
 			// Get the current time
@@ -110,7 +137,6 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 				} as Bell
 			})
 
-			//drawSchedule(ctx, bells, now, schedule, w, h)
 			DrawSchedule(ctx, canvas, bells, now, schedule, w * 0.015)
 
 			DrawCurrentTime(ctx, now, schedule, w * 0.775, h * 0.25)
@@ -121,6 +147,11 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 
 			// Draw the Path
 			ctx.stroke()
+
+			// Check the schedule did not change.  We don't want to play a bell because the user selected a different schedule, thus changing the current period etc.
+			if (scheduleSelectionChanged === false) {
+				checkShouldPlayClassChangeTone(now, schedule)
+			}
 		}
 
 		const intervalId = setInterval(animate, 1000) // Update the canvas every x milliseconds
@@ -131,18 +162,6 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 	return (
 		<Box>
 			<canvas ref={canvasRef} width={width} height={height} />
-			<HStack>
-				{/* <Button
-					onClick={() => {
-						playClassChangeTone(synth)
-					}}
-				>
-					Play Class Change Tone
-				</Button>
-				<Button onClick={() => playWarningTone(synth)}>
-					Play Warning Tone
-				</Button> */}
-			</HStack>
 		</Box>
 	)
 }

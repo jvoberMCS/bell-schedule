@@ -7,18 +7,28 @@ export const GetScheduleTime = (hours: number, minutes: number) => {
 	return time
 }
 
-export const ScheduleList = [
+export const ScheduleList: Schedule[] = [
 	{
 		name: 'Regular Schedule',
 		selectionID: 'REGULAR',
 		periods: [
+			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
 			{
 				name: 'Mod One',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(7, 59),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(7, 59),
 				end: GetScheduleTime(8, 2),
 			},
@@ -28,7 +38,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(8, 46),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(8, 46),
 				end: GetScheduleTime(8, 49),
 			},
@@ -38,7 +48,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 33),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(9, 33),
 				end: GetScheduleTime(9, 36),
 			},
@@ -48,7 +58,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 6),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(10, 6),
 				end: GetScheduleTime(10, 9),
 			},
@@ -58,7 +68,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 53),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 5',
 				start: GetScheduleTime(10, 53),
 				end: GetScheduleTime(10, 56),
 			},
@@ -68,7 +78,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 40),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 6',
 				start: GetScheduleTime(11, 40),
 				end: GetScheduleTime(11, 43),
 			},
@@ -78,7 +88,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 27),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 7',
 				start: GetScheduleTime(12, 27),
 				end: GetScheduleTime(12, 30),
 			},
@@ -88,7 +98,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(13, 14),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 8',
 				start: GetScheduleTime(13, 14),
 				end: GetScheduleTime(13, 17),
 			},
@@ -97,6 +107,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(13, 17),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -104,12 +124,22 @@ export const ScheduleList = [
 		selectionID: 'RALLY',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Mod One',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(8, 0),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(8, 0),
 				end: GetScheduleTime(8, 3),
 			},
@@ -119,7 +149,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(8, 48),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(8, 48),
 				end: GetScheduleTime(8, 51),
 			},
@@ -129,7 +159,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 41),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(9, 41),
 				end: GetScheduleTime(9, 44),
 			},
@@ -139,7 +169,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 29),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(10, 29),
 				end: GetScheduleTime(10, 32),
 			},
@@ -149,7 +179,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 17),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 5',
 				start: GetScheduleTime(11, 17),
 				end: GetScheduleTime(11, 20),
 			},
@@ -159,7 +189,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 5),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 6',
 				start: GetScheduleTime(12, 5),
 				end: GetScheduleTime(12, 8),
 			},
@@ -169,7 +199,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 53),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 7',
 				start: GetScheduleTime(12, 53),
 				end: GetScheduleTime(12, 56),
 			},
@@ -179,7 +209,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(13, 41),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 8',
 				start: GetScheduleTime(13, 41),
 				end: GetScheduleTime(13, 50),
 			},
@@ -188,24 +218,39 @@ export const ScheduleList = [
 				start: GetScheduleTime(13, 50),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
 		name: 'Assembly Schedule',
 		selectionID: 'ASSEMBLY',
 		periods: [
-			// {
-			// 	name: 'Mod One',
-			// 	start: {time: getScheduleTime(7, 15), bellPlayed: false},
-			// 	end: {time: getScheduleTime(7, 55), bellPlayed: false},
-			// },
+			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
 			{
 				name: 'Mod One',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(7, 55),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(7, 55),
 				end: GetScheduleTime(7, 58),
 			},
@@ -215,7 +260,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(8, 38),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(8, 38),
 				end: GetScheduleTime(8, 41),
 			},
@@ -225,7 +270,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 23),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(9, 23),
 				end: GetScheduleTime(9, 26),
 			},
@@ -235,7 +280,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 26),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(10, 26),
 				end: GetScheduleTime(10, 29),
 			},
@@ -245,7 +290,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 9),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 5',
 				start: GetScheduleTime(11, 9),
 				end: GetScheduleTime(11, 12),
 			},
@@ -255,7 +300,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 52),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 6',
 				start: GetScheduleTime(11, 52),
 				end: GetScheduleTime(11, 55),
 			},
@@ -265,7 +310,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 35),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 7',
 				start: GetScheduleTime(12, 35),
 				end: GetScheduleTime(12, 38),
 			},
@@ -275,7 +320,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(13, 18),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 8',
 				start: GetScheduleTime(13, 18),
 				end: GetScheduleTime(13, 21),
 			},
@@ -284,6 +329,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(13, 21),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -291,12 +346,22 @@ export const ScheduleList = [
 		selectionID: 'AIR',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Air Test',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(9, 15),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(9, 15),
 				end: GetScheduleTime(9, 20),
 			},
@@ -306,7 +371,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 48),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(9, 48),
 				end: GetScheduleTime(9, 51),
 			},
@@ -316,7 +381,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 19),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(10, 19),
 				end: GetScheduleTime(10, 22),
 			},
@@ -326,7 +391,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 50),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(10, 50),
 				end: GetScheduleTime(10, 53),
 			},
@@ -336,7 +401,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 33),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 5',
 				start: GetScheduleTime(11, 33),
 				end: GetScheduleTime(11, 36),
 			},
@@ -346,7 +411,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 16),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 6',
 				start: GetScheduleTime(12, 16),
 				end: GetScheduleTime(12, 19),
 			},
@@ -356,7 +421,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 59),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 7',
 				start: GetScheduleTime(12, 59),
 				end: GetScheduleTime(13, 2),
 			},
@@ -366,7 +431,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(13, 30),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 8',
 				start: GetScheduleTime(13, 30),
 				end: GetScheduleTime(13, 33),
 			},
@@ -375,6 +440,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(13, 33),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -382,12 +457,22 @@ export const ScheduleList = [
 		selectionID: 'EXAM1',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Mod One',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(8, 15),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(8, 15),
 				end: GetScheduleTime(8, 20),
 			},
@@ -397,7 +482,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 20),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(9, 20),
 				end: GetScheduleTime(9, 25),
 			},
@@ -407,7 +492,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 25),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(10, 25),
 				end: GetScheduleTime(10, 30),
 			},
@@ -417,7 +502,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 0),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(11, 0),
 				end: GetScheduleTime(10, 30),
 			},
@@ -431,6 +516,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(11, 15),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -438,12 +533,22 @@ export const ScheduleList = [
 		selectionID: 'EXAM2',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Mod Three',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(8, 15),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(8, 15),
 				end: GetScheduleTime(8, 20),
 			},
@@ -453,7 +558,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 20),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(9, 20),
 				end: GetScheduleTime(9, 25),
 			},
@@ -463,7 +568,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 25),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(10, 25),
 				end: GetScheduleTime(10, 30),
 			},
@@ -473,7 +578,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 0),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(11, 0),
 				end: GetScheduleTime(10, 30),
 			},
@@ -487,6 +592,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(11, 15),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -494,12 +609,22 @@ export const ScheduleList = [
 		selectionID: 'EXAM3',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Mod Nine',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(8, 15),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(8, 15),
 				end: GetScheduleTime(8, 20),
 			},
@@ -509,7 +634,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 20),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(9, 20),
 				end: GetScheduleTime(9, 25),
 			},
@@ -519,7 +644,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 25),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(10, 25),
 				end: GetScheduleTime(10, 30),
 			},
@@ -529,7 +654,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 0),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(11, 0),
 				end: GetScheduleTime(10, 30),
 			},
@@ -543,6 +668,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(11, 15),
 				end: GetScheduleTime(14, 5),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -550,12 +685,22 @@ export const ScheduleList = [
 		selectionID: 'MCKRALLY',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Mod One',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(8, 5),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(8, 5),
 				end: GetScheduleTime(8, 8),
 			},
@@ -565,7 +710,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(8, 44),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(8, 44),
 				end: GetScheduleTime(8, 47),
 			},
@@ -575,7 +720,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 23),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(9, 23),
 				end: GetScheduleTime(9, 26),
 			},
@@ -585,7 +730,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 6),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(10, 6),
 				end: GetScheduleTime(10, 9),
 			},
@@ -595,7 +740,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 49),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 5',
 				start: GetScheduleTime(10, 49),
 				end: GetScheduleTime(10, 52),
 			},
@@ -605,7 +750,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 32),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 6',
 				start: GetScheduleTime(11, 32),
 				end: GetScheduleTime(11, 35),
 			},
@@ -615,7 +760,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 11),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 7',
 				start: GetScheduleTime(12, 11),
 				end: GetScheduleTime(12, 14),
 			},
@@ -625,7 +770,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 55),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 8',
 				start: GetScheduleTime(12, 55),
 				end: GetScheduleTime(13, 15),
 			},
@@ -634,6 +779,16 @@ export const ScheduleList = [
 				start: GetScheduleTime(13, 15),
 				end: GetScheduleTime(12, 0),
 			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
 		],
 	},
 	{
@@ -641,12 +796,22 @@ export const ScheduleList = [
 		selectionID: 'MMOSB',
 		periods: [
 			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
 				name: 'Mod One',
 				start: GetScheduleTime(7, 15),
 				end: GetScheduleTime(7, 51),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 1',
 				start: GetScheduleTime(7, 51),
 				end: GetScheduleTime(7, 54),
 			},
@@ -656,7 +821,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(8, 30),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 2',
 				start: GetScheduleTime(8, 30),
 				end: GetScheduleTime(8, 33),
 			},
@@ -666,7 +831,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(9, 13),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 3',
 				start: GetScheduleTime(9, 13),
 				end: GetScheduleTime(9, 16),
 			},
@@ -676,7 +841,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(10, 26),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 4',
 				start: GetScheduleTime(10, 26),
 				end: GetScheduleTime(10, 29),
 			},
@@ -686,7 +851,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 9),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 5',
 				start: GetScheduleTime(11, 9),
 				end: GetScheduleTime(11, 12),
 			},
@@ -696,7 +861,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(11, 52),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 6',
 				start: GetScheduleTime(11, 52),
 				end: GetScheduleTime(11, 55),
 			},
@@ -706,7 +871,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(12, 35),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 7',
 				start: GetScheduleTime(12, 35),
 				end: GetScheduleTime(12, 38),
 			},
@@ -716,7 +881,7 @@ export const ScheduleList = [
 				end: GetScheduleTime(13, 18),
 			},
 			{
-				name: 'Class Change',
+				name: 'Class Change 8',
 				start: GetScheduleTime(13, 18),
 				end: GetScheduleTime(13, 21),
 			},
@@ -724,6 +889,16 @@ export const ScheduleList = [
 				name: 'Mod Nine',
 				start: GetScheduleTime(13, 21),
 				end: GetScheduleTime(14, 5),
+			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
 			},
 		],
 	},

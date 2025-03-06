@@ -14,6 +14,7 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 	const setScheduleSelection = useMainStore(
 		(state) => state.setScheduleSelection
 	)
+
 	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
 	const [value, setValue] = useState(
 		schedules.filter((schedule) => {
@@ -29,6 +30,7 @@ export const ScheduleSelect: ScheduleSelectProps = () => {
 						setScheduleSelection(
 							e.currentTarget.value as ScheduleSelection
 						)
+
 						setValue(e.currentTarget.value as ScheduleSelection)
 					}}
 					value={value}
