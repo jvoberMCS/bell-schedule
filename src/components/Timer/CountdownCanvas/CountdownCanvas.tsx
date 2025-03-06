@@ -139,14 +139,11 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 
 			DrawSchedule(ctx, canvas, bells, now, schedule, w * 0.015)
 
+			DrawDividerLine(ctx, w * 0.55, h, Gray[700])
+
 			DrawCurrentTime(ctx, now, schedule, w * 0.775, h * 0.25)
 			DrawNextEndOfMod(ctx, now, schedule, w * 0.775, h * 0.5)
 			DrawTimeLeftInDay(ctx, now, schedule, w * 0.775, h * 0.75)
-
-			DrawDividerLine(ctx, w * 0.55, h, Gray[700])
-
-			// Draw the Path
-			ctx.stroke()
 
 			// Check the schedule did not change.  We don't want to play a bell because the user selected a different schedule, thus changing the current period etc.
 			if (scheduleSelectionChanged === false) {

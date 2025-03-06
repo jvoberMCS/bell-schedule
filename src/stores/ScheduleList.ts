@@ -777,11 +777,11 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Rally',
 				start: GetScheduleTime(13, 15),
-				end: GetScheduleTime(12, 0),
+				end: GetScheduleTime(14, 0),
 			},
 			{
 				name: 'Student Dismissal',
-				start: GetScheduleTime(14, 5),
+				start: GetScheduleTime(14, 0),
 				end: GetScheduleTime(14, 20),
 			},
 			{
