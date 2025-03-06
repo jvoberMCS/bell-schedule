@@ -292,12 +292,17 @@ export const DrawTimeLeftInDay = (
 
 		// const str2 = `${tl.hours < 10 ? '0' : ''}${tl.hours}:${tl.minutes < 10 ? '0' : ''}${tl.seconds === 0 ? tl.minutes + 1 : tl.minutes === 60 ? '00' : tl.minutes}:${tl.seconds < 10 ? '0' : ''}${tl.seconds === 60 ? '00' : tl.seconds}`
 		const timeLeftInDay = GetTimeUntilEndOfDay(now, schedule)
+		const timeSinceEndOfDay = GetTimeSinceEndOfDay(now, schedule)
+		const timeUntilBeginningOfDay = GetTimeUntilBeginningOfDay(
+			now,
+			schedule
+		)
 		const str2 = `${
 			chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
-				? GetTimeSinceEndOfDay(now, schedule)
+				? `${timeSinceEndOfDay.hours < 10 ? '0' : ''}${timeSinceEndOfDay.hours}:${timeSinceEndOfDay.minutes < 10 ? '0' : ''}${timeSinceEndOfDay.minutes}:${timeSinceEndOfDay.seconds < 10 ? '0' : ''}${timeSinceEndOfDay.seconds}`
 				: chunkOfDay === 'Before School' ||
 					  chunkOfDay === 'Student Arrival'
-					? GetTimeUntilBeginningOfDay(now, schedule)
+					? `${timeUntilBeginningOfDay.hours < 10 ? '0' : ''}${timeUntilBeginningOfDay.hours}:${timeUntilBeginningOfDay.minutes < 10 ? '0' : ''}${timeUntilBeginningOfDay.minutes}:${timeUntilBeginningOfDay.seconds < 10 ? '0' : ''}${timeUntilBeginningOfDay.seconds}`
 					: `${timeLeftInDay.hours < 10 ? '0' : ''}${timeLeftInDay.hours}:${timeLeftInDay.minutes < 10 ? '0' : ''}${timeLeftInDay.minutes}:${timeLeftInDay.seconds < 10 ? '0' : ''}${timeLeftInDay.seconds}`
 		}`
 
