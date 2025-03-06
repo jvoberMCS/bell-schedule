@@ -135,6 +135,7 @@ export const DrawDividerLine = (
 		ctx.beginPath()
 		ctx.moveTo(w, h * 0.05)
 		ctx.lineTo(w, h)
+		ctx.stroke()
 	}
 }
 
