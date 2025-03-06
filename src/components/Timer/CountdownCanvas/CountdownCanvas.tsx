@@ -6,10 +6,8 @@ import {
 	DrawTimeLeftInDay,
 } from '@/components/Timer/CountdownCanvas/DrawFunctions'
 import {
+	getChunkOfDay,
 	GetCurrentPeriod,
-	IsAfterSchool,
-	IsBeforeSchool,
-	IsClassChange,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import { dracBg, dracBg2, dracFg, Gray } from '@/theme/colors/colors'
@@ -106,13 +104,14 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 			// Get the current time
 			const now = new Date()
 
+			const chunkOfDay = getChunkOfDay(now, schedule)
 			// Set background color
 			ctx.fillStyle =
-				IsBeforeSchool(now, schedule) === true
+				chunkOfDay === 'Before School'
 					? dracBg2
-					: IsAfterSchool(now, schedule) === true
+					: chunkOfDay === 'After School'
 						? dracBg2
-						: IsClassChange(now, schedule) === true
+						: chunkOfDay === 'Class Change'
 							? dracBg
 							: dracBg
 
@@ -120,11 +119,11 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 
 			// Set text color
 			ctx.fillStyle =
-				IsBeforeSchool(now, schedule) === true
+				chunkOfDay === 'Before School'
 					? dracBg
-					: IsAfterSchool(now, schedule) === true
+					: chunkOfDay === 'After School'
 						? dracBg
-						: IsClassChange(now, schedule) === true
+						: chunkOfDay === 'Class Change'
 							? dracBg
 							: dracFg
 

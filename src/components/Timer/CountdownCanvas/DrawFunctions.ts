@@ -5,7 +5,6 @@ import {
 	GetTimeSinceEndOfDay,
 	GetTimeUntilBeginningOfDay,
 	GetTimeUntilEndOfDay,
-	IsClassChange,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions'
 import {
 	dracBg,
@@ -226,7 +225,7 @@ export const DrawNextEndOfMod = (
 		) {
 			// If it is BEFORE the beginning of the first Mod, it is before school.
 			str = `Before School`
-		} else if (IsClassChange(now, schedule) === true) {
+		} else if (chunkOfDay === 'Class Change') {
 			str = `Class Change: ${diff.hours < 10 ? '0' : ''}${diff.hours === 0 ? diff.hours : ''}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
 		} else {
 			// Normal mod time
@@ -239,7 +238,7 @@ export const DrawNextEndOfMod = (
 				: chunkOfDay === 'After School' ||
 					  chunkOfDay === 'Student Dismissal'
 					? dracBg2 // Color for text when it is after school
-					: IsClassChange(now, schedule) === true
+					: chunkOfDay === 'Class Change'
 						? dracCl // Color for text when it is between classes
 						: dracBlack // Color for text when it is during class
 		// Outline Color
@@ -281,9 +280,6 @@ export const DrawTimeLeftInDay = (
 						? dracBg
 						: dracFg
 
-		const tl = GetTimeUntilEndOfDay(now, schedule)
-
-		// TODO: Make this more robust with "Time until school starts" and "Time Since End Of Day" etc.  Use new functions that detect if it is before / after school?? isAfterSchool() isBeforeSchool()
 		const str1 = `${
 			chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
 				? 'Time Since End of Day: '

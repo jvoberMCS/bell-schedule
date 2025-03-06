@@ -46,9 +46,6 @@ export const GetTimeDifference = (
 		1
 	const milliseconds = Math.floor(deltaMs)
 
-	// const isAfterSchool =
-	// 	endOfDay.getTime() - t1.getTime() > 0 ? false : true
-
 	return {
 		days: days,
 		hours: hours,
@@ -101,62 +98,6 @@ export const GetLongestModMs = (schedule: Schedule) => {
 	return longestModMs
 }
 
-// export const GetTimeLeftInDay = (
-// 	now: Date,
-// 	schedule: Schedule
-// ): {
-// 	days: number
-// 	hours: number
-// 	minutes: number
-// 	seconds: number
-// 	milliseconds: number
-// 	diffInMs: number
-// } => {
-// 	const endOfDay = new Date(
-// 		schedule.periods.filter(
-// 			(period) => period.name === 'Student Dismissal'
-// 		)[0].start
-// 	)
-
-// 	const chunkOfDay = getChunkOfDay(now, schedule)
-
-// 	const timeDifference =
-// 		chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
-// 			? GetTimeDifference(endOfDay, now)
-// 			: GetTimeDifference(now, endOfDay)
-
-// 	return {
-// 		days: timeDifference.days,
-// 		hours:
-// 			IsAfterSchool(now, schedule) === false
-// 				? timeDifference.hours === 24
-// 					? timeDifference.hours + 1
-// 					: timeDifference.hours
-// 				: timeDifference.hours - 1 === 24
-// 					? 0
-// 					: timeDifference.hours,
-// 		minutes:
-// 			IsAfterSchool(now, schedule) === false
-// 				? timeDifference.minutes === 60
-// 					? 0
-// 					: timeDifference.minutes
-// 				: timeDifference.minutes - 1 === 60
-// 					? 0
-// 					: timeDifference.minutes,
-// 		seconds:
-// 			IsAfterSchool(now, schedule) === false
-// 				? timeDifference.seconds === 60
-// 					? 0
-// 					: timeDifference.seconds
-// 				: timeDifference.seconds - 1 === 60
-// 					? 0
-// 					: timeDifference.seconds - 1,
-
-// 		milliseconds: timeDifference.milliseconds,
-// 		diffInMs: timeDifference.deltaMs,
-// 	}
-// }
-
 export const GetTimeUntilEndOfDay = (now: Date, schedule: Schedule) => {
 	const endOfDay = GetEndOfDay(schedule)
 	return GetTimeDifference(now, endOfDay)
@@ -167,34 +108,6 @@ export const GetTimeLeftInMod = (now: Date, schedule: Schedule) => {
 	const diff = GetTimeDifference(now, endOfNextPeriod)
 
 	return diff
-}
-
-export const IsClassChange = (now: Date, schedule: Schedule) => {
-	const currentPeriod = GetCurrentPeriod(now, schedule)
-	const prevPeriod =
-		GetPreviousPeriod(now, schedule) !== undefined
-			? GetPreviousPeriod(now, schedule)
-			: schedule.periods[0] // if undefined, it means it didn't find a previous period.  Should be beginning of the day, so make it the first in the array.
-
-	if (prevPeriod.end < now && now < currentPeriod.start) {
-		return true
-	}
-	return false
-}
-
-export const IsBeforeSchool = (now: Date, schedule: Schedule) => {
-	if (now < schedule.periods[0].start) {
-		return true
-	}
-	return false
-}
-
-export const IsAfterSchool = (now: Date, schedule: Schedule) => {
-	const numPeriods = schedule.periods.length
-	if (now > schedule.periods[numPeriods - 1].end) {
-		return true
-	}
-	return false
 }
 
 export const getChunkOfDay = (now: Date, schedule: Schedule) => {
