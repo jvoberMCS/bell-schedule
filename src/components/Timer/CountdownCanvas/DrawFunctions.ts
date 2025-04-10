@@ -158,7 +158,8 @@ export const DrawNextEndOfMod = (
 ) => {
 	if (ctx !== null) {
 		const chunkOfDay = getChunkOfDay(now, schedule)
-		ctx.font = '2em Fira Code'
+		ctx.font =
+			chunkOfDay === 'Class Change' ? '6.5em Fira Code' : '2em Fira Code'
 		ctx.textAlign = 'center'
 
 		ctx.fillStyle =
@@ -199,6 +200,7 @@ export const DrawNextEndOfMod = (
 			// Normal mod time
 			str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`
 		}
+
 		// Text Color
 		ctx.fillStyle =
 			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'

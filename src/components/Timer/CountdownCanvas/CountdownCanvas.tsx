@@ -136,13 +136,17 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 				} as Bell
 			})
 
-			DrawSchedule(ctx, canvas, bells, now, schedule, w * 0.015)
+			if (chunkOfDay === 'Class Change') {
+				DrawNextEndOfMod(ctx, now, schedule, w * 0.5, h * 0.5)
+			} else {
+				DrawSchedule(ctx, canvas, bells, now, schedule, w * 0.48)
 
-			DrawDividerLine(ctx, w * 0.55, h, Gray[700])
+				DrawDividerLine(ctx, w * 0.45, h, Gray[700])
 
-			DrawCurrentTime(ctx, now, schedule, w * 0.775, h * 0.25)
-			DrawNextEndOfMod(ctx, now, schedule, w * 0.775, h * 0.5)
-			DrawTimeLeftInDay(ctx, now, schedule, w * 0.775, h * 0.75)
+				DrawCurrentTime(ctx, now, schedule, w * 0.225, h * 0.25)
+				DrawNextEndOfMod(ctx, now, schedule, w * 0.225, h * 0.5)
+				DrawTimeLeftInDay(ctx, now, schedule, w * 0.225, h * 0.75)
+			}
 
 			// Check the schedule did not change.  We don't want to play a bell because the user selected a different schedule, thus changing the current period etc.
 			if (scheduleSelectionChanged === false) {
