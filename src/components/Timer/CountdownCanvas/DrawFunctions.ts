@@ -9,11 +9,11 @@ import {
 import {
 	dracBg,
 	dracBg2,
-	dracBlack,
 	dracCl,
 	dracFg,
 	dracOrange,
 } from '@/theme/colors/colors'
+import { dracComment } from './../../../theme/colors/colors'
 
 export const DrawSchedule = (
 	ctx: CanvasRenderingContext2D | null,
@@ -70,8 +70,8 @@ export const DrawSchedule = (
 					? currentPeriod.start === modBell.start &&
 						currentPeriod.end === modBell.end
 						? dracOrange
-						: dracCl
-					: dracBlack
+						: dracComment
+					: dracCl
 
 			const fontHeight =
 				ctx.measureText(str1).fontBoundingBoxAscent +
@@ -114,6 +114,7 @@ export const DrawDividerLine = (
 		ctx.beginPath()
 		ctx.moveTo(w, h * 0.05)
 		ctx.lineTo(w, h * 0.95)
+		ctx.strokeStyle = color
 		ctx.stroke()
 	}
 }
