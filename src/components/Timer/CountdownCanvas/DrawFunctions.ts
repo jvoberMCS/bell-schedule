@@ -169,7 +169,7 @@ export const DrawNextEndOfMod = (
 					  chunkOfDay === 'Student Dismissal'
 					? dracBg2
 					: chunkOfDay === 'Class Change'
-						? dracBg
+						? dracOrange
 						: dracFg
 		const endOfNextPeriod = new Date(GetCurrentPeriod(now, schedule).end)
 
