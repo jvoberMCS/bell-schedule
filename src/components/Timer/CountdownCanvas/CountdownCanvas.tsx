@@ -148,6 +148,15 @@ export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
 			if (scheduleSelectionChanged === false) {
 				checkShouldPlayClassChangeTone(now, schedule)
 			}
+
+			// Reload the page if the day changes.
+			if (
+				now.getHours() === 0 &&
+				now.getMinutes() > 0 &&
+				now.getMinutes() < 1
+			) {
+				window.location.reload()
+			}
 		}
 
 		const intervalId = setInterval(animate, 1000) // Update the canvas every x milliseconds
