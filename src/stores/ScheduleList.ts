@@ -1,11 +1,11 @@
 export const GetScheduleTime = (hours: number, minutes: number) => {
-	const time = new Date()
-	time.setHours(hours)
-	time.setMinutes(minutes)
-	time.setSeconds(0)
-	time.setMilliseconds(0)
-	return time
-}
+	const time = new Date();
+	time.setHours(hours);
+	time.setMinutes(minutes);
+	time.setSeconds(0);
+	time.setMilliseconds(0);
+	return time;
+};
 
 export const ScheduleList: Schedule[] = [
 	{
@@ -902,4 +902,105 @@ export const ScheduleList: Schedule[] = [
 			},
 		],
 	},
-]
+	{
+		name: 'Senior Exam Schedule',
+		selectionID: 'SENIOREXAM',
+		periods: [
+			{
+				name: 'Before School',
+				start: GetScheduleTime(0, 0),
+				end: GetScheduleTime(7, 0),
+			},
+			{
+				name: 'Student Arrival',
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 15),
+			},
+			{
+				name: 'Mod One',
+				start: GetScheduleTime(7, 15),
+				end: GetScheduleTime(8, 3),
+			},
+			{
+				name: 'Class Change 1',
+				start: GetScheduleTime(8, 3),
+				end: GetScheduleTime(8, 6),
+			},
+			{
+				name: 'Mod Two',
+				start: GetScheduleTime(8, 6),
+				end: GetScheduleTime(8, 54),
+			},
+			{
+				name: 'Class Change 2',
+				start: GetScheduleTime(8, 54),
+				end: GetScheduleTime(8, 57),
+			},
+			{
+				name: 'Mod Three',
+				start: GetScheduleTime(8, 57),
+				end: GetScheduleTime(9, 45),
+			},
+			{
+				name: 'Class Change 3',
+				start: GetScheduleTime(9, 45),
+				end: GetScheduleTime(9, 48),
+			},
+			{
+				name: 'Mod Five',
+				start: GetScheduleTime(9, 48),
+				end: GetScheduleTime(10, 36),
+			},
+			{
+				name: 'Class Change 5',
+				start: GetScheduleTime(10, 36),
+				end: GetScheduleTime(10, 39),
+			},
+			{
+				name: 'Mod Six',
+				start: GetScheduleTime(10, 39),
+				end: GetScheduleTime(11, 27),
+			},
+			{
+				name: 'Class Change 6',
+				start: GetScheduleTime(11, 27),
+				end: GetScheduleTime(11, 30),
+			},
+			{
+				name: 'Mod Seven',
+				start: GetScheduleTime(11, 30),
+				end: GetScheduleTime(12, 18),
+			},
+			{
+				name: 'Class Change 7',
+				start: GetScheduleTime(12, 18),
+				end: GetScheduleTime(12, 21),
+			},
+			{
+				name: 'Mod Eight',
+				start: GetScheduleTime(12, 21),
+				end: GetScheduleTime(13, 9),
+			},
+			{
+				name: 'Class Change 8',
+				start: GetScheduleTime(13, 9),
+				end: GetScheduleTime(13, 12),
+			},
+			{
+				name: 'Mod Nine',
+				start: GetScheduleTime(13, 12),
+				end: GetScheduleTime(14, 5),
+			},
+			{
+				name: 'Student Dismissal',
+				start: GetScheduleTime(14, 5),
+				end: GetScheduleTime(14, 20),
+			},
+			{
+				name: 'After School',
+				start: GetScheduleTime(14, 20),
+				end: GetScheduleTime(23, 59),
+			},
+		],
+	},
+];
