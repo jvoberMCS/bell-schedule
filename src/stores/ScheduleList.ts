@@ -238,98 +238,98 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod One',
-				start: GetScheduleTime(7, 15),
-				end: GetScheduleTime(7, 55),
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 40),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 40),
+				start: GetScheduleTime(7, 43),
 			}),
 			{
 				name: 'Mod Two',
-				start: GetScheduleTime(7, 58),
-				end: GetScheduleTime(8, 38),
+				start: GetScheduleTime(7, 43),
+				end: GetScheduleTime(8, 23),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('2', {
+				end: GetScheduleTime(8, 23),
+				start: GetScheduleTime(8, 26),
 			}),
 			{
 				name: 'Mod Three',
-				start: GetScheduleTime(8, 41),
-				end: GetScheduleTime(9, 23),
+				start: GetScheduleTime(8, 26),
+				end: GetScheduleTime(9, 8),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('3', {
+				end: GetScheduleTime(9, 8),
+				start: GetScheduleTime(9, 11),
 			}),
 			{
 				name: 'Assembly',
-				start: GetScheduleTime(9, 26),
-				end: GetScheduleTime(10, 26),
+				start: GetScheduleTime(9, 11),
+				end: GetScheduleTime(10, 11),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('4', {
+				end: GetScheduleTime(10, 11),
+				start: GetScheduleTime(10, 14),
 			}),
 			{
 				name: 'Mod Five',
-				start: GetScheduleTime(10, 29),
-				end: GetScheduleTime(11, 9),
+				start: GetScheduleTime(10, 14),
+				end: GetScheduleTime(10, 54),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('5', {
+				end: GetScheduleTime(10, 54),
+				start: GetScheduleTime(10, 57),
 			}),
 			{
 				name: 'Mod Six',
-				start: GetScheduleTime(11, 12),
-				end: GetScheduleTime(11, 52),
+				start: GetScheduleTime(10, 57),
+				end: GetScheduleTime(11, 37),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('6', {
+				end: GetScheduleTime(11, 37),
+				start: GetScheduleTime(11, 40),
 			}),
 			{
 				name: 'Mod Seven',
-				start: GetScheduleTime(11, 55),
-				end: GetScheduleTime(12, 35),
+				start: GetScheduleTime(11, 40),
+				end: GetScheduleTime(12, 20),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('7', {
+				end: GetScheduleTime(12, 20),
+				start: GetScheduleTime(12, 23),
 			}),
 			{
 				name: 'Mod Eight',
-				start: GetScheduleTime(12, 38),
-				end: GetScheduleTime(13, 18),
+				start: GetScheduleTime(12, 23),
+				end: GetScheduleTime(13, 3),
 			},
-			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+			makeClassChange('8', {
+				end: GetScheduleTime(13, 3),
+				start: GetScheduleTime(13, 6),
 			}),
 			{
 				name: 'Mod Nine',
-				start: GetScheduleTime(13, 21),
-				end: GetScheduleTime(14, 5),
+				start: GetScheduleTime(13, 6),
+				end: GetScheduleTime(13, 50),
 			},
 			{
 				name: 'Student Dismissal',
-				start: GetScheduleTime(14, 5),
-				end: GetScheduleTime(14, 20),
+				start: GetScheduleTime(13, 50),
+				end: GetScheduleTime(14, 5),
 			},
 			{
 				name: 'After School',
-				start: GetScheduleTime(14, 20),
+				start: GetScheduleTime(14, 5),
 				end: GetScheduleTime(23, 59),
 			},
 		],
@@ -341,12 +341,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Air Test',
@@ -444,12 +444,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod One',
@@ -520,12 +520,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod Three',
@@ -596,12 +596,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod Nine',
@@ -672,12 +672,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod One',
@@ -783,12 +783,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod One',
@@ -894,12 +894,12 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Before School',
 				start: GetScheduleTime(0, 0),
-				end: GetScheduleTime(7, 0),
+				end: GetScheduleTime(6, 45),
 			},
 			{
 				name: 'Student Arrival',
-				start: GetScheduleTime(7, 0),
-				end: GetScheduleTime(7, 15),
+				start: GetScheduleTime(6, 45),
+				end: GetScheduleTime(7, 0),
 			},
 			{
 				name: 'Mod One',
