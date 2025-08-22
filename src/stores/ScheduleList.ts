@@ -154,7 +154,7 @@ export const ScheduleList: Schedule[] = [
 			{
 				name: 'Mod Two',
 				start: GetScheduleTime(7, 48),
-				end: GetScheduleTime(8, 43),
+				end: GetScheduleTime(8, 33),
 			},
 			makeClassChange('2', {
 				end: GetScheduleTime(7, 44),
