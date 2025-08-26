@@ -22,6 +22,24 @@ const makeClassChange = (
 	} as Period
 }
 
+const makeClassChanges = (periods: Period[]) => {
+	let newPeriods = [] as Period[]
+
+	for (let i = 1; i < periods.length; i++) {
+		if (periods[i].name === 'Class Change') {
+			// This will be replaced with the updated times
+			newPeriods.push({
+				name: 'Class Change',
+				start: periods[i - 1].end,
+				end: periods[i + 1].start,
+			})
+		} else {
+			//  This is a Mod
+			newPeriods.push(periods[i])
+		}
+	}
+}
+
 export const ScheduleList: Schedule[] = [
 	{
 		name: 'Regular Schedule',
@@ -42,7 +60,7 @@ export const ScheduleList: Schedule[] = [
 				start: GetScheduleTime(7, 0),
 				end: GetScheduleTime(7, 44),
 			},
-			makeClassChange('1', {
+			makeClassChange('Class Change 1', {
 				end: GetScheduleTime(7, 44),
 				start: GetScheduleTime(7, 47),
 			}),
@@ -350,89 +368,89 @@ export const ScheduleList: Schedule[] = [
 			},
 			{
 				name: 'Air Test',
-				start: GetScheduleTime(7, 15),
-				end: GetScheduleTime(9, 15),
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(9, 0),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod One',
-				start: GetScheduleTime(9, 20),
-				end: GetScheduleTime(9, 48),
+				start: GetScheduleTime(9, 5),
+				end: GetScheduleTime(9, 33),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Two',
-				start: GetScheduleTime(9, 51),
-				end: GetScheduleTime(10, 19),
+				start: GetScheduleTime(9, 36),
+				end: GetScheduleTime(10, 4),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Three',
-				start: GetScheduleTime(10, 22),
-				end: GetScheduleTime(10, 50),
+				start: GetScheduleTime(10, 7),
+				end: GetScheduleTime(10, 35),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Five',
-				start: GetScheduleTime(10, 53),
-				end: GetScheduleTime(11, 33),
+				start: GetScheduleTime(10, 38),
+				end: GetScheduleTime(11, 18),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Six',
-				start: GetScheduleTime(11, 36),
-				end: GetScheduleTime(12, 16),
+				start: GetScheduleTime(11, 21),
+				end: GetScheduleTime(12, 1),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Seven',
-				start: GetScheduleTime(12, 19),
-				end: GetScheduleTime(12, 59),
+				start: GetScheduleTime(12, 4),
+				end: GetScheduleTime(12, 44),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Eight',
-				start: GetScheduleTime(13, 2),
-				end: GetScheduleTime(13, 30),
+				start: GetScheduleTime(13, 47),
+				end: GetScheduleTime(13, 15),
 			},
 			makeClassChange('1', {
-				end: GetScheduleTime(7, 44),
-				start: GetScheduleTime(7, 47),
+				end: GetScheduleTime(7, 29),
+				start: GetScheduleTime(7, 32),
 			}),
 			{
 				name: 'Mod Nine',
-				start: GetScheduleTime(13, 33),
-				end: GetScheduleTime(14, 5),
+				start: GetScheduleTime(13, 18),
+				end: GetScheduleTime(14, 50),
 			},
 			{
 				name: 'Student Dismissal',
-				start: GetScheduleTime(14, 5),
-				end: GetScheduleTime(14, 20),
+				start: GetScheduleTime(14, 50),
+				end: GetScheduleTime(14, 5),
 			},
 			{
 				name: 'After School',
-				start: GetScheduleTime(14, 20),
+				start: GetScheduleTime(14, 5),
 				end: GetScheduleTime(23, 59),
 			},
 		],
@@ -681,97 +699,97 @@ export const ScheduleList: Schedule[] = [
 			},
 			{
 				name: 'Mod One',
-				start: GetScheduleTime(7, 15),
-				end: GetScheduleTime(8, 5),
+				start: GetScheduleTime(7, 0),
+				end: GetScheduleTime(7, 50),
 			},
 			{
 				name: 'Class Change 1',
-				start: GetScheduleTime(8, 5),
-				end: GetScheduleTime(8, 8),
+				start: GetScheduleTime(7, 50),
+				end: GetScheduleTime(7, 53),
 			},
 			{
 				name: 'Mod Two',
-				start: GetScheduleTime(8, 8),
-				end: GetScheduleTime(8, 44),
+				start: GetScheduleTime(7, 53),
+				end: GetScheduleTime(8, 29),
 			},
 			{
 				name: 'Class Change 2',
-				start: GetScheduleTime(8, 44),
-				end: GetScheduleTime(8, 47),
+				start: GetScheduleTime(8, 29),
+				end: GetScheduleTime(8, 32),
 			},
 			{
 				name: 'Mod Three',
-				start: GetScheduleTime(8, 47),
-				end: GetScheduleTime(9, 23),
+				start: GetScheduleTime(8, 32),
+				end: GetScheduleTime(9, 8),
 			},
 			{
 				name: 'Class Change 3',
-				start: GetScheduleTime(9, 23),
-				end: GetScheduleTime(9, 26),
+				start: GetScheduleTime(9, 8),
+				end: GetScheduleTime(9, 11),
 			},
 			{
 				name: 'Mod Five',
-				start: GetScheduleTime(9, 26),
-				end: GetScheduleTime(10, 6),
+				start: GetScheduleTime(9, 11),
+				end: GetScheduleTime(9, 51),
 			},
 			{
 				name: 'Class Change 4',
-				start: GetScheduleTime(10, 6),
-				end: GetScheduleTime(10, 9),
+				start: GetScheduleTime(9, 51),
+				end: GetScheduleTime(9, 54),
 			},
 			{
 				name: 'Mod Six',
-				start: GetScheduleTime(10, 9),
-				end: GetScheduleTime(10, 49),
+				start: GetScheduleTime(9, 54),
+				end: GetScheduleTime(10, 34),
 			},
 			{
 				name: 'Class Change 5',
-				start: GetScheduleTime(10, 49),
-				end: GetScheduleTime(10, 52),
+				start: GetScheduleTime(10, 34),
+				end: GetScheduleTime(10, 37),
 			},
 			{
 				name: 'Mod Seven',
-				start: GetScheduleTime(10, 52),
-				end: GetScheduleTime(11, 32),
+				start: GetScheduleTime(10, 37),
+				end: GetScheduleTime(11, 17),
 			},
 			{
 				name: 'Class Change 6',
-				start: GetScheduleTime(11, 32),
-				end: GetScheduleTime(11, 35),
+				start: GetScheduleTime(11, 17),
+				end: GetScheduleTime(11, 20),
 			},
 			{
 				name: 'Mod Eight',
-				start: GetScheduleTime(11, 35),
-				end: GetScheduleTime(12, 11),
+				start: GetScheduleTime(11, 20),
+				end: GetScheduleTime(11, 56),
 			},
 			{
 				name: 'Class Change 7',
-				start: GetScheduleTime(12, 11),
-				end: GetScheduleTime(12, 14),
+				start: GetScheduleTime(11, 56),
+				end: GetScheduleTime(11, 59),
 			},
 			{
 				name: 'Mod Nine',
-				start: GetScheduleTime(12, 14),
-				end: GetScheduleTime(12, 55),
+				start: GetScheduleTime(11, 59),
+				end: GetScheduleTime(12, 40),
 			},
 			{
 				name: 'Class Change 8',
-				start: GetScheduleTime(12, 55),
-				end: GetScheduleTime(13, 15),
+				start: GetScheduleTime(12, 40),
+				end: GetScheduleTime(13, 0),
 			},
 			{
 				name: 'Rally',
-				start: GetScheduleTime(13, 15),
-				end: GetScheduleTime(14, 0),
+				start: GetScheduleTime(13, 0),
+				end: GetScheduleTime(13, 45),
 			},
 			{
 				name: 'Student Dismissal',
-				start: GetScheduleTime(14, 0),
-				end: GetScheduleTime(14, 20),
+				start: GetScheduleTime(13, 50),
+				end: GetScheduleTime(14, 5),
 			},
 			{
 				name: 'After School',
-				start: GetScheduleTime(14, 20),
+				start: GetScheduleTime(14, 5),
 				end: GetScheduleTime(23, 59),
 			},
 		],

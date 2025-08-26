@@ -7,9 +7,9 @@ type Compound = {
 
 */
 
-type Month = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+type Month = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11
 
-type Day = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+type Day = 0 | 1 | 2 | 3 | 4 | 5 | 6
 type Date =
 	| 1
 	| 2
@@ -41,7 +41,7 @@ type Date =
 	| 28
 	| 29
 	| 30
-	| 31;
+	| 31
 
 type Hour =
 	| 0
@@ -67,7 +67,7 @@ type Hour =
 	| 20
 	| 21
 	| 22
-	| 23;
+	| 23
 
 type Minute =
 	| 0
@@ -130,7 +130,7 @@ type Minute =
 	| 57
 	| 58
 	| 59
-	| 60;
+	| 60
 
 type Second =
 	| 0
@@ -193,7 +193,7 @@ type Second =
 	| 57
 	| 58
 	| 59
-	| 60;
+	| 60
 
 type Millisecond =
 	| 0
@@ -296,31 +296,31 @@ type Millisecond =
 	| 97
 	| 98
 	| 99
-	| 100;
+	| 100
 
 type UTCFields = {
-	year: number;
-	monthIndex: MonthIndex;
-	day: Date;
-	hours: Hour;
-	minutes: Minute;
-	seconds: Second;
-	milliseconds: Millisecond;
-};
+	year: number
+	monthIndex: MonthIndex
+	day: Date
+	hours: Hour
+	minutes: Minute
+	seconds: Second
+	milliseconds: Millisecond
+}
 
 type Period = {
-	name: ModName;
-	start: Date;
-	end: Date;
-};
+	name: ModName
+	start: Date
+	end: Date
+}
 
-type Bell = Period & { now: Date };
+type Bell = Period & { now: Date }
 
 type Schedule = {
-	name: string;
-	selectionID: ScheduleSelection;
-	periods: Period[];
-};
+	name: string
+	selectionID: ScheduleSelection
+	periods: Period[]
+}
 
 type ScheduleSelection =
 	| 'REGULAR'
@@ -333,7 +333,7 @@ type ScheduleSelection =
 	| 'EXAM3'
 	| 'MCKRALLY'
 	| 'TEST'
-	| 'SENIOREXAM';
+	| 'SENIOREXAM'
 
 type ModName =
 	| 'Before School'
@@ -349,6 +349,7 @@ type ModName =
 	| 'Mod Seven'
 	| 'Mod Eight'
 	| 'Mod Nine'
+	| 'Class Change'
 	| 'Class Change 1'
 	| 'Class Change 2'
 	| 'Class Change 3'
@@ -362,7 +363,7 @@ type ModName =
 	| 'Air Test'
 	| 'Student Lunch'
 	| 'Staff Lunch'
-	| 'Make-Ups';
+	| 'Make-Ups'
 
 type ChunkOfDay =
 	| 'Before School'
@@ -370,4 +371,4 @@ type ChunkOfDay =
 	| 'Student Dismissal'
 	| 'Student Arrival'
 	| 'Class Change'
-	| 'Class Period';
+	| 'Class Period'
