@@ -60,7 +60,7 @@ export const ScheduleList: Schedule[] = [
 				start: GetScheduleTime(7, 0),
 				end: GetScheduleTime(7, 44),
 			},
-			makeClassChange('Class Change 1', {
+			makeClassChange('1', {
 				end: GetScheduleTime(7, 44),
 				start: GetScheduleTime(7, 47),
 			}),
