@@ -334,6 +334,7 @@ type ScheduleSelection =
 	| 'MCKRALLY'
 	| 'TEST'
 	| 'SENIOREXAM'
+	| 'OST'
 
 type ModName =
 	| 'Before School'

@@ -961,4 +961,98 @@ export const ScheduleList: Schedule[] = [
             },
         ],
     },
+    {
+        name: 'OST Testing Schedule',
+        selectionID: 'OST',
+        periods: [
+            {
+                name: 'Before School',
+                start: GetScheduleTime(0, 0),
+                end: GetScheduleTime(6, 45),
+            },
+            {
+                name: 'Student Arrival',
+                start: GetScheduleTime(6, 45),
+                end: GetScheduleTime(7, 0),
+            },
+            {
+                name: 'Mod One',
+                start: GetScheduleTime(7, 0),
+                end: GetScheduleTime(7, 51),
+            },
+            makeClassChange('1', {
+                end: GetScheduleTime(7, 51),
+                start: GetScheduleTime(7, 54),
+            }),
+            {
+                name: 'Mod Two',
+                start: GetScheduleTime(7, 54),
+                end: GetScheduleTime(8, 45),
+            },
+            makeClassChange('2', {
+                end: GetScheduleTime(8, 45),
+                start: GetScheduleTime(8, 48),
+            }),
+            {
+                name: 'Mod Three',
+                start: GetScheduleTime(8, 48),
+                end: GetScheduleTime(9, 39),
+            },
+            makeClassChange('3', {
+                end: GetScheduleTime(9, 39),
+                start: GetScheduleTime(9, 42),
+            }),
+            {
+                name: 'Mod Five',
+                start: GetScheduleTime(9, 42),
+                end: GetScheduleTime(10, 26),
+            },
+            makeClassChange('4', {
+                end: GetScheduleTime(10, 26),
+                start: GetScheduleTime(10, 29),
+            }),
+            {
+                name: 'Mod Six',
+                start: GetScheduleTime(10, 29),
+                end: GetScheduleTime(11, 13),
+            },
+            makeClassChange('5', {
+                end: GetScheduleTime(11, 13),
+                start: GetScheduleTime(11, 16),
+            }),
+            {
+                name: 'Mod Seven',
+                start: GetScheduleTime(11, 16),
+                end: GetScheduleTime(12, 0),
+            },
+            makeClassChange('6', {
+                end: GetScheduleTime(12, 0),
+                start: GetScheduleTime(12, 3),
+            }),
+            {
+                name: 'Mod Eight',
+                start: GetScheduleTime(12, 3),
+                end: GetScheduleTime(12, 53),
+            },
+            makeClassChange('7', {
+                end: GetScheduleTime(12, 53),
+                start: GetScheduleTime(12, 56),
+            }),
+            {
+                name: 'Mod Nine',
+                start: GetScheduleTime(12, 56),
+                end: GetScheduleTime(13, 50),
+            },
+            {
+                name: 'Student Dismissal',
+                start: GetScheduleTime(13, 50),
+                end: GetScheduleTime(14, 0),
+            },
+            {
+                name: 'After School',
+                start: GetScheduleTime(14, 0),
+                end: GetScheduleTime(23, 59),
+            },
+        ],
+    },
 ]
