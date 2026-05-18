@@ -42,7 +42,7 @@ export const DrawSchedule = (
         const chunkOfDay = getChunkOfDay(now, schedule);
 
         // Set text settings
-        ctx.font = can.landscape === true ? '2rem Fira Code' : '1rem Fira Code';
+        ctx.font = can.landscape === true ? '2rem Fira Code' : '2rem Fira Code';
 
         ctx.fillStyle =
             chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
@@ -88,10 +88,11 @@ export const DrawSchedule = (
                         : dracComment
                     : dracCl;
 
-            const xPosStr1 = can.landscape === true ? (can.w / 2) : can.w / 4
+            const xPosStr1 = can.landscape === true ? (can.w / 2) : can.w * .05
+            const xPosStr2 = can.landscape === true ? can.w : can.w * .95
 
             // const yLocation = yOffset + lineHeight * i;
-            const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : (can.h / 4) + 16 * i
+            const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : can.h - ((bells.length - i * 1.5) * ctx.measureText('M').emHeightAscent)
 
             // Draw Mod Name
             ctx.textAlign = 'left';
@@ -101,7 +102,7 @@ export const DrawSchedule = (
             ctx.textAlign = 'right';
             ctx.fillText(
                 str2,
-                can.w * 0.75,
+                xPosStr2,
                 yLocation
             );
         });
