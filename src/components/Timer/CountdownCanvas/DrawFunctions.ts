@@ -88,8 +88,8 @@ export const DrawSchedule = (
                         : dracComment
                     : dracCl;
 
-            const xPosStr1 = can.landscape === true ? (can.w / 2) : can.w * .05
-            const xPosStr2 = can.landscape === true ? can.w : can.w * .95
+            const xPosStr1 = can.landscape === true ? (can.w / 2) : 0
+            const xPosStr2 = can.landscape === true ? can.w : can.w
 
             // const yLocation = yOffset + lineHeight * i;
             const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : ctx.measureText('M').emHeightAscent * (14 + 1.5 * i)
