@@ -211,7 +211,7 @@ export const DrawNextEndOfMod = (
             str = `Before School`;
         } else if (chunkOfDay === 'Class Change') {
             str = `Class Change:`;
-            str2 = `${diff.hours < 10 ? '0' : ''}${diff.hours === 0 ? diff.hours : ''}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}$diff.seconds === 60 ? '00' : diff.seconds}`;
+            str2 = `${diff.hours < 10 ? '0' : ''}${diff.hours === 0 ? diff.hours : ''}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`;
 
         } else {
             // Normal mod time
