@@ -92,7 +92,7 @@ export const DrawSchedule = (
             const xPosStr2 = can.landscape === true ? can.w : can.w * .95
 
             // const yLocation = yOffset + lineHeight * i;
-            const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : can.h - ((bells.length - i * 1.5) * ctx.measureText('M').emHeightAscent)
+            const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : ctx.measureText('M').emHeightAscent * (14 + 1.5 * i)
 
             // Draw Mod Name
             ctx.textAlign = 'left';
