@@ -309,6 +309,7 @@ type UTCFields = {
 }
 
 type Period = {
+	id: Number
 	name: ModName
 	start: Date
 	end: Date

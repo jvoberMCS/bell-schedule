@@ -1,13 +1,14 @@
 import {
-	DrawCurrentTime,
-	DrawDividerLine,
-	DrawNextEndOfMod,
-	DrawSchedule,
-	DrawTimeLeftInDay,
+    DrawCurrentTime,
+    DrawDividerLine,
+    DrawNextEndOfMod,
+    DrawSchedule,
+    DrawTimeLeftInDay,
+    getFontHeight
 } from '@/components/Timer/CountdownCanvas/DrawFunctions'
 import {
-	getChunkOfDay,
-	GetCurrentPeriod,
+    getChunkOfDay,
+    GetCurrentPeriod,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions'
 import { useMainStore } from '@/stores/MainStore'
 import { dracBg, dracBg2, dracFg, Gray } from '@/theme/colors/colors'
@@ -17,160 +18,165 @@ import * as Tone from 'tone'
 
 type Props = { width: number; height: number }
 type CountdownCanvasProps =
-	Props extends Record<string, never>
-		? React.FC<Record<string, never>>
-		: React.FC<Props>
+    Props extends Record<string, never>
+    ? React.FC<Record<string, never>>
+    : React.FC<Props>
 
 export const CountdownCanvas: CountdownCanvasProps = ({ width, height }) => {
-	const scheduleSelection = useMainStore((state) => state.scheduleSelection)
-	const schedules = useMainStore((state) => state.schedules)
-	const canvasRef = useRef<HTMLCanvasElement | null>(null)
-	const scheduleSelectionChanged = useMainStore(
-		(state) => state.scheduleSelectionChanged
-	)
-	const setScheduleSelectionChanged = useMainStore(
-		(state) => state.setScheduleSelectionChanged
-	)
-	const isMuted = useMainStore((state) => state.isMuted)
+    const scheduleSelection = useMainStore((state) => state.scheduleSelection)
+    const schedules = useMainStore((state) => state.schedules)
+    const canvasRef = useRef<HTMLCanvasElement | null>(null)
+    const scheduleSelectionChanged = useMainStore(
+        (state) => state.scheduleSelectionChanged
+    )
+    const setScheduleSelectionChanged = useMainStore(
+        (state) => state.setScheduleSelectionChanged
+    )
+    const isMuted = useMainStore((state) => state.isMuted)
 
-	const [bRung, setBRung] = useState([] as ModName[])
-	// Tone.js
-	const synth = new Tone.Synth().toDestination()
+    const [bRung, setBRung] = useState([] as ModName[])
+    // Tone.js
+    const synth = new Tone.Synth().toDestination()
 
-	const playClassChangeTone = (synth: Tone.Synth<Tone.SynthOptions>) => {
-		if (isMuted === false) {
-			const now = Tone.now()
-			synth.triggerAttackRelease('440', 2.25, now) // Frequency in Hz , time to play in seconds, when to play the tone (can schedule for in the future, such as:)
-			/*
-		synth.triggerAttackRelease('440', 2.25, now + 1)
-		*/
-		}
-	}
+    const playClassChangeTone = (synth: Tone.Synth<Tone.SynthOptions>) => {
+        if (isMuted === false) {
+            const now = Tone.now()
+            synth.triggerAttackRelease('440', 2.25, now) // Frequency in Hz , time to play in seconds, when to play the tone (can schedule for in the future, such as:)
+            /*
+        synth.triggerAttackRelease('440', 2.25, now + 1)
+        */
+        }
+    }
 
-	const playWarningTone = (synth: Tone.Synth<Tone.SynthOptions>) => {
-		if (isMuted === false) {
-			const now = Tone.now()
-			// Frequency in Hz , time to play in seconds, when to play the tone (can schedule for in the future, such as:)
-			/*
-			synth.triggerAttackRelease('440', 2.25, now + 1)
-			*/
-			synth.triggerAttackRelease('640', 0.25, now)
-			synth.triggerAttackRelease('540', 0.25, now + 0.25)
-			synth.triggerAttackRelease('640', 0.25, now + 0.5)
-			synth.triggerAttackRelease('540', 0.25, now + 1)
-		}
-	}
+    // const playWarningTone = (synth: Tone.Synth<Tone.SynthOptions>) => {
+    // 	if (isMuted === false) {
+    // 		const now = Tone.now()
+    // 		// Frequency in Hz , time to play in seconds, when to play the tone (can schedule for in the future, such as:)
+    // 		/*
+    // 		synth.triggerAttackRelease('440', 2.25, now + 1)
+    // 		*/
+    // 		synth.triggerAttackRelease('640', 0.25, now)
+    // 		synth.triggerAttackRelease('540', 0.25, now + 0.25)
+    // 		synth.triggerAttackRelease('640', 0.25, now + 0.5)
+    // 		synth.triggerAttackRelease('540', 0.25, now + 1)
+    // 	}
+    // }
 
-	const checkShouldPlayClassChangeTone = (now: Date, schedule: Schedule) => {
-		// Check if we should play a bell
-		const currentPeriod = GetCurrentPeriod(now, schedule)
-		// If shouldPlayBell is true, we should update the previous / current / next period names in the store
-		if (!bRung.includes(currentPeriod.name)) {
-			let newBRung = bRung
-			newBRung.push(currentPeriod.name)
-			setBRung(newBRung)
-			if (isMuted === false) {
-				playClassChangeTone(synth)
-			} else {
-				console.log('Silent Bell')
-			}
-		}
-	}
+    const checkShouldPlayClassChangeTone = (now: Date, schedule: Schedule) => {
+        // Check if we should play a bell
+        const currentPeriod = GetCurrentPeriod(now, schedule)
+        // If shouldPlayBell is true, we should update the previous / current / next period names in the store
+        if (!bRung.includes(currentPeriod.name)) {
+            let newBRung = bRung
+            newBRung.push(currentPeriod.name)
+            setBRung(newBRung)
+            if (isMuted === false) {
+                playClassChangeTone(synth)
+            } else {
+                console.log('Silent Bell')
+            }
+        }
+    }
 
-	useEffect(() => {
-		const canvas = canvasRef.current
-		if (!canvas) {
-			console.error('Canvas is null')
-			return
-		}
+    useEffect(() => {
+        const canvas = canvasRef.current
+        if (!canvas) {
+            console.error('Canvas is null')
+            return
+        }
 
-		// Proceed
-		const w = canvas.width
-		const h = canvas.height
-		const ctx = canvas.getContext('2d')
+        // Proceed
+        const w = canvas.width
+        const h = canvas.height
+        const ctx = canvas.getContext('2d')
+        let landscape = w > h ? true : false
 
-		if (!ctx) return // Check to make sure context isn't null
+        if (!ctx) return // Check to make sure context isn't null
 
-		const schedule = schedules.filter(
-			(schedule) => schedule.selectionID === scheduleSelection
-		)[0]
+        const schedule = schedules.filter(
+            (schedule) => schedule.selectionID === scheduleSelection
+        )[0]
 
-		const animate = () => {
-			if (scheduleSelectionChanged === true) {
-				setScheduleSelectionChanged(false)
-			}
-			ctx.clearRect(0, 0, width, height) // Clear the canvas
+        const animate = () => {
+            if (scheduleSelectionChanged === true) {
+                setScheduleSelectionChanged(false)
+            }
+            ctx.clearRect(0, 0, width, height) // Clear the canvas
 
-			// Get the current time
-			const now = new Date()
+            // Get the current time
+            const now = new Date()
 
-			const chunkOfDay = getChunkOfDay(now, schedule)
-			// Set background color
-			ctx.fillStyle =
-				chunkOfDay === 'Before School'
-					? dracBg2
-					: chunkOfDay === 'After School'
-						? dracBg2
-						: chunkOfDay === 'Class Change'
-							? dracBg
-							: dracBg
+            const chunkOfDay = getChunkOfDay(now, schedule)
+            // Set background color
+            ctx.fillStyle =
+                chunkOfDay === 'Before School'
+                    ? dracBg2
+                    : chunkOfDay === 'After School'
+                        ? dracBg2
+                        : chunkOfDay === 'Class Change'
+                            ? dracBg
+                            : dracBg
 
-			ctx.fillRect(0, 0, w, h)
+            ctx.fillRect(0, 0, w, h)
 
-			// Set text color
-			ctx.fillStyle =
-				chunkOfDay === 'Before School'
-					? dracBg
-					: chunkOfDay === 'After School'
-						? dracBg
-						: chunkOfDay === 'Class Change'
-							? dracBg
-							: dracFg
+            // Set text color
+            ctx.fillStyle =
+                chunkOfDay === 'Before School'
+                    ? dracBg
+                    : chunkOfDay === 'After School'
+                        ? dracBg
+                        : chunkOfDay === 'Class Change'
+                            ? dracBg
+                            : dracFg
 
-			const bells = schedule.periods.map((period: Period) => {
-				return {
-					start: period.start,
-					now: now,
-					end: period.end,
-					name: period.name,
-				} as Bell
-			})
+            const bells = schedule.periods.map((period: Period) => {
+                return {
+                    start: period.start,
+                    now: now,
+                    end: period.end,
+                    name: period.name,
+                } as Bell
+            })
 
-			if (chunkOfDay === 'Class Change') {
-				DrawNextEndOfMod(ctx, now, schedule, w * 0.5, h * 0.5)
-			} else {
-				DrawSchedule(ctx, canvas, bells, now, schedule, w * 0.48)
+            const textHeight = getFontHeight(ctx, 'T')
+            ctx.textAlign = 'center';
+            let currentTimePos = landscape === true ? { x: w / 4.5, y: h / 3 } : {
+                x: w * 0.5, y: textHeight * 2
+            }
+            let nextEndOfModPos = landscape === true ? { x: w / 4.5, y: h / 2 } : { x: w * 0.5, y: textHeight * 4 }
+            let timeLeftInDayPos = landscape === true ? { x: w / 4.5, y: 2 * (h / 3) } : { x: w * 0.5, y: textHeight * 6 }
 
-				DrawDividerLine(ctx, w * 0.45, h, Gray[700])
+            if (chunkOfDay === 'Class Change') {
+                DrawNextEndOfMod(ctx, canvas, now, schedule, nextEndOfModPos.x, nextEndOfModPos.y)
+            } else {
+                DrawSchedule(ctx, canvas, bells, now, schedule)
 
-				DrawCurrentTime(ctx, now, schedule, w * 0.225, h * 0.25)
-				DrawNextEndOfMod(ctx, now, schedule, w * 0.225, h * 0.5)
-				DrawTimeLeftInDay(ctx, now, schedule, w * 0.225, h * 0.75)
-			}
+                if (landscape === true) { DrawDividerLine(ctx, canvas, w * 0.45, h, Gray[700]) }
 
-			// Check the schedule did not change.  We don't want to play a bell because the user selected a different schedule, thus changing the current period etc.
-			if (scheduleSelectionChanged === false) {
-				checkShouldPlayClassChangeTone(now, schedule)
-			}
+                DrawCurrentTime(ctx, canvas, now, schedule, currentTimePos.x, currentTimePos.y)
+                DrawNextEndOfMod(ctx, canvas, now, schedule, nextEndOfModPos.x, nextEndOfModPos.y)
+                DrawTimeLeftInDay(ctx, canvas, now, schedule, timeLeftInDayPos.x, timeLeftInDayPos.y)
+            }
 
-			// Reload the page if the day changes.
-			if (
-				now.getHours() === 0 &&
-				now.getMinutes() > 0 &&
-				now.getMinutes() < 1
-			) {
-				window.location.reload()
-			}
-		}
+            // Check the schedule did not change.  We don't want to play a bell because the user selected a different schedule, thus changing the current period etc.
+            if (scheduleSelectionChanged === false) {
+                checkShouldPlayClassChangeTone(now, schedule)
+            }
 
-		const intervalId = setInterval(animate, 1000) // Update the canvas every x milliseconds
+            // // Refresh the page after seven hours
+            // setTimeout(() => {
+            //     location.reload();
+            // }, 25200000);
+        }
 
-		return () => clearInterval(intervalId) // Cleanup
-	}, [scheduleSelection])
+        const intervalId = setInterval(animate, 1000) // Update the canvas every x milliseconds
 
-	return (
-		<Box>
-			<canvas ref={canvasRef} width={width} height={height} />
-		</Box>
-	)
+        return () => clearInterval(intervalId) // Cleanup
+    }, [scheduleSelection])
+
+    return (
+        <Box>
+            <canvas ref={canvasRef} width={width} height={height} />
+        </Box>
+    )
 }
