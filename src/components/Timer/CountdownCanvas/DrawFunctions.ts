@@ -1,304 +1,304 @@
 import {
-    getChunkOfDay,
-    GetCurrentPeriod,
-    GetTimeLeftInMod,
-    GetTimeSinceEndOfDay,
-    GetTimeUntilBeginningOfDay,
-    GetTimeUntilEndOfDay,
+	getChunkOfDay,
+	GetCurrentPeriod,
+	GetTimeLeftInMod,
+	GetTimeSinceEndOfDay,
+	GetTimeUntilBeginningOfDay,
+	GetTimeUntilEndOfDay,
 } from '@/components/Timer/CountdownCanvas/TimeFunctions';
 import {
-    dracBg,
-    dracBg2,
-    dracCl,
-    dracFg,
-    dracGreen,
-    dracOrange,
-    dracRed,
-    dracYellow,
+	dracBg,
+	dracBg2,
+	dracCl,
+	dracFg,
+	dracGreen,
+	dracOrange,
+	dracRed,
+	dracYellow,
 } from '@/theme/colors/colors';
 import { dracComment } from './../../../theme/colors/colors';
 
 
 export const getFontHeight = (ctx: CanvasRenderingContext2D, str: string) => {
-    return ctx.measureText(str).fontBoundingBoxAscent + ctx.measureText(str).fontBoundingBoxDescent
+	return ctx.measureText(str).fontBoundingBoxAscent + ctx.measureText(str).fontBoundingBoxDescent
 }
 export const getCanvasDimensions = (canvas: HTMLCanvasElement) => {
-    return {
-        w: canvas.width,
-        h: canvas.height,
-        landscape: canvas.width > canvas.height ? true : false,
-    }
+	return {
+		w: canvas.width,
+		h: canvas.height,
+		landscape: canvas.width > canvas.height ? true : false,
+	}
 }
 
 export const DrawSchedule = (
-    ctx: CanvasRenderingContext2D | null,
-    canvas: HTMLCanvasElement | null,
-    bells: Bell[],
-    now: Date,
-    schedule: Schedule,
+	ctx: CanvasRenderingContext2D | null,
+	canvas: HTMLCanvasElement | null,
+	bells: Bell[],
+	now: Date,
+	schedule: Schedule,
 ) => {
-    if (ctx !== null && canvas !== null) {
-        const can = getCanvasDimensions(canvas)
-        const chunkOfDay = getChunkOfDay(now, schedule);
+	if (ctx !== null && canvas !== null) {
+		const can = getCanvasDimensions(canvas)
+		const chunkOfDay = getChunkOfDay(now, schedule);
 
-        // Set text settings
-        ctx.font = can.landscape === true ? '2rem Fira Code' : '2rem Fira Code';
+		// Set text settings
+		ctx.font = can.landscape === true ? '2rem Fira Code' : '2rem Fira Code';
 
-        ctx.fillStyle =
-            chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
-                ? dracBg
-                : chunkOfDay === 'After School' ||
-                    chunkOfDay === 'Student Dismissal'
-                    ? dracBg2
-                    : chunkOfDay === 'Class Change'
-                        ? dracBg
-                        : dracFg;
+		ctx.fillStyle =
+			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
+				? dracBg
+				: chunkOfDay === 'After School' ||
+					chunkOfDay === 'Student Dismissal'
+					? dracBg2
+					: chunkOfDay === 'Class Change'
+						? dracBg
+						: dracFg;
 
-        const modBells = bells.filter(
-            (bell) =>
-                bell.name !== 'Class Change 1' &&
-                bell.name !== 'Class Change 2' &&
-                bell.name !== 'Class Change 3' &&
-                bell.name !== 'Class Change 4' &&
-                bell.name !== 'Class Change 5' &&
-                bell.name !== 'Class Change 6' &&
-                bell.name !== 'Class Change 7' &&
-                bell.name !== 'Class Change 8' &&
-                bell.name !== 'Before School' &&
-                bell.name !== 'After School' &&
-                bell.name !== 'Student Arrival' &&
-                bell.name !== 'Student Dismissal'
-        );
+		const modBells = bells.filter(
+			(bell) =>
+				bell.name !== 'Class Change 1' &&
+				bell.name !== 'Class Change 2' &&
+				bell.name !== 'Class Change 3' &&
+				bell.name !== 'Class Change 4' &&
+				bell.name !== 'Class Change 5' &&
+				bell.name !== 'Class Change 6' &&
+				bell.name !== 'Class Change 7' &&
+				bell.name !== 'Class Change 8' &&
+				bell.name !== 'Before School' &&
+				bell.name !== 'After School' &&
+				bell.name !== 'Student Arrival' &&
+				bell.name !== 'Student Dismissal'
+		);
 
-        modBells.forEach((modBell, i) => {
-            const startTime = new Date(modBell.start);
-            const endTime = new Date(modBell.end);
-            endTime.setSeconds(0);
-            const str1 = `${modBell.name}:`;
-            const str2 = `${startTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`;
-            // Color the current mod a different color
-            const currentPeriod = GetCurrentPeriod(now, schedule);
-            ctx.lineWidth = 4;
-            ctx.miterLimit = 2; // Gets rid of glitches
-            ctx.fillStyle =
-                modBell.end > modBell.now
-                    ? currentPeriod.start === modBell.start &&
-                        currentPeriod.end === modBell.end
-                        ? dracOrange
-                        : dracComment
-                    : dracCl;
+		modBells.forEach((modBell, i) => {
+			const startTime = new Date(modBell.start);
+			const endTime = new Date(modBell.end);
+			endTime.setSeconds(0);
+			const str1 = `${modBell.name}:`;
+			const str2 = `${startTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleString([], { hour: '2-digit', minute: '2-digit' })}`;
+			// Color the current mod a different color
+			const currentPeriod = GetCurrentPeriod(now, schedule);
+			ctx.lineWidth = 4;
+			ctx.miterLimit = 2; // Gets rid of glitches
+			ctx.fillStyle =
+				modBell.end > modBell.now
+					? currentPeriod.start === modBell.start &&
+						currentPeriod.end === modBell.end
+						? dracOrange
+						: dracComment
+					: dracCl;
 
-            const xPosStr1 = can.landscape === true ? (can.w / 2) : 0
-            const xPosStr2 = can.landscape === true ? can.w : can.w
+			const xPosStr1 = can.landscape === true ? (can.w / 2) : 0
+			const xPosStr2 = can.landscape === true ? can.w : can.w
 
-            // const yLocation = yOffset + lineHeight * i;
-            const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : ctx.measureText('M').emHeightAscent * (14 + 1.5 * i)
+			// const yLocation = yOffset + lineHeight * i;
+			const yLocation = can.landscape === true ? (i / 16) * can.h + can.h / 4 : ctx.measureText('M').emHeightAscent * (14 + 1.5 * i)
 
-            // Draw Mod Name
-            ctx.textAlign = 'left';
-            ctx.fillText(str1, xPosStr1, yLocation);
+			// Draw Mod Name
+			ctx.textAlign = 'left';
+			ctx.fillText(str1, xPosStr1, yLocation);
 
-            // Draw Time
-            ctx.textAlign = 'right';
-            ctx.fillText(
-                str2,
-                xPosStr2,
-                yLocation
-            );
-        });
-        // Reset Text Settings
-        ctx.font = '1.5rem Fira Code';
-        ctx.textAlign = 'center';
-    }
+			// Draw Time
+			ctx.textAlign = 'right';
+			ctx.fillText(
+				str2,
+				xPosStr2,
+				yLocation
+			);
+		});
+		// Reset Text Settings
+		ctx.font = '1.5rem Fira Code';
+		ctx.textAlign = 'center';
+	}
 };
 
 export const DrawDividerLine = (
-    ctx: CanvasRenderingContext2D | null,
-    canvas: HTMLCanvasElement | null,
-    w: number,
-    h: number,
-    color: string
+	ctx: CanvasRenderingContext2D | null,
+	canvas: HTMLCanvasElement | null,
+	w: number,
+	h: number,
+	color: string
 ) => {
-    if (ctx !== null && canvas !== null) {
-        // Start a new Path
-        ctx.beginPath();
-        ctx.moveTo(w, h * 0.05);
-        ctx.lineTo(w, h * 0.95);
-        ctx.strokeStyle = color;
-        ctx.stroke();
-    }
+	if (ctx !== null && canvas !== null) {
+		// Start a new Path
+		ctx.beginPath();
+		ctx.moveTo(w, h * 0.05);
+		ctx.lineTo(w, h * 0.95);
+		ctx.strokeStyle = color;
+		ctx.stroke();
+	}
 };
 
 export const DrawCurrentTime = (
-    ctx: CanvasRenderingContext2D | null,
-    canvas: HTMLCanvasElement | null,
-    now: Date,
-    schedule: Schedule,
-    x: number,
-    y: number
+	ctx: CanvasRenderingContext2D | null,
+	canvas: HTMLCanvasElement | null,
+	now: Date,
+	schedule: Schedule,
+	x: number,
+	y: number
 ) => {
-    if (ctx !== null && canvas !== null) {
-        const chunkOfDay = getChunkOfDay(now, schedule);
-        ctx.font = '2rem Fira Code';
-        ctx.textAlign = 'center';
-        const str = now.toLocaleString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: 'numeric',
-        });
-        // Text Color
-        ctx.fillStyle =
-            chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
-                ? dracFg // Color for text when it is before school
-                : chunkOfDay === 'After School' ||
-                    chunkOfDay === 'Student Dismissal'
-                    ? dracBg2 // Color for text when it is after school
-                    : chunkOfDay === 'Class Change'
-                        ? dracCl // Color for text when it is between classes
-                        : dracOrange; // Color for text when it is during class
-        ctx.miterLimit = 2; // Gets rid of glitches
-        ctx.fillText(str, x, y);
-    }
+	if (ctx !== null && canvas !== null) {
+		const chunkOfDay = getChunkOfDay(now, schedule);
+		ctx.font = '2rem Fira Code';
+		ctx.textAlign = 'center';
+		const str = now.toLocaleString([], {
+			hour: '2-digit',
+			minute: '2-digit',
+			second: 'numeric',
+		});
+		// Text Color
+		ctx.fillStyle =
+			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
+				? dracFg // Color for text when it is before school
+				: chunkOfDay === 'After School' ||
+					chunkOfDay === 'Student Dismissal'
+					? dracBg2 // Color for text when it is after school
+					: chunkOfDay === 'Class Change'
+						? dracCl // Color for text when it is between classes
+						: dracOrange; // Color for text when it is during class
+		ctx.miterLimit = 2; // Gets rid of glitches
+		ctx.fillText(str, x, y);
+	}
 };
 
 export const DrawNextEndOfMod = (
-    ctx: CanvasRenderingContext2D | null,
-    canvas: HTMLCanvasElement | null,
-    now: Date,
-    schedule: Schedule,
-    x: number,
-    y: number
+	ctx: CanvasRenderingContext2D | null,
+	canvas: HTMLCanvasElement | null,
+	now: Date,
+	schedule: Schedule,
+	x: number,
+	y: number
 ) => {
-    if (ctx !== null && canvas !== null) {
+	if (ctx !== null && canvas !== null) {
 
-        const can = getCanvasDimensions(canvas)
-        const chunkOfDay = getChunkOfDay(now, schedule);
-        ctx.font =
-            chunkOfDay === 'Class Change' ? can.landscape === true ? '1rem Fire Code' : '1rem Fira Code' : '2em Fira Code';
-        ctx.textAlign = 'center';
+		const can = getCanvasDimensions(canvas)
+		const chunkOfDay = getChunkOfDay(now, schedule);
+		ctx.font =
+			chunkOfDay === 'Class Change' ? can.landscape === true ? '8rem Fire Code' : '8rem Fira Code' : '2em Fira Code';
+		ctx.textAlign = 'center';
 
-        ctx.fillStyle =
-            chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
-                ? dracBg
-                : chunkOfDay === 'After School' ||
-                    chunkOfDay === 'Student Dismissal'
-                    ? dracBg2
-                    : chunkOfDay === 'Class Change'
-                        ? dracOrange
-                        : dracFg;
-        const endOfNextPeriod = new Date(GetCurrentPeriod(now, schedule).end);
+		ctx.fillStyle =
+			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
+				? dracBg
+				: chunkOfDay === 'After School' ||
+					chunkOfDay === 'Student Dismissal'
+					? dracBg2
+					: chunkOfDay === 'Class Change'
+						? dracOrange
+						: dracFg;
+		const endOfNextPeriod = new Date(GetCurrentPeriod(now, schedule).end);
 
-        if (now.getHours() > 14 && now.getMinutes() > 5) {
-            endOfNextPeriod.setDate(now.getDate() + 1);
-        }
+		if (now.getHours() > 14 && now.getMinutes() > 5) {
+			endOfNextPeriod.setDate(now.getDate() + 1);
+		}
 
-        const diff = GetTimeLeftInMod(now, schedule);
+		const diff = GetTimeLeftInMod(now, schedule);
 
-        let str = '';
-        let str2 = '';
+		let str = '';
+		let str2 = '';
 
-        if (
-            // If it is currently AFTER the end of the last mod (and before midnight), it is after school.
-            //endOfNextPeriod.getTime() - now.getTime() < 0
-            chunkOfDay === 'After School' ||
-            chunkOfDay === 'Student Dismissal'
-        ) {
-            str = `After School`;
-        } else if (
-            chunkOfDay === 'Before School' ||
-            chunkOfDay === 'Student Arrival'
-        ) {
-            // If it is BEFORE the beginning of the first Mod, it is before school.
-            str = `Before School`;
-        } else if (chunkOfDay === 'Class Change') {
-            str = `Class Change:`;
-            str2 = `${diff.hours < 10 ? '0' : ''}${diff.hours === 0 ? diff.hours : ''}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`;
+		if (
+			// If it is currently AFTER the end of the last mod (and before midnight), it is after school.
+			//endOfNextPeriod.getTime() - now.getTime() < 0
+			chunkOfDay === 'After School' ||
+			chunkOfDay === 'Student Dismissal'
+		) {
+			str = `After School`;
+		} else if (
+			chunkOfDay === 'Before School' ||
+			chunkOfDay === 'Student Arrival'
+		) {
+			// If it is BEFORE the beginning of the first Mod, it is before school.
+			str = `Before School`;
+		} else if (chunkOfDay === 'Class Change') {
+			str = `Class Change:`;
+			str2 = `${diff.hours < 10 ? '0' : ''}${diff.hours === 0 ? diff.hours : ''}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`;
 
-        } else {
-            // Normal mod time
-            str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`;
-        }
+		} else {
+			// Normal mod time
+			str = `Time left in Mod: ${diff.hours < 10 ? '0' : ''}${diff.hours}:${diff.minutes < 10 ? '0' : ''}${diff.seconds === 60 ? diff.minutes + 1 : diff.minutes === 60 ? '00' : diff.minutes}:${diff.seconds < 10 ? '0' : ''}${diff.seconds === 60 ? '00' : diff.seconds}`;
+		}
 
-        // Text Color
-        ctx.fillStyle =
-            chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
-                ? dracFg // Color for text when it is before school
-                : chunkOfDay === 'After School' ||
-                    chunkOfDay === 'Student Dismissal'
-                    ? dracBg2 // Color for text when it is after school
-                    : chunkOfDay === 'Class Change'
-                        ? diff.minutes >= 2
-                            ? dracGreen
-                            : diff.minutes >= 1
-                                ? dracYellow
-                                : dracRed // Color for text when it is between classes
-                        : dracOrange; // Color for text when it is during class
-        ctx.lineWidth = 0.2; // Outline width in pixels
-        ctx.miterLimit = 2; // Gets rid of glitches
-        ctx.fillText(str, x, y)
-        // Multi-line class change display
-        if (chunkOfDay === 'Class Change') { ctx.fillText(str2, x, y + getFontHeight(ctx, 'T')) }
-    }
+		// Text Color
+		ctx.fillStyle =
+			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
+				? dracFg // Color for text when it is before school
+				: chunkOfDay === 'After School' ||
+					chunkOfDay === 'Student Dismissal'
+					? dracBg2 // Color for text when it is after school
+					: chunkOfDay === 'Class Change'
+						? diff.minutes >= 2
+							? dracGreen
+							: diff.minutes >= 1
+								? dracYellow
+								: dracRed // Color for text when it is between classes
+						: dracOrange; // Color for text when it is during class
+		ctx.lineWidth = 0.2; // Outline width in pixels
+		ctx.miterLimit = 2; // Gets rid of glitches
+		ctx.fillText(str, x, y)
+		// Multi-line class change display
+		if (chunkOfDay === 'Class Change') { ctx.fillText(str2, x, y + getFontHeight(ctx, 'T')) }
+	}
 };
 
 export const DrawTimeLeftInDay = (
-    ctx: CanvasRenderingContext2D | null,
-    canvas: HTMLCanvasElement | null,
-    now: Date,
-    schedule: Schedule,
-    x: number,
-    y: number
+	ctx: CanvasRenderingContext2D | null,
+	canvas: HTMLCanvasElement | null,
+	now: Date,
+	schedule: Schedule,
+	x: number,
+	y: number
 ) => {
-    if (ctx !== null && canvas !== null) {
-        const chunkOfDay = getChunkOfDay(now, schedule);
+	if (ctx !== null && canvas !== null) {
+		const chunkOfDay = getChunkOfDay(now, schedule);
 
-        ctx.font = '2rem Fira Code';
-        ctx.textAlign = 'center';
-        ctx.fillStyle =
-            chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
-                ? dracBg
-                : chunkOfDay === 'After School' ||
-                    chunkOfDay === 'Student Dismissal'
-                    ? dracBg2
-                    : chunkOfDay === 'Class Change'
-                        ? dracBg
-                        : dracFg;
+		ctx.font = '2rem Fira Code';
+		ctx.textAlign = 'center';
+		ctx.fillStyle =
+			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
+				? dracBg
+				: chunkOfDay === 'After School' ||
+					chunkOfDay === 'Student Dismissal'
+					? dracBg2
+					: chunkOfDay === 'Class Change'
+						? dracBg
+						: dracFg;
 
-        const str1 = `${chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
-            ? 'Time Since End of Day: '
-            : chunkOfDay === 'Before School' ||
-                chunkOfDay === 'Student Arrival'
-                ? 'Time Until School Starts: '
-                : ' Time left in Day: '
-            }`;
+		const str1 = `${chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
+			? 'Time Since End of Day: '
+			: chunkOfDay === 'Before School' ||
+				chunkOfDay === 'Student Arrival'
+				? 'Time Until School Starts: '
+				: ' Time left in Day: '
+			}`;
 
-        const timeLeftInDay = GetTimeUntilEndOfDay(now, schedule);
-        const timeSinceEndOfDay = GetTimeSinceEndOfDay(now, schedule);
-        const timeUntilBeginningOfDay = GetTimeUntilBeginningOfDay(
-            now,
-            schedule
-        );
-        const str2 = `${chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
-            ? `${timeSinceEndOfDay.hours < 10 ? '0' : ''}${timeSinceEndOfDay.hours}:${timeSinceEndOfDay.minutes < 10 ? '0' : ''}${timeSinceEndOfDay.minutes}:${timeSinceEndOfDay.seconds < 10 ? '0' : ''}${timeSinceEndOfDay.seconds}`
-            : chunkOfDay === 'Before School' ||
-                chunkOfDay === 'Student Arrival'
-                ? `${timeUntilBeginningOfDay.hours < 10 ? '0' : ''}${timeUntilBeginningOfDay.hours}:${timeUntilBeginningOfDay.minutes < 10 ? '0' : ''}${timeUntilBeginningOfDay.minutes}:${timeUntilBeginningOfDay.seconds < 10 ? '0' : ''}${timeUntilBeginningOfDay.seconds}`
-                : `${timeLeftInDay.hours < 10 ? '0' : ''}${timeLeftInDay.hours}:${timeLeftInDay.minutes < 10 ? '0' : ''}${timeLeftInDay.minutes}:${timeLeftInDay.seconds < 10 ? '0' : ''}${timeLeftInDay.seconds}`
-            }`;
+		const timeLeftInDay = GetTimeUntilEndOfDay(now, schedule);
+		const timeSinceEndOfDay = GetTimeSinceEndOfDay(now, schedule);
+		const timeUntilBeginningOfDay = GetTimeUntilBeginningOfDay(
+			now,
+			schedule
+		);
+		const str2 = `${chunkOfDay === 'After School' || chunkOfDay === 'Student Dismissal'
+			? `${timeSinceEndOfDay.hours < 10 ? '0' : ''}${timeSinceEndOfDay.hours}:${timeSinceEndOfDay.minutes < 10 ? '0' : ''}${timeSinceEndOfDay.minutes}:${timeSinceEndOfDay.seconds < 10 ? '0' : ''}${timeSinceEndOfDay.seconds}`
+			: chunkOfDay === 'Before School' ||
+				chunkOfDay === 'Student Arrival'
+				? `${timeUntilBeginningOfDay.hours < 10 ? '0' : ''}${timeUntilBeginningOfDay.hours}:${timeUntilBeginningOfDay.minutes < 10 ? '0' : ''}${timeUntilBeginningOfDay.minutes}:${timeUntilBeginningOfDay.seconds < 10 ? '0' : ''}${timeUntilBeginningOfDay.seconds}`
+				: `${timeLeftInDay.hours < 10 ? '0' : ''}${timeLeftInDay.hours}:${timeLeftInDay.minutes < 10 ? '0' : ''}${timeLeftInDay.minutes}:${timeLeftInDay.seconds < 10 ? '0' : ''}${timeLeftInDay.seconds}`
+			}`;
 
-        const str = str1 + str2;
-        // Text Color
-        ctx.fillStyle =
-            chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
-                ? dracFg // Color for text when it is before school
-                : chunkOfDay === 'After School' ||
-                    chunkOfDay === 'Student Dismissal'
-                    ? dracBg2 // Color for text when it is after school
-                    : chunkOfDay === 'Class Change'
-                        ? dracCl // Color for text when it is between classes
-                        : dracOrange; // Color for text when it is during class
-        ctx.lineWidth = 0.2; // Outline width in pixels
-        ctx.miterLimit = 2; // Gets rid of glitches
-        ctx.fillText(str, x * .975, y);
-    }
+		const str = str1 + str2;
+		// Text Color
+		ctx.fillStyle =
+			chunkOfDay === 'Before School' || chunkOfDay === 'Student Arrival'
+				? dracFg // Color for text when it is before school
+				: chunkOfDay === 'After School' ||
+					chunkOfDay === 'Student Dismissal'
+					? dracBg2 // Color for text when it is after school
+					: chunkOfDay === 'Class Change'
+						? dracCl // Color for text when it is between classes
+						: dracOrange; // Color for text when it is during class
+		ctx.lineWidth = 0.2; // Outline width in pixels
+		ctx.miterLimit = 2; // Gets rid of glitches
+		ctx.fillText(str, x * .975, y);
+	}
 };
